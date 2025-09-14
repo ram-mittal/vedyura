@@ -1,88 +1,95 @@
 class Chatbox {
     constructor() {
-        // The args object contains references to all the necessary HTML elements.
         this.args = {
             chatBox: document.querySelector('.chatbox__support'),
             sendButton: document.querySelector('.send__button'),
             chatMessages: document.querySelector('.chatbox__messages')
         };
-
-        // Initially, the chatbox is not active.
         this.state = false;
-        // This will hold the conversation messages.
         this.messages = [];
     }
 
     display() {
         const { sendButton } = this.args;
+        sendButton.addEventListener('click', () => this.onSendButton(null));
 
-        // Add an event listener for the send button.
-        sendButton.addEventListener('click', () => this.onSendButton());
-
-        // Add an event listener for the input field to handle the "Enter" key.
         const node = this.args.chatBox.querySelector('input');
         node.addEventListener("keyup", ({ key }) => {
             if (key === "Enter") {
-                this.onSendButton();
+                this.onSendButton(null);
             }
         });
     }
 
-    onSendButton() {
+    // New function to handle button clicks
+    handleButtonClick(text) {
+        this.onSendButton(text);
+    }
+
+    onSendButton(buttonText) {
         var textField = this.args.chatBox.querySelector('input');
-        let text1 = textField.value;
+        // Use the button's text if it was clicked, otherwise use the input field's text.
+        let text1 = buttonText || textField.value;
         if (text1 === "") {
-            return; // Don't send empty messages.
+            return;
         }
 
-        // Create a message object for the user's input.
         let msg1 = { name: "User", message: text1 };
         this.messages.push(msg1);
-        this.updateChatText(); // Update the chat display.
-        textField.value = ''; // Clear the input field.
+        this.updateChatText();
+        textField.value = '';
 
-        // Send the user's message to the Flask backend.
         fetch('/predict', {
             method: 'POST',
             body: JSON.stringify({ message: text1 }),
             mode: 'cors',
             headers: {
-                'Content-Type': 'application/json'
+              'Content-Type': 'application/json'
             },
         })
         .then(r => r.json())
         .then(r => {
-            // Create a message object for the bot's response.
             let msg2 = { name: "Sam", message: r.answer };
             this.messages.push(msg2);
-            this.updateChatText(); // Update the chat display.
+            this.updateChatText();
         }).catch((error) => {
             console.error('Error:', error);
-            // Even if there's an error, update the chat to show the user's message.
             this.updateChatText();
         });
     }
 
     updateChatText() {
         var html = '';
-        // **THE FIX IS HERE:** We no longer reverse the messages array.
-        // We now loop through them in their natural order.
-        this.messages.forEach(function(item, index) {
+        this.messages.forEach((item) => {
+            let messageHtml = item.message;
+            
+            // This is the new logic to find and replace our button syntax.
+            const buttonRegex = /\[button:(.*?)\]/g;
+            messageHtml = messageHtml.replace(buttonRegex, (match, buttonText) => {
+                return `<button class="chat-button">${buttonText}</button>`;
+            });
+
             if (item.name === "Sam") { // Bot's message
-                html += '<div class="messages__item messages__item--visitor">' + item.message + '</div>'
+                html += `<div class="messages__item messages__item--visitor">${messageHtml}</div>`
             } else { // User's message
-                html += '<div class="messages__item messages__item--operator">' + item.message + '</div>'
+                html += `<div class="messages__item messages__item--operator">${messageHtml}</div>`
             }
         });
 
         const chatmessage = this.args.chatMessages;
         chatmessage.innerHTML = html;
-        // This line will now correctly scroll to the bottom to show the latest message.
+
+        // Add event listeners to the newly created buttons.
+        chatmessage.querySelectorAll('.chat-button').forEach(button => {
+            button.addEventListener('click', () => {
+                this.handleButtonClick(button.textContent);
+            });
+        });
+
         chatmessage.scrollTop = chatmessage.scrollHeight;
     }
 }
 
-// Create a new Chatbox instance and display it.
 const chatbox = new Chatbox();
 chatbox.display();
 
