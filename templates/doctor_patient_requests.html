@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Patient Requests - Vedyura
+{% endblock %}
+
+{% block content %}
+<header class="dashboard-header">
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <a href="{{ url_for('doctor_dashboard') }}">
+                Vedyura [Doctor]
+            </a>
+        </div>
+        <div class="navbar-links">
+            <a href="{{ url_for('doctor_dashboard') }}">Home</a>
+            <a href="{{ url_for('doctor_patient_requests') }}" class="active">Patient Requests</a>
+            <a href="{{ url_for('doctor_diet_chart') }}">Diet Chart</a>
+            <a href="{{ url_for('contact_us') }}">Contact Us</a>
+            <a href="{{ url_for('doctor_profile') }}">Profile</a>
+        </div>
+        <div class="navbar-action">
+             <button id="dark-mode-toggle" class="dark-mode-button">Toggle Dark Mode</button>
+        </div>
+    </nav>
+</header>
+
+<main class="page-content dashboard-content">
+    <div class="dashboard-container">
+        <section class="page-header">
+            <h1>Patient Consultation Requests</h1>
+            <p>Review and respond to requests from patients seeking your consultation.</p>
+        </section>
+
+        <section class="requests-list">
+            
+            <!-- CORRECTED: This section is now dynamic and loops through real requests -->
+            {% if requests %}
+                {% for req in requests %}
+                <div class="card request-card">
+                    <div class="request-info">
+                        <h4>Request from: {{ req.patient_id }}</h4>
+                        <p class="request-meta"><strong>Status:</strong> {{ req.status | capitalize }}</p>
+                    </div>
+                    <div class="request-actions">
+                        <!-- These buttons are for display only for now -->
+                        <a href="#" class="btn btn-primary">Accept</a>
+                        <a href="#" class="btn btn-secondary">Reject</a>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <!-- This card shows if there are no requests -->
+                <div class="card no-requests-card">
+                    <p>You have no new patient requests at the moment.</p>
+                </div>
+            {% endif %}
+
+        </section>
+    </div>
+</main>
+{% endblock %}

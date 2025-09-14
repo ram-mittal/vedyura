@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home - Vedyura
+{% endblock %}
+
+{% block content %}
+<header class="main-header">
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <a href="{{ url_for('home') }}">
+                <!-- We'll use text for the logo for now -->
+                Vedyura
+            </a>
+        </div>
+        <div class="navbar-links">
+            <a href="{{ url_for('home') }}" class="active">Home</a>
+            <a href="{{ url_for('contact_us') }}">Contact Us</a>
+            <button id="dark-mode-toggle" class="dark-mode-button">Toggle Dark Mode</button>
+        </div>
+        <div class="navbar-action">
+            <a href="{{ url_for('signup') }}" class="btn btn-primary">Sign Up</a>
+        </div>
+    </nav>
+</header>
+
+<main class="page-content">
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Ayurvedic Dietetics, Simplified.</h1>
+            <p>Your comprehensive solution for managing patient diets with the wisdom of Ayurveda and the precision of modern science.</p>
+            <a href="{{ url_for('signup') }}" class="btn btn-secondary">Get Started Today</a>
+        </div>
+    </section>
+</main>
+{% endblock %}

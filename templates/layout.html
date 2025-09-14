@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- The title of the page will be dynamically set by other templates -->
+    <title>{% block title %}Vedyura{% endblock %}</title>
+    
+    <!-- Link to our custom CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- Google Fonts for a nicer look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+    <header>
+        <!-- This is a placeholder for the navigation bar. 
+             We will create the actual navbar in the next steps. 
+             The specific navbar (public, doctor, or patient) will be included here later. -->
+    </header>
+
+    <main>
+        <!-- This is the main content block. 
+             The content of each specific page (like home.html or signup.html) 
+             will be injected here. -->
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <!-- A simple footer that will appear on all pages -->
+        <p>&copy; 2024 Vedyura. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Link to our JavaScript file, placed at the end for faster page loading -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

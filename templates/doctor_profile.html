@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    My Profile - Vedyura
+{% endblock %}
+
+{% block content %}
+<header class="dashboard-header">
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <a href="{{ url_for('doctor_dashboard') }}">
+                Vedyura [Doctor]
+            </a>
+        </div>
+        <div class="navbar-links">
+            <a href="{{ url_for('doctor_dashboard') }}">Home</a>
+            <a href="{{ url_for('doctor_patient_requests') }}">Patient Requests</a>
+            <a href="{{ url_for('doctor_diet_chart') }}">Diet Chart</a>
+            <a href="{{ url_for('contact_us') }}">Contact Us</a>
+            <a href="{{ url_for('doctor_profile') }}" class="active">Profile</a>
+        </div>
+        <div class="navbar-action">
+             <button id="dark-mode-toggle" class="dark-mode-button">Toggle Dark Mode</button>
+        </div>
+    </nav>
+</header>
+
+<main class="page-content dashboard-content">
+    <div class="dashboard-container">
+        <section class="page-header">
+            <h1>Doctor Profile</h1>
+            <p>Manage your account settings and session.</p>
+        </section>
+
+        <div class="card profile-card">
+            <div class="profile-details">
+                <h3>Account Information</h3>
+                <div class="detail-item">
+                    <span class="detail-label">User ID:</span>
+                    <span class="detail-value">{{ session.user_id }}</span>
+                </div>
+                 <div class="detail-item">
+                    <span class="detail-label">Role:</span>
+                    <span class="detail-value">{{ session.role | capitalize }}</span>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+
+            <div class="profile-actions">
+                <h3>Actions</h3>
+                <!-- The link points to the /logout route in app.py -->
+                <a href="{{ url_for('logout') }}" class="btn btn-danger">Sign Out</a>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

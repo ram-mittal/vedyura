@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Doctor Dashboard - Vedyura
+{% endblock %}
+
+{% block content %}
+<header class="dashboard-header">
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <a href="{{ url_for('doctor_dashboard') }}">
+                Vedyura [Doctor]
+            </a>
+        </div>
+        <div class="navbar-links">
+            <a href="{{ url_for('doctor_dashboard') }}" class="active">Home</a>
+            <a href="{{ url_for('doctor_patient_requests') }}">Patient Requests</a>
+            <a href="{{ url_for('doctor_diet_chart') }}">Diet Chart</a>
+            <a href="{{ url_for('contact_us') }}">Contact Us</a>
+            <a href="{{ url_for('doctor_profile') }}">Profile</a>
+        </div>
+        <div class="navbar-action">
+             <button id="dark-mode-toggle" class="dark-mode-button">Toggle Dark Mode</button>
+        </div>
+    </nav>
+</header>
+
+<main class="page-content dashboard-content">
+    <div class="dashboard-container">
+        <section class="welcome-banner">
+            <h1>Welcome, Doctor!</h1>
+            <p>This is your central hub for managing patients and diet plans.</p>
+            <p>Your User ID: <strong>{{ session.user_id }}</strong></p>
+        </section>
+
+        <section class="quick-actions">
+            <h2>Quick Actions</h2>
+            <div class="action-cards">
+                <div class="card">
+                    <h3>View Patient Requests</h3>
+                    <p>Review and respond to new consultation requests from patients.</p>
+                    <a href="{{ url_for('doctor_patient_requests') }}" class="btn btn-primary">View Requests</a>
+                </div>
+                <div class="card">
+                    <h3>Create Diet Chart</h3>
+                    <p>Design and manage personalized Ayurvedic diet plans for your patients.</p>
+                    <a href="{{ url_for('doctor_diet_chart') }}" class="btn btn-secondary">New Chart</a>
+                </div>
+                <div class="card">
+                    <h3>Manage Profile</h3>
+                    <p>Update your information and manage account settings.</p>
+                    <a href="{{ url_for('doctor_profile') }}" class="btn btn-primary">Go to Profile</a>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+{% endblock %}

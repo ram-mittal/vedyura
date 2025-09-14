@@ -1,0 +1,138 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Self-Diagnosis - Vedyura
+{% endblock %}
+
+{% block content %}
+<header class="dashboard-header">
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <a href="{{ url_for('patient_dashboard') }}">
+                Vedyura [Patient]
+            </a>
+        </div>
+        <div class="navbar-links">
+            <a href="{{ url_for('patient_dashboard') }}">Home</a>
+            <a href="{{ url_for('patient_self_diagnosis') }}" class="active">Self-Diagnosis</a>
+            <a href="{{ url_for('patient_consult_doctor') }}">Consult Doctor</a>
+            <a href="{{ url_for('contact_us') }}">Contact Us</a>
+            <a href="{{ url_for('patient_profile') }}">Profile</a>
+        </div>
+        <div class="navbar-action">
+             <button id="dark-mode-toggle" class="dark-mode-button">Toggle Dark Mode</button>
+        </div>
+    </nav>
+</header>
+
+<main class="page-content dashboard-content">
+    <div class="dashboard-container">
+        <section class="page-header">
+            <h1>Self-Diagnosis Tools</h1>
+            <p>Generate a preliminary diet chart or chat with our bot.</p>
+        </section>
+
+        <!-- Tab Navigation -->
+        <div class="tabs-container">
+            <div class="tab-nav">
+                <button class="tab-link active" onclick="openTab(event, 'DietChart')">Diet Chart</button>
+                <button class="tab-link" onclick="openTab(event, 'ChatBot')">Chat-Bot</button>
+            </div>
+
+            <!-- Tab Content: Diet Chart -->
+            <div id="DietChart" class="tab-content" style="display: block;">
+                <h3>Generate Your Diet Chart</h3>
+                
+                <!-- Step 1: The Form -->
+                <div id="diagnosis-form-container">
+                    <p>Please fill in your details below to get started.</p>
+                    <div class="card diet-chart-creator">
+                        <form id="diagnosis-form">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="name">Full Name</label>
+                                    <input type="text" id="name" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="age">Age</label>
+                                    <input type="number" id="age" name="age" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="gender">Gender</label>
+                                    <select id="gender" name="gender" required>
+                                        <option value="">Select...</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">Save Details</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Step 2: The Action Buttons (Initially Hidden) -->
+                <div id="chart-actions-container" class="hidden">
+                    <div class="card">
+                         <p>Your information has been saved. You can now generate your chart.</p>
+                         <div class="form-actions">
+                            <button class="btn btn-primary">Generate Chart</button>
+                            <button id="edit-form-btn" class="btn btn-secondary">Edit Form</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Chat-Bot -->
+            <div id="ChatBot" class="tab-content">
+                <h3>Ayurvedic Chat-Bot</h3>
+                <div class="card">
+                    <p>The chat-bot feature is coming soon. Stay tuned!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Page-specific JavaScript -->
+<script>
+    // --- Tab Logic ---
+    function openTab(evt, tabName) {
+        let i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tab-link");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    // --- Form Interaction Logic ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const formContainer = document.getElementById('diagnosis-form-container');
+        const actionsContainer = document.getElementById('chart-actions-container');
+        const diagnosisForm = document.getElementById('diagnosis-form');
+        const editFormBtn = document.getElementById('edit-form-btn');
+
+        // When the 'Save Details' button is clicked
+        diagnosisForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevents the page from reloading
+            formContainer.classList.add('hidden');
+            actionsContainer.classList.remove('hidden');
+        });
+
+        // When the 'Edit Form' button is clicked
+        editFormBtn.addEventListener('click', () => {
+            actionsContainer.classList.add('hidden');
+            formContainer.classList.remove('hidden');
+        });
+    });
+</script>
+{% endblock %}

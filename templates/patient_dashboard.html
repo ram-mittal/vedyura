@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Patient Dashboard - Vedyura
+{% endblock %}
+
+{% block content %}
+<header class="dashboard-header">
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <a href="{{ url_for('patient_dashboard') }}">
+                Vedyura [Patient]
+            </a>
+        </div>
+        <div class="navbar-links">
+            <a href="{{ url_for('patient_dashboard') }}" class="active">Home</a>
+            <a href="{{ url_for('patient_self_diagnosis') }}">Self-Diagnosis</a>
+            <a href="{{ url_for('patient_consult_doctor') }}">Consult Doctor</a>
+            <a href="{{ url_for('contact_us') }}">Contact Us</a>
+            <a href="{{ url_for('patient_profile') }}">Profile</a>
+        </div>
+        <div class="navbar-action">
+             <button id="dark-mode-toggle" class="dark-mode-button">Toggle Dark Mode</button>
+        </div>
+    </nav>
+</header>
+
+<main class="page-content dashboard-content">
+    <div class="dashboard-container">
+        <section class="page-header">
+            <h1>Welcome to Your Dashboard</h1>
+            <p>Your personalized space for managing your Ayurvedic health journey.</p>
+        </section>
+
+        <section class="quick-actions">
+            <div class="card-grid">
+                <!-- Card 1: Self Diagnosis -->
+                <a href="{{ url_for('patient_self_diagnosis') }}" class="card action-card">
+                    <div class="card-icon">
+                        <!-- Placeholder for an icon, e.g., a form icon -->
+                        <span>📝</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Self-Diagnosis</h3>
+                        <p>Generate a preliminary diet chart based on your inputs.</p>
+                    </div>
+                </a>
+
+                <!-- Card 2: Consult a Doctor -->
+                <a href="{{ url_for('patient_consult_doctor') }}" class="card action-card">
+                    <div class="card-icon">
+                         <!-- Placeholder for an icon, e.g., a doctor icon -->
+                        <span>👨‍⚕️</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Consult a Doctor</h3>
+                        <p>Find and connect with our registered Ayurvedic practitioners.</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </div>
+</main>
+{% endblock %}

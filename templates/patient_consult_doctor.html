@@ -1,0 +1,116 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Consult a Doctor - Vedyura
+{% endblock %}
+
+{% block content %}
+<header class="dashboard-header">
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <a href="{{ url_for('patient_dashboard') }}">
+                Vedyura [Patient]
+            </a>
+        </div>
+        <div class="navbar-links">
+            <a href="{{ url_for('patient_dashboard') }}">Home</a>
+            <a href="{{ url_for('patient_self_diagnosis') }}">Self-Diagnosis</a>
+            <a href="{{ url_for('patient_consult_doctor') }}" class="active">Consult Doctor</a>
+            <a href="{{ url_for('contact_us') }}">Contact Us</a>
+            <a href="{{ url_for('patient_profile') }}">Profile</a>
+        </div>
+        <div class="navbar-action">
+             <button id="dark-mode-toggle" class="dark-mode-button">Toggle Dark Mode</button>
+        </div>
+    </nav>
+</header>
+
+<main class="page-content dashboard-content">
+    <div class="dashboard-container">
+        <section class="page-header">
+            <h1>Find a Practitioner</h1>
+            <p>Connect with registered doctors online or find one near you.</p>
+        </section>
+
+        <!-- Tab Navigation -->
+        <div class="tabs-container">
+            <div class="tab-nav">
+                <button class="tab-link active" onclick="openTab(event, 'Online')">Online</button>
+                <button class="tab-link" onclick="openTab(event, 'Nearby')">Nearby</button>
+            </div>
+
+            <!-- Tab Content: Online Doctors -->
+            <div id="Online" class="tab-content" style="display: block;">
+                <h3>Available Online</h3>
+                <div class="card-grid">
+                    {% for doctor in doctors %}
+                    <div class="card doctor-card">
+                        <div class="card-content">
+                            <h4>Dr. {{ doctor.name }}</h4>
+                            <p class="doctor-specialty">{{ doctor.specialty }}</p>
+                            <!-- CORRECTED: The form action now points to the correct function name 'send_request' -->
+                            <form action="{{ url_for('send_request') }}" method="POST" class="request-form">
+                                <input type="hidden" name="doctor_id" value="{{ doctor.id }}">
+                                <button type="submit" class="btn btn-primary btn-small">Send Request</button>
+                            </form>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="card">
+                        <p>No doctors are currently available online.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Tab Content: Nearby Search -->
+            <div id="Nearby" class="tab-content">
+                <h3>Find a Doctor Nearby</h3>
+                <div class="card">
+                    <form id="nearby-search-form">
+                        <div class="form-group">
+                            <label for="locality">Enter Your City or Locality</label>
+                            <input type="text" id="locality" name="locality" placeholder="e.g., Pimpri-Chinchwad, Maharashtra" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Search on Google Maps</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Page-specific JavaScript -->
+<script>
+    // --- Tab Logic ---
+    function openTab(evt, tabName) {
+        let i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tab-link");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    // --- Nearby Search Logic ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const nearbyForm = document.getElementById('nearby-search-form');
+        nearbyForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevent default form submission
+            const locality = document.getElementById('locality').value;
+            if (locality) {
+                const searchQuery = `Ayurvedic Doctor near ${locality}`;
+                const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(searchQuery)}`;
+                window.open(googleMapsUrl, '_blank'); // Open in a new tab
+            }
+        });
+    });
+</script>
+{% endblock %}

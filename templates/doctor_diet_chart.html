@@ -1,0 +1,121 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Diet Chart Management - Vedyura
+{% endblock %}
+
+{% block content %}
+<header class="dashboard-header">
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <a href="{{ url_for('doctor_dashboard') }}">
+                Vedyura [Doctor]
+            </a>
+        </div>
+        <div class="navbar-links">
+            <a href="{{ url_for('doctor_dashboard') }}">Home</a>
+            <a href="{{ url_for('doctor_patient_requests') }}">Patient Requests</a>
+            <a href="{{ url_for('doctor_diet_chart') }}" class="active">Diet Chart</a>
+            <a href="{{ url_for('contact_us') }}">Contact Us</a>
+            <a href="{{ url_for('doctor_profile') }}">Profile</a>
+        </div>
+        <div class="navbar-action">
+             <button id="dark-mode-toggle" class="dark-mode-button">Toggle Dark Mode</button>
+        </div>
+    </nav>
+</header>
+
+<main class="page-content dashboard-content">
+    <div class="dashboard-container">
+        <section class="page-header">
+            <h1>Create & Manage Diet Charts</h1>
+            <p>Build a personalized Ayurvedic diet plan for your patients.</p>
+        </section>
+
+        <div class="card diet-chart-creator">
+            <form action="#" method="POST">
+                
+                <section class="patient-details-section">
+                    <h3>Patient Details</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="patient-name">Patient Name</label>
+                            <input type="text" id="patient-name" name="patient_name" placeholder="e.g., John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="patient-age">Age</label>
+                            <input type="number" id="patient-age" name="patient_age" placeholder="e.g., 35" required>
+                        </div>
+                         <div class="form-group">
+                            <label for="patient-gender">Gender</label>
+                            <select id="patient-gender" name="patient_gender">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+                
+                <hr class="section-divider">
+
+                <section class="diet-plan-section">
+                    <h3>Diet Plan</h3>
+                    <table class="diet-table">
+                        <thead>
+                            <tr>
+                                <th>Meal Time</th>
+                                <th>Food Items</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Example Row: Early Morning -->
+                            <tr>
+                                <td>Early Morning (6:00 AM)</td>
+                                <td><textarea name="meal_1_items" placeholder="e.g., Warm water with lemon"></textarea></td>
+                                <td><input type="text" name="meal_1_qty" placeholder="e.g., 1 glass"></td>
+                            </tr>
+                            <!-- Example Row: Breakfast -->
+                            <tr>
+                                <td>Breakfast (8:00 AM)</td>
+                                <td><textarea name="meal_2_items" placeholder="e.g., Moong Dal Chilla, Mint Chutney"></textarea></td>
+                                <td><input type="text" name="meal_2_qty" placeholder="e.g., 2 medium, 2 tbsp"></td>
+                            </tr>
+                             <!-- Example Row: Mid-Morning -->
+                            <tr>
+                                <td>Mid-Morning (11:00 AM)</td>
+                                <td><textarea name="meal_3_items" placeholder="e.g., Coconut water or a fruit"></textarea></td>
+                                <td><input type="text" name="meal_3_qty" placeholder="e.g., 1 glass or 1 apple"></td>
+                            </tr>
+                            <!-- Example Row: Lunch -->
+                            <tr>
+                                <td>Lunch (1:00 PM)</td>
+                                <td><textarea name="meal_4_items" placeholder="e.g., Roti, Seasonal Sabzi, Dal, Salad"></textarea></td>
+                                <td><input type="text" name="meal_4_qty" placeholder="e.g., 2, 1 katori, 1 katori, 1 plate"></td>
+                            </tr>
+                             <!-- Example Row: Evening Snack -->
+                            <tr>
+                                <td>Evening Snack (4:00 PM)</td>
+                                <td><textarea name="meal_5_items" placeholder="e.g., Herbal Tea, Roasted Makhana"></textarea></td>
+                                <td><input type="text" name="meal_5_qty" placeholder="e.g., 1 cup, 1 bowl"></td>
+                            </tr>
+                             <!-- Example Row: Dinner -->
+                            <tr>
+                                <td>Dinner (7:00 PM)</td>
+                                <td><textarea name="meal_6_items" placeholder="e.g., Khichdi, Steamed Vegetables"></textarea></td>
+                                <td><input type="text" name="meal_6_qty" placeholder="e.g., 1 bowl, 1 katori"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save & Generate Chart</button>
+                    <button type="reset" class="btn btn-secondary">Clear Form</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}

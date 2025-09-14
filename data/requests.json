@@ -1,0 +1,34 @@
+{
+    "requests": [
+        {
+            "doctor_id": "123",
+            "patient_id": "bypassed_user",
+            "status": "pending"
+        },
+        {
+            "doctor_id": "123",
+            "patient_id": "bypassed_user",
+            "status": "pending"
+        },
+        {
+            "doctor_id": "123",
+            "patient_id": "bypassed_user",
+            "status": "pending"
+        },
+        {
+            "doctor_id": "123",
+            "patient_id": "bypassed_user",
+            "status": "pending"
+        },
+        {
+            "doctor_id": "123",
+            "patient_id": "bypassed_user",
+            "status": "pending"
+        },
+        {
+            "doctor_id": "123",
+            "patient_id": "bypassed_user",
+            "status": "pending"
+        }
+    ]
+}
