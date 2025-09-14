@@ -1,5 +1,6 @@
 import json
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
+from Prakriti_Bot import get_response 
 
 # Initialize the Flask application
 app = Flask(__name__)
@@ -20,10 +21,12 @@ def load_requests():
     """Loads consultation requests from the requests.json file."""
     try:
         with open('data/requests.json', 'r') as f:
-            return json.load(f)
-    # CORRECTED: If file is empty or missing, return the correct base structure
+            data = json.load(f)
+            if isinstance(data, dict) and 'requests' in data:
+                return data
+            return {'requests': []} 
     except (FileNotFoundError, json.JSONDecodeError):
-        return {"requests": []}
+        return {'requests': []}
 
 def save_requests(requests_data):
     """Saves the consultation requests data to the requests.json file."""
@@ -53,6 +56,17 @@ def logout():
     session.clear()
     return redirect(url_for('home'))
 
+# --- Chatbot API Route ---
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    """Handles incoming chat messages and returns the bot's response."""
+    text = request.get_json().get("message")
+    user_id = session.get('user_id', 'anonymous_user') 
+    response = get_response(user_id, text)
+    message = {"answer": response}
+    return jsonify(message)
+
 # --- Doctor Authentication and Dashboard Routes ---
 
 @app.route('/doctor/login', methods=['POST'])
@@ -63,7 +77,6 @@ def doctor_login():
     
     users = load_users()
     for user in users:
-        # Compare submitted data as strings to match JSON data types
         if user.get('role') == 'doctor' and str(user.get('id')) == user_id and str(user.get('password')) == password:
             session['user_id'] = user_id
             session['role'] = 'doctor'
@@ -84,7 +97,6 @@ def doctor_patient_requests():
     """Renders the page that lists patient requests for the doctor."""
     if 'user_id' in session and session.get('role') == 'doctor':
         all_requests_data = load_requests()
-        # CORRECTED: Pass the list of requests, not the whole dictionary
         return render_template('doctor_patient_requests.html', requests=all_requests_data.get('requests', []))
     return redirect(url_for('signup'))
 
@@ -107,7 +119,7 @@ def doctor_profile():
 @app.route('/patient/bypass')
 def patient_bypass_login():
     """Allows a patient to bypass login for development purposes."""
-    session['user_id'] = 'bypassed_user' # A simple identifier for a guest user
+    session['user_id'] = 'bypassed_user'
     session['role'] = 'patient'
     return redirect(url_for('patient_dashboard'))
 
@@ -130,7 +142,6 @@ def patient_consult_doctor():
     """Renders the page for patients to find and consult doctors."""
     if 'user_id' in session and session.get('role') == 'patient':
         all_users = load_users()
-        # Safely filter for users who are doctors
         doctors = [user for user in all_users if isinstance(user, dict) and user.get('role') == 'doctor']
         return render_template('patient_consult_doctor.html', doctors=doctors)
     return redirect(url_for('signup'))
@@ -147,13 +158,13 @@ def send_request():
         new_request = {
             'doctor_id': doctor_id,
             'patient_id': patient_id,
-            'status': 'pending' # Initial status of any new request
+            'status': 'pending'
         }
         
-        # CORRECTED: Append to the 'requests' list inside the dictionary
         all_requests_data['requests'].append(new_request)
         save_requests(all_requests_data)
         
+        flash('Your request has been sent successfully!', 'success')
         return redirect(url_for('patient_consult_doctor'))
     return redirect(url_for('signup'))
 
@@ -165,6 +176,6 @@ def patient_profile():
         return render_template('patient_profile.html')
     return redirect(url_for('signup'))
 
-# This allows the script to be run directly
 if __name__ == '__main__':
     app.run(debug=True)
+

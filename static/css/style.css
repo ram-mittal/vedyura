@@ -685,4 +685,96 @@ h2 {
 .dark-mode .doctor-card h4 {
     color: #f0f0f0;
 }
+/*
+-----------------------------------------
+  18. Custom Chatbot Styles
+-----------------------------------------
+*/
+
+.card.chatbox__support {
+    display: flex;
+    flex-direction: column;
+    height: 500px; /* You can adjust the height */
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0; /* This will now correctly override the card's padding */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Use the standard card shadow */
+}
+
+.chatbox__header {
+    background: var(--color-primary);
+    color: white;
+    padding: 1rem;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    flex-shrink: 0; /* Prevents the header from shrinking */
+}
+
+.chatbox__heading--header {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.chatbox__description--header {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.chatbox__messages {
+    flex-grow: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.messages__item {
+    padding: 0.75rem 1rem;
+    border-radius: 18px;
+    margin-bottom: 0.75rem;
+    max-width: 70%;
+    line-height: 1.4;
+}
+
+.messages__item--visitor {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    align-self: flex-start; /* Aligns bot messages to the left */
+}
+
+.messages__item--operator {
+    background-color: var(--color-primary);
+    color: white;
+    align-self: flex-end; /* Aligns user messages to the right */
+}
+
+.chatbox__footer {
+    display: flex;
+    padding: 1rem;
+    border-top: 1px solid var(--color-border);
+    flex-shrink: 0; /* Prevents the footer from shrinking */
+}
+
+.chatbox__footer input {
+    flex-grow: 1;
+    border: 1px solid var(--color-border);
+    border-radius: 20px;
+    padding: 0.75rem;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    margin-right: 0.5rem;
+}
+
+.chatbox__send--footer {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
 

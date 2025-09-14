@@ -88,18 +88,29 @@
 
             <!-- Tab Content: Chat-Bot -->
             <div id="ChatBot" class="tab-content">
-                <h3>Ayurvedic Chat-Bot</h3>
-                <div class="card">
-                    <p>The chat-bot feature is coming soon. Stay tuned!</p>
+                <h3>Ayurvedic Prakriti Chat-Bot</h3>
+                <div class="chatbox__support card">
+                    <div class="chatbox__header">
+                        <div class="chatbox__content--header">
+                            <h4 class="chatbox__heading--header">Chat with Vedyura Bot</h4>
+                            <p class="chatbox__description--header">Ask me anything about Prakriti</p>
+                        </div>
+                    </div>
+                    <div class="chatbox__messages">
+                        <div></div>
+                    </div>
+                    <div class="chatbox__footer">
+                        <input type="text" placeholder="Write a message...">
+                        <button class="chatbox__send--footer send__button">Send</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
 
-<!-- Page-specific JavaScript -->
+<!-- Page-specific JavaScript for TABS -->
 <script>
-    // --- Tab Logic ---
     function openTab(evt, tabName) {
         let i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName("tab-content");
@@ -121,18 +132,25 @@
         const diagnosisForm = document.getElementById('diagnosis-form');
         const editFormBtn = document.getElementById('edit-form-btn');
 
-        // When the 'Save Details' button is clicked
-        diagnosisForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // Prevents the page from reloading
-            formContainer.classList.add('hidden');
-            actionsContainer.classList.remove('hidden');
-        });
+        if(diagnosisForm) {
+            diagnosisForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                formContainer.classList.add('hidden');
+                actionsContainer.classList.remove('hidden');
+            });
+        }
 
-        // When the 'Edit Form' button is clicked
-        editFormBtn.addEventListener('click', () => {
-            actionsContainer.classList.add('hidden');
-            formContainer.classList.remove('hidden');
-        });
+        if(editFormBtn) {
+            editFormBtn.addEventListener('click', () => {
+                actionsContainer.classList.add('hidden');
+                formContainer.classList.remove('hidden');
+            });
+        }
     });
 </script>
+
+<!-- Link to our NEW chatbot javascript file -->
+<script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+
 {% endblock %}
+
