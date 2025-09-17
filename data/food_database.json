@@ -1,0 +1,52 @@
+[
+  {
+    "food_name": "Hot tea (Garam Chai)",
+    "energy_kcal": 16.14,
+    "carb_g": 2.58,
+    "protein_g": 0.39,
+    "fat_g": 0.53,
+    "fibre_g": 0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Astringent",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Boiled rice (Uble chawal)",
+    "energy_kcal": 117.19,
+    "carb_g": 25.72,
+    "protein_g": 2.6,
+    "fat_g": 0.18,
+    "fibre_g": 1.25,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Spinach paneer (Palak paneer)",
+    "energy_kcal": 77.68,
+    "carb_g": 4.43,
+    "protein_g": 4.03,
+    "fat_g": 4.76,
+    "fibre_g": 1.91,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Astringent"
+      ],
+      "vata": "Decrease",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  }
+]
