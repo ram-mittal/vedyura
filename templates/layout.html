@@ -37,7 +37,14 @@
         <p>&copy; 2024 Vedyura. All Rights Reserved.</p>
     </footer>
 
-    <!-- Link to our JavaScript file, placed at the end for faster page loading -->
+    <!-- ** NEW: Added jQuery Library ** -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Link to our main JavaScript file -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <!-- ** NEW: Added block for page-specific scripts ** -->
+    {% block scripts %}
+    {% endblock %}
 </body>
 </html>

@@ -41,20 +41,20 @@
 
             <!-- Tab Content: Diet Chart -->
             <div id="DietChart" class="tab-content" style="display: block;">
-                <h3>Ayurvedic Examination (Rogi Pariksha)</h3>
+                <h3>Generate Your Diet Chart</h3>
                 
                 <!-- Step 1: The Form -->
                 <div id="diagnosis-form-container">
-                    <p>Please fill in your details below. This information will be used to create your personalized diet chart.</p>
+                    <p>Please fill in your details below to get started.</p>
                     <div class="card diet-chart-creator">
                         <form id="diagnosis-form">
-                            <!-- Section 1: Personal Information -->
-                            <fieldset class="form-section">
-                                <legend>Personal Information</legend>
-                                <div class="form-grid">
+                            <!-- Section: Personal Information -->
+                            <div class="form-section">
+                                <h4>Personal Information</h4>
+                                <div class="form-grid-2col">
                                     <div class="form-group">
                                         <label for="age">Age</label>
-                                        <input type="number" id="age" name="age" required placeholder="e.g., 35">
+                                        <input type="number" id="age" name="age" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="gender">Gender</label>
@@ -67,104 +67,92 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="region">Region/Locality</label>
-                                        <input type="text" id="region" name="region" required placeholder="e.g., Pune, Maharashtra">
+                                        <input type="text" id="region" name="region" placeholder="e.g., Pune, Maharashtra" required>
                                     </div>
                                 </div>
-                            </fieldset>
+                            </div>
 
-                            <!-- Section 2: Physical Traits -->
-                            <fieldset class="form-section">
-                                <legend>Observable Physical Traits</legend>
-                                <div class="form-grid">
-                                    <div class="form-group">
-                                        <label>Body Type</label>
-                                        <select name="body_type" required>
-                                            <option value="">Select...</option>
-                                            <option value="slim">Slim / Ectomorph</option>
-                                            <option value="medium">Medium / Mesomorph</option>
-                                            <option value="large">Large / Endomorph</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Skin Texture</label>
-                                        <select name="skin_texture" required>
-                                            <option value="">Select...</option>
-                                            <option value="dry_rough">Dry or Rough</option>
-                                            <option value="soft_oily">Soft or Oily</option>
-                                            <option value="thick_cold">Thick or Cold</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Hair Quality</label>
-                                        <select name="hair_quality" required>
-                                            <option value="">Select...</option>
-                                            <option value="dry_frizzy">Dry or Frizzy</option>
-                                            <option value="oily_straight">Oily or Straight</option>
-                                            <option value="thick_wavy">Thick or Wavy</option>
-                                        </select>
+                            <!-- Section: Physical Traits -->
+                            <div class="form-section">
+                                <h4>Physical Traits</h4>
+                                <div class="form-group">
+                                    <label>Body Type</label>
+                                    <div class="radio-group">
+                                        <label><input type="radio" name="body_type" value="slim" required> Slim</label>
+                                        <label><input type="radio" name="body_type" value="medium"> Medium</label>
+                                        <label><input type="radio" name="body_type" value="large"> Large</label>
                                     </div>
                                 </div>
-                            </fieldset>
+                                 <div class="form-group">
+                                    <label>Skin Texture</label>
+                                    <div class="radio-group">
+                                        <label><input type="radio" name="skin_texture" value="dry_rough" required> Dry & Rough</label>
+                                        <label><input type="radio" name="skin_texture" value="soft_oily"> Soft & Oily</label>
+                                        <label><input type="radio" name="skin_texture" value="thick_cold"> Thick & Cold</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Hair Quality</label>
+                                    <div class="radio-group">
+                                        <label><input type="radio" name="hair_quality" value="dry_knotted" required> Dry, Knotted</label>
+                                        <label><input type="radio" name="hair_quality" value="straight_oily"> Straight, Oily</label>
+                                        <label><input type="radio" name="hair_quality" value="thick_wavy"> Thick, Wavy</label>
+                                    </div>
+                                </div>
+                            </div>
 
-                             <!-- Section 3: Metabolic & Lifestyle -->
-                            <fieldset class="form-section">
-                                <legend>Metabolic & Lifestyle Traits</legend>
-                                <div class="form-grid">
-                                    <div class="form-group">
-                                        <label>Appetite</label>
-                                        <select name="appetite" required>
-                                            <option value="">Select...</option>
-                                            <option value="irregular">Irregular, variable</option>
-                                            <option value="strong">Strong, sharp</option>
-                                            <option value="slow_steady">Slow but steady</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Energy Levels</label>
-                                        <select name="energy_levels" required>
-                                            <option value="">Select...</option>
-                                            <option value="variable">Comes in bursts, variable</option>
-                                            <option value="high">High, intense</option>
-                                            <option value="steady">Steady, good stamina</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Sleep Pattern</label>
-                                        <select name="sleep_pattern" required>
-                                            <option value="">Select...</option>
-                                            <option value="light_interrupted">Light, interrupted</option>
-                                            <option value="sound_moderate">Sound, moderate duration</option>
-                                            <option value="heavy_long">Heavy, long duration</option>
-                                        </select>
+                            <!-- Section: Metabolic & Lifestyle -->
+                            <div class="form-section">
+                                <h4>Metabolic & Lifestyle Traits</h4>
+                                 <div class="form-group">
+                                    <label>Appetite</label>
+                                    <div class="radio-group">
+                                        <label><input type="radio" name="appetite" value="irregular" required> Irregular, Variable</label>
+                                        <label><input type="radio" name="appetite" value="strong"> Strong, Unbearable</label>
+                                        <label><input type="radio" name="appetite" value="slow_steady"> Slow but Steady</label>
                                     </div>
                                 </div>
-                            </fieldset>
+                                 <div class="form-group">
+                                    <label>Energy Levels</label>
+                                    <div class="radio-group">
+                                        <label><input type="radio" name="energy_levels" value="variable" required> Variable, comes in bursts</label>
+                                        <label><input type="radio" name="energy_levels" value="moderate"> Moderate, focused</label>
+                                        <label><input type="radio" name="energy_levels" value="steady"> Steady, good stamina</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Stress Response</label>
+                                    <div class="radio-group">
+                                        <label><input type="radio" name="stress_response" value="anxious" required> Becomes anxious or worried</label>
+                                        <label><input type="radio" name="stress_response" value="irritable"> Becomes irritable or angry</label>
+                                        <label><input type="radio" name="stress_response" value="withdrawn"> Becomes withdrawn or sluggish</label>
+                                    </div>
+                                </div>
+                            </div>
 
-                             <!-- Section 4: Health Goals -->
-                            <fieldset class="form-section">
-                                <legend>Health Goals & Medical Info</legend>
-                                <div class="form-grid-single">
-                                     <div class="form-group">
-                                        <label>Primary Health Goal</label>
-                                        <select name="health_goal" required>
-                                            <option value="">Select...</option>
-                                            <option value="weight_loss">Weight Loss</option>
-                                            <option value="muscle_gain">Muscle Gain</option>
-                                            <option value="better_digestion">Better Digestion</option>
-                                            <option value="stress_management">Stress Management</option>
-                                            <option value="increase_energy">Increase Energy</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="conditions">Pre-existing Conditions (e.g., Diabetes, Hypertension)</label>
-                                        <textarea id="conditions" name="conditions" rows="3" placeholder="List any conditions, or write 'None'"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="allergies">Allergies</label>
-                                        <textarea id="allergies" name="allergies" rows="3" placeholder="List any food allergies, or write 'None'"></textarea>
-                                    </div>
+                             <!-- Section: Health Goals & Medical Info -->
+                            <div class="form-section">
+                                <h4>Health Goals & Medical Information</h4>
+                                <div class="form-group">
+                                    <label for="health_goals">Primary Health Goal</label>
+                                    <select id="health_goals" name="health_goals" required>
+                                        <option value="">Select...</option>
+                                        <option value="weight_loss">Weight Loss</option>
+                                        <option value="muscle_gain">Muscle Gain</option>
+                                        <option value="better_digestion">Better Digestion</option>
+                                        <option value="stress_management">Stress Management</option>
+                                        <option value="general_wellness">General Wellness</option>
+                                    </select>
                                 </div>
-                            </fieldset>
+                                <div class="form-group">
+                                    <label for="allergies">Allergies or Dietary Restrictions</label>
+                                    <textarea id="allergies" name="allergies" rows="3" placeholder="e.g., Gluten intolerant, allergic to peanuts"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="medical_conditions">Pre-existing Medical Conditions</label>
+                                    <textarea id="medical_conditions" name="medical_conditions" rows="3" placeholder="e.g., High blood pressure, Diabetes"></textarea>
+                                </div>
+                            </div>
 
                             <div class="form-actions">
                                 <button type="submit" class="btn btn-primary">Submit Form</button>
@@ -172,11 +160,15 @@
                         </form>
                     </div>
                 </div>
+                 <!-- Form submission pop-up -->
+                <div id="form-submit-popup" class="popup-message hidden">
+                    <p>Form Submitted!</p>
+                </div>
 
                 <!-- Step 2 & 3: PPG Scan Actions (Initially Hidden) -->
                 <div id="chart-actions-container" class="hidden">
                     <div class="card" id="scan-me-container">
-                         <p>Your information has been saved. The next step is a quick biometric scan to personalize your results.</p>
+                         <p>Your information has been saved. The next step is a quick biometric scan.</p>
                          <div class="form-actions">
                             <button id="scan-me-btn" class="btn btn-primary">Scan Me</button>
                         </div>
@@ -185,8 +177,8 @@
                     <!-- PPG Interface (Initially Hidden) -->
                     <div id="ppg-interface-container" class="hidden">
                         <div class="card-body text-center">
-                            <p>Please position your face in the frame and remain still.</p>
-                            <img src="{{ url_for('video_feed') }}" class="img-fluid" id="camera-feed">
+                            <p>Please look at the camera and blink to verify liveness. Remain still.</p>
+                            <img src="#" class="img-fluid" id="camera-feed">
                             <div class="mt-3">
                                 <button id="start-btn" class="btn btn-primary me-2">Start Measurement</button>
                                 <button id="stop-btn" class="btn btn-danger" disabled>Stop Measurement</button>
@@ -205,9 +197,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Form Submission Popup -->
-                <div id="form-submit-popup" class="form-popup hidden">Form Submitted!</div>
             </div>
 
             <!-- Tab Content: Chat-Bot -->
@@ -249,10 +238,12 @@
         evt.currentTarget.className += " active";
     }
 </script>
+{% endblock %}
 
+{% block scripts %}
 <!-- Link to our NEW chatbot javascript file -->
 <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+<!-- Link to our NEW ppg javascript file -->
 <script src="{{ url_for('static', filename='js/ppg.js') }}"></script>
-
 {% endblock %}
 
