@@ -21,14 +21,12 @@ class Chatbox {
         });
     }
 
-    // New function to handle button clicks
     handleButtonClick(text) {
         this.onSendButton(text);
     }
 
     onSendButton(buttonText) {
         var textField = this.args.chatBox.querySelector('input');
-        // Use the button's text if it was clicked, otherwise use the input field's text.
         let text1 = buttonText || textField.value;
         if (text1 === "") {
             return;
@@ -63,7 +61,32 @@ class Chatbox {
         this.messages.forEach((item) => {
             let messageHtml = item.message;
             
-            // This is the new logic to find and replace our button syntax.
+            // --- NEW: Logic to find and replace our custom table syntax ---
+            const tableRegex = /\[table\]([\s\S]*?)\[\/table\]/g;
+            messageHtml = messageHtml.replace(tableRegex, (match, tableContent) => {
+                const rows = tableContent.trim().split('\n');
+                let tableHtml = '<table class="chat-table">';
+                
+                // Header
+                const header = rows[0].split('|').map(h => h.trim());
+                tableHtml += '<thead><tr>';
+                header.forEach(h => tableHtml += `<th>${h}</th>`);
+                tableHtml += '</tr></thead>';
+
+                // Body (skipping the separator line)
+                tableHtml += '<tbody>';
+                for (let i = 2; i < rows.length; i++) {
+                    const cells = rows[i].split('|').map(c => c.trim());
+                    tableHtml += '<tr>';
+                    cells.forEach(c => tableHtml += `<td>${c}</td>`);
+                    tableHtml += '</tr>';
+                }
+                tableHtml += '</tbody></table>';
+                
+                return tableHtml;
+            });
+
+            // Logic for buttons (unchanged)
             const buttonRegex = /\[button:(.*?)\]/g;
             messageHtml = messageHtml.replace(buttonRegex, (match, buttonText) => {
                 return `<button class="chat-button">${buttonText}</button>`;
@@ -79,7 +102,7 @@ class Chatbox {
         const chatmessage = this.args.chatMessages;
         chatmessage.innerHTML = html;
 
-        // Add event listeners to the newly created buttons.
+        // Add event listeners to buttons (unchanged)
         chatmessage.querySelectorAll('.chat-button').forEach(button => {
             button.addEventListener('click', () => {
                 this.handleButtonClick(button.textContent);
@@ -92,4 +115,3 @@ class Chatbox {
 
 const chatbox = new Chatbox();
 chatbox.display();
-

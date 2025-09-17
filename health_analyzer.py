@@ -1,135 +1,198 @@
 import json
+import random
 
-def load_food_database():
-    """Loads the food database from the JSON file."""
-    try:
-        with open('data/food_database.json', 'r') as f:
-            return json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        return []
+# --- Load Food Database ---
+try:
+    with open('data/food_database.json', 'r', encoding='utf-8') as f:
+        FOOD_DATA = json.load(f)
+except (FileNotFoundError, json.JSONDecodeError):
+    FOOD_DATA = []
 
-def analyze_user_data(form_data, ppg_data):
+def generate_health_profile(form_data, ppg_data):
     """
-    This is the core of the Rule-Based Engine.
-    It processes form and PPG data to generate a user health profile.
+    Analyzes user data to determine dosha, caloric needs, and generate a
+    personalized diet chart with advice. This is the "Intelligent Backend Engine".
     """
-    # 1. Determine Dominant Dosha (simplified logic based on form)
-    # In a real system, this would be a more complex scoring of all form answers.
-    physical_build = form_data.get('body_type', 'Medium')
-    dominant_dosha = "Pitta" # Default
-    if physical_build == 'Slim':
-        dominant_dosha = "Vata"
-    elif physical_build == 'Large':
-        dominant_dosha = "Kapha"
+    # --- 1. Rule-Based Engine: Determine Dosha & Caloric Needs ---
     
-    # Override with PPG data if available and conclusive
-    if ppg_data and 'dosha' in ppg_data:
-        # A more advanced system might weigh form vs. PPG, but for now PPG takes precedence
-        dominant_dosha = ppg_data['dosha'].capitalize()
+    # More scientific and nuanced Dosha determination
+    dominant_dosha = determine_dominant_dosha(form_data)
 
-    # 2. Calculate Caloric Needs (using Harris-Benedict Equation - simplified)
-    # This is a placeholder. A real implementation needs weight, height, activity level.
-    caloric_needs = 1800 # Default
+    # Scientific Caloric needs calculation using Mifflin-St Jeor Equation
+    caloric_needs = calculate_caloric_needs(form_data)
 
-    # 3. Filter Food Database (The Scientist)
-    food_db = load_food_database()
-    safe_palette = []
-    for food in food_db:
-        props = food.get('ayurvedic_properties', {})
-        dosha_effect = props.get(dominant_dosha.lower(), "Neutral")
-        
-        # Simple filter: avoid foods that strongly increase the dominant dosha
-        if dosha_effect not in ["Increase"]:
-             safe_palette.append(food['food_name'])
-
-    # 4. Generate a Health Profile Summary
-    summary = (f"User is a {form_data.get('age', 'N/A')}-year-old {form_data.get('gender', 'N/A')} "
-               f"with a dominant {dominant_dosha} dosha. Stated goal is {form_data.get('health_goal', 'general wellness')}. "
-               f"Biometric data suggests a heart rate around {ppg_data.get('heart_rate', 'N/A')} BPM. "
-               f"User has indicated a preference for {form_data.get('diet_preference', 'any')} meals.")
+    # --- 2. Rule-Based Engine: Filter Food Database ---
+    approved_foods = [
+        food['food_name'] for food in FOOD_DATA 
+        if food.get('ayurvedic_properties', {}).get(dominant_dosha.lower()) in ['Decrease', 'Neutral']
+    ]
+    
+    # --- 3. Generate Health Profile Summary for the LLM ---
+    summary = generate_profile_summary(form_data, ppg_data, dominant_dosha)
+    
+    # --- 4. Construct the Upgraded LLM Prompt (Simulated) ---
+    simulated_llm_output = generate_simulated_llm_response(dominant_dosha, caloric_needs, summary, approved_foods)
 
     return {
-        "caloric_target": caloric_needs,
-        "dominant_dosha": dominant_dosha,
-        "approved_foods": safe_palette[:100], # Limit for prompt size
-        "health_profile_summary": summary
+        'dominant_dosha': dominant_dosha,
+        'caloric_target': caloric_needs,
+        'health_profile_summary': summary,
+        'diet_chart_text': simulated_llm_output
     }
 
-
-def generate_diet_chart_prompt(health_profile):
-    """Creates the detailed prompt for the LLM."""
+def determine_dominant_dosha(form_data):
+    """Determines dominant dosha based on a weighted scoring of form data."""
+    scores = {'Vata': 0, 'Pitta': 0, 'Kapha': 0}
     
-    prompt = f"""
-    You are an expert Ayurvedic chef and holistic health advisor creating a personalized, recipe-based diet chart.
-    The user's dominant dosha is {health_profile['dominant_dosha']} and their daily calorie target is {health_profile['caloric_target']} kcal.
-    You must only use ingredients from the following list: {", ".join(health_profile['approved_foods'])}.
+    # Physical Traits
+    if form_data.get('body_frame') == 'slim': scores['Vata'] += 2
+    if form_data.get('body_frame') == 'medium': scores['Pitta'] += 2
+    if form_data.get('body_frame') == 'large': scores['Kapha'] += 2
+    
+    if form_data.get('skin_texture') == 'dry_rough': scores['Vata'] += 1
+    if form_data.get('skin_texture') == 'oily_sensitive': scores['Pitta'] += 1
+    if form_data.get('skin_texture') == 'thick_cool': scores['Kapha'] += 1
 
-    User Health Profile: {health_profile['health_profile_summary']}
+    if form_data.get('hair_type') == 'dry_thin': scores['Vata'] += 1
+    if form_data.get('hair_type') == 'oily_fine': scores['Pitta'] += 1
+    if form_data.get('hair_type') == 'thick_wavy': scores['Kapha'] += 1
 
-    Your Task:
-    1. Create a one-day vegetarian meal plan (Breakfast, Lunch, Dinner) using only the approved ingredients, targeting {health_profile['caloric_target']} kcal. For each meal, provide a simple recipe.
-    2. After the meal plan, create a section called "Personalized Recommendations". Based on the user's health profile, provide 3-5 actionable suggestions. These should be a mix of dietary advice (e.g., "Favor cooling foods like cucumber and coconut to balance your Pitta") and lifestyle advice (e.g., "To manage stress, consider a short, calming walk after dinner").
+    # Metabolic Traits
+    if form_data.get('appetite') == 'irregular': scores['Vata'] += 2
+    if form_data.get('appetite') == 'strong': scores['Pitta'] += 2
+    if form_data.get('appetite') == 'slow': scores['Kapha'] += 2
+
+    if form_data.get('energy_levels') == 'variable': scores['Vata'] += 1
+    if form_data.get('energy_levels') == 'moderate_focused': scores['Pitta'] += 1
+    if form_data.get('energy_levels') == 'steady_endurance': scores['Kapha'] += 1
+
+    if form_data.get('sleep_pattern') == 'light_interrupted': scores['Vata'] += 1
+    if form_data.get('sleep_pattern') == 'moderate_sound': scores['Pitta'] += 1
+    if form_data.get('sleep_pattern') == 'deep_long': scores['Kapha'] += 1
+
+    dominant_dosha = max(scores, key=scores.get) if any(scores.values()) else "Tridoshic"
+    return dominant_dosha
+
+def calculate_caloric_needs(form_data):
+    """Calculates daily caloric needs using Mifflin-St Jeor equation."""
+    try:
+        weight = float(form_data.get('weight', 70))
+        height = float(form_data.get('height', 175))
+        age = int(form_data.get('age', 30))
+        gender = form_data.get('gender', 'male')
+        activity = form_data.get('activity_level', 'sedentary')
+
+        # BMR calculation
+        if gender == 'male':
+            bmr = 10 * weight + 6.25 * height - 5 * age + 5
+        else: # female
+            bmr = 10 * weight + 6.25 * height - 5 * age - 161
+
+        # Activity multiplier
+        activity_multipliers = {
+            'sedentary': 1.2,
+            'light': 1.375,
+            'moderate': 1.55,
+            'very_active': 1.725
+        }
+        multiplier = activity_multipliers.get(activity, 1.2)
+        
+        caloric_needs = bmr * multiplier
+
+        # Adjust for health goal
+        goal = form_data.get('health_goal')
+        if goal == 'weight_loss':
+            caloric_needs -= 400 # Caloric deficit
+        elif goal == 'weight_gain':
+            caloric_needs += 400 # Caloric surplus
+            
+        return int(caloric_needs)
+
+    except (ValueError, TypeError):
+        return 2000 # Return a default value if form data is invalid
+
+def generate_profile_summary(form_data, ppg_data, dosha):
+    """Generates a concise health profile summary for the LLM."""
+    summary = (
+        f"User is a {form_data.get('age', 'N/A')}-year-old {form_data.get('gender', 'N/A')} "
+        f"with a dominant {dosha} dosha. "
+        f"Their primary health goal is {form_data.get('health_goal', 'general_wellness').replace('_', ' ')}. "
+        f"Reported allergies: {form_data.get('allergies', 'none')}. "
+        f"Pre-existing conditions: {form_data.get('medical_conditions', 'none')}."
+    )
+    if 'heart_rate' in ppg_data and 'error' not in ppg_data:
+        summary += f" Objective biometric scan shows a resting heart rate of {int(ppg_data['heart_rate'])} BPM."
+    # Future improvement: Add HRV analysis for stress here
+    return summary
+
+def generate_simulated_llm_response(dosha, calories, profile, safe_foods):
     """
-    return prompt
-
-def get_llm_diet_chart(health_profile):
+    This function simulates the output of a Large Language Model to generate
+    the diet chart and personalized recommendations.
     """
-    Simulates the LLM call and returns a complete diet chart.
-    In a real application, this function would make an API call to a Large Language Model.
-    """
+    # Simple logic to pick some foods for the diet chart from the safe list
+    breakfast_options = [f for f in safe_foods if any(k in f.lower() for k in ['poha', 'upma', 'idli', 'dosa', 'oats'])]
+    lunch_options = [f for f in safe_foods if any(k in f.lower() for k in ['roti', 'chapati', 'rice', 'dal', 'sabzi', 'curry'])]
+    dinner_options = [f for f in safe_foods if any(k in f.lower() for k in ['khichdi', 'soup', 'dal'])]
+
+    breakfast = random.choice(breakfast_options) if breakfast_options else "a light and suitable breakfast"
+    lunch = random.choice(lunch_options) if lunch_options else "a balanced lunch"
+    dinner = random.choice(dinner_options) if dinner_options else "a light dinner"
     
-    # --- This is where the actual API call to the LLM would go ---
-    # prompt = generate_diet_chart_prompt(health_profile)
-    # llm_response = your_llm_api.generate(prompt)
-    # return llm_response
-    
-    # --- Placeholder LLM Response ---
-    dosha = health_profile['dominant_dosha']
-    
-    # Simple logic to make the placeholder feel personalized
-    if dosha == "Pitta":
-        breakfast = "Cooling Coconut and Rice Flake Porridge"
-        lunch = "Quinoa Salad with Cucumber and Mint"
-        dinner = "Mung Dal Kitchari with Steamed Asparagus"
-        rec1 = f"Favor cooling foods like cucumber, coconut, and cilantro to balance your {dosha}."
-        rec2 = "Avoid spicy, oily, and excessively sour foods as they can aggravate your system."
-    elif dosha == "Vata":
-        breakfast = "Warm Spiced Oatmeal with Ghee and Cinnamon"
-        lunch = "Root Vegetable Stew with Basmati Rice"
-        dinner = "Nourishing Lentil Soup with Ginger"
-        rec1 = f"Emphasize warm, moist, and grounding foods to balance your airy {dosha} nature."
-        rec2 = "Maintain a regular meal schedule to support stable digestion."
-    else: # Kapha
-        breakfast = "Light and Spiced Millet Porridge"
-        lunch = "Steamed Vegetables with Chickpea Flour (Besan) Roti"
-        dinner = "Spicy Black Bean Soup with a side of steamed Kale"
-        rec1 = f"Focus on light, dry, and warm foods to invigorate your {dosha} constitution."
-        rec2 = "Incorporate pungent spices like ginger, black pepper, and turmeric to stimulate digestion."
+    recommendations = ""
+    if dosha == 'Vata':
+        recommendations = (
+            "1. Favor warm, moist, and grounding foods. Your constitution benefits from routine and nourishment.\n"
+            "2. Incorporate healthy fats like ghee and sesame oil to combat dryness.\n"
+            "3. Manage a tendency towards anxiety by practicing calming activities like meditation or a gentle walk in nature."
+        )
+    elif dosha == 'Pitta':
+        recommendations = (
+            "1. Favor cooling, fresh, and non-spicy foods to balance your natural heat. Avoid overly sour or salty tastes.\n"
+            "2. Stay well-hydrated with water and cooling herbal teas like mint or fennel.\n"
+            "3. Channel your focused energy, but avoid overheating. Engage in relaxing activities like swimming or evening strolls."
+        )
+    elif dosha == 'Kapha':
+        recommendations = (
+            "1. Favor warm, light, and stimulating foods with pungent, bitter, and astringent tastes.\n"
+            "2. Engage in regular, vigorous exercise to boost your metabolism and prevent stagnation.\n"
+            "3. Keep your mind active and stimulated with new hobbies and challenges to prevent feelings of lethargy."
+        )
+    else: # Tridoshic
+        recommendations = ("1. Your constitution is relatively balanced. Focus on a varied diet with fresh, seasonal foods.\n"
+                           "2. Listen to your body's signals of hunger and fullness to maintain equilibrium.\n"
+                           "3. Adapt your routine to the seasons: favor warming foods in winter and cooling foods in summer.")
 
-    llm_output = f"""
-    =================================
-    Your Personalized Ayurvedic Diet Chart
-    =================================
-    Dominant Dosha: {dosha}
-    Daily Calorie Target: {health_profile['caloric_target']} kcal
+    diet_chart_text = f"""
+Vedyura Personalized Health Plan
+=================================
 
-    --- MEAL PLAN ---
+User Health Profile Summary:
+----------------------------
+{profile}
 
-    **Breakfast: {breakfast}**
-    Recipe: Gently cook 1/2 cup of the main grain (e.g., rice flakes, oats, millet) with 1 cup of water or almond milk. Add a teaspoon of ghee (for Vata/Pitta) or a pinch of warming spice (for Kapha) like cinnamon or cardamom. Cook until tender.
+Your One-Day Meal Plan (Approx. Target: {calories} kcal):
+------------------------------------------------
+**Breakfast:**
+- Meal: {breakfast}
+- Rationale: [A real AI would explain why this is a good choice for your dosha, e.g., "Oats provide grounding energy for Vata..."]
+- Simple Recipe: [A simple, creative recipe for {breakfast} would be generated here by the real AI.]
 
-    **Lunch: {lunch}**
-    Recipe: Combine 1 cup of cooked grains (like quinoa or rice) with 1.5 cups of steamed or fresh, dosha-appropriate vegetables. Create a simple dressing with lemon juice, a touch of olive oil, and herbs like cilantro or mint.
+**Lunch:**
+- Meal: {lunch} with a side of seasonal greens.
+- Rationale: [A real AI would provide a reason, e.g., "A balanced lunch to provide sustained energy for a Pitta type..."]
+- Simple Recipe: [A simple, creative recipe for {lunch} would be generated here by the real AI.]
 
-    **Dinner: {dinner}**
-    Recipe: A simple kitchari or soup is ideal. Cook 1/2 cup of split mung beans with 1/4 cup of basmati rice in 3-4 cups of water until soft. Season with ginger, turmeric, and cumin. This is balancing for all doshas.
+**Dinner:**
+- Meal: {dinner}
+- Rationale: [A real AI would provide a reason, e.g., "A light and easily digestible meal for Kapha to prevent heaviness..."]
+- Simple Recipe: [A simple, creative recipe for {dinner} would be generated here by the real AI.]
 
-    --- PERSONALIZED RECOMMENDATIONS ---
+Personalized Recommendations:
+-----------------------------
+{recommendations}
 
-    1. {rec1}
-    2. {rec2}
-    3. **Mindful Eating:** Regardless of your dosha, eating in a calm and settled environment is crucial for proper digestion. Avoid distractions like TV or phones during meals.
-    4. **Hydration:** Sip warm water throughout the day. For Pitta, room temperature is fine. Vata and Kapha benefit most from warm or hot water.
-    """
-    
-    return llm_output
+Disclaimer: This diet chart is a preliminary suggestion based on the provided data. It is not a substitute for professional medical advice. Please consult with a qualified healthcare professional before making significant changes to your diet or lifestyle.
+"""
+    return diet_chart_text
+
