@@ -32,7 +32,6 @@
             <p>Generate a preliminary diet chart or explore recipes suitable for you.</p>
         </section>
 
-        <!-- Tab Navigation -->
         <div class="tabs-container">
             <div class="tab-nav">
                 <button class="tab-link active" onclick="openTab(event, 'DietChart')">Diet Chart</button>
@@ -40,23 +39,22 @@
                 <button class="tab-link" onclick="openTab(event, 'RecipeSearch')">Search Recipes</button>
             </div>
 
-            <!-- Tab Content: Diet Chart -->
             <div id="DietChart" class="tab-content" style="display: block;">
                 <h3>Your Personalized Ayurvedic Analysis (Rogi Pariksha)</h3>
-                
+
                 <div id="diagnosis-form-container">
                     <p>Please fill in your details below to begin. The more accurate your answers, the better your results.</p>
                     <div class="card diet-chart-creator">
                         <form id="diagnosis-form">
-                            <!-- Form sections remain the same -->
-                            <h4 class="form-section-header">Part 1: Basic Information</h4>
+                            <h4 class="form-section-header">Section 1: Foundational Information</h4>
+                            <p class="form-section-description">This section helps us understand your basic physical makeup and metabolic rate.</p>
                             <div class="form-grid">
                                 <div class="form-group">
-                                    <label for="age">Age (Years)</label>
-                                    <input type="number" id="age" name="age" required placeholder="e.g., 35">
+                                    <label for="age">1. What is your age?</label>
+                                    <input type="number" id="age" name="age" required placeholder="e.g., 35" min="1" oninput="this.value = !!this.value && Math.abs(this.value) >= 1 ? Math.abs(this.value) : null">
                                 </div>
                                 <div class="form-group">
-                                    <label for="gender">Gender</label>
+                                    <label for="gender">2. What is your biological gender?</label>
                                     <select id="gender" name="gender" required>
                                         <option value="">Select...</option>
                                         <option value="male">Male</option>
@@ -64,92 +62,139 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="weight">Weight (kg)</label>
-                                    <input type="number" id="weight" name="weight" step="0.1" required placeholder="e.g., 70">
+                                    <label for="weight">3. What is your current weight? (in kg)</label>
+                                    <input type="number" id="weight" name="weight" step="0.1" required placeholder="e.g., 70" min="1">
                                 </div>
                                 <div class="form-group">
-                                    <label for="height">Height (cm)</label>
-                                    <input type="number" id="height" name="height" required placeholder="e.g., 175">
-                                </div>
-                                <div class="form-group full-width">
-                                    <label for="activity_level">Activity Level</label>
-                                    <select id="activity_level" name="activity_level" required>
-                                        <option value="">Select...</option>
-                                        <option value="sedentary">Sedentary (little or no exercise)</option>
-                                        <option value="light">Lightly active (light exercise/sports 1-3 days/week)</option>
-                                        <option value="moderate">Moderately active (moderate exercise/sports 3-5 days/week)</option>
-                                        <option value="very_active">Very active (hard exercise/sports 6-7 days a week)</option>
-                                    </select>
-                                </div>
-                                <div class="form-group full-width">
-                                    <label for="region">Your Region/Locality</label>
-                                    <input type="text" id="region" name="region" required placeholder="e.g., Pune, Maharashtra">
+                                    <label for="height">4. What is your height? (in cm)</label>
+                                    <input type="number" id="height" name="height" required placeholder="e.g., 175" min="1">
                                 </div>
                             </div>
-                            <h4 class="form-section-header">Part 2: Physical Traits (Observation)</h4>
-                             <div class="form-grid">
-                                <div class="form-group">
-                                    <label>Body Frame</label>
+
+                            <h4 class="form-section-header">Section 2: Your Physical Nature (Deha Prakriti)</h4>
+                             <p class="form-section-description">This helps us understand your inherent physical constitution.</p>
+                            <div class="form-grid">
+                                <div class="form-group full-width">
+                                    <label>5. Which description best fits your overall body frame?</label>
                                     <select name="body_frame" required>
                                         <option value="">Select...</option>
-                                        <option value="slim">Slim, light build, prominent joints</option>
-                                        <option value="medium">Medium, athletic build, good muscle</option>
-                                        <option value="large">Large, heavy build, well-developed body</option>
+                                        <option value="light_lean">Light & Lean: "I'm naturally thin, have prominent joints, and find it difficult to gain weight."</option>
+                                        <option value="moderate_athletic">Moderate & Athletic: "I have a medium, muscular build. I can gain or lose weight with moderate effort."</option>
+                                        <option value="solid_sturdy">Solid & Sturdy: "I have a larger, well-built frame and tend to gain weight easily, but find it hard to lose."</option>
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label>Skin Texture</label>
+                                <div class="form-group full-width">
+                                    <label>6. How would you describe your skin?</label>
                                     <select name="skin_texture" required>
                                         <option value="">Select...</option>
-                                        <option value="dry_rough">Dry, rough, thin, prone to dryness</option>
-                                        <option value="oily_sensitive">Oily, sensitive, reddish, prone to acne</option>
-                                        <option value="thick_cool">Thick, cool, moist, pale</option>
+                                        <option value="dry_cool">Dry & Cool: "My skin often feels dry, rough, or cool to the touch, especially in winter."</option>
+                                        <option value="warm_sensitive">Warm & Sensitive: "My skin is warm, tends to be oily, and can be sensitive, sometimes breaking out in rashes or acne."</option>
+                                        <option value="thick_smooth">Thick & Smooth: "My skin feels thick, smooth, and is generally well-moisturized, sometimes feeling cool or clammy."</option>
                                     </select>
                                 </div>
-                                 <div class="form-group">
-                                    <label>Hair Type</label>
+                                <div class="form-group full-width">
+                                    <label>7. How does your hair typically feel and look?</label>
                                     <select name="hair_type" required>
                                         <option value="">Select...</option>
-                                        <option value="dry_thin">Dry, thin, frizzy or brittle</option>
-                                        <option value="oily_fine">Oily, fine, may grey prematurely</option>
-                                        <option value="thick_wavy">Thick, wavy, lustrous</option>
+                                        <option value="dry_brittle">Dry & Brittle: "My hair is on the thinner side and can be dry, frizzy, or brittle."</option>
+                                        <option value="fine_oily">Fine & Oily: "My hair is fine and can get oily. I might be prone to premature graying or thinning."</option>
+                                        <option value="thick_lustrous">Thick & Lustrous: "I have thick, strong, and often wavy hair that is generally healthy."</option>
                                     </select>
                                 </div>
                             </div>
-                            <h4 class="form-section-header">Part 3: Metabolic & Lifestyle Traits (Questioning)</h4>
+
+                            <h4 class="form-section-header">Section 3: Your Metabolism & Digestion (Agni)</h4>
+                            <p class="form-section-description">This section is crucial for understanding how your body processes food.</p>
                             <div class="form-grid">
-                                <div class="form-group">
-                                    <label>Appetite</label>
+                                <div class="form-group full-width">
+                                    <label>8. What is your appetite usually like?</label>
                                     <select name="appetite" required>
                                         <option value="">Select...</option>
-                                        <option value="irregular">Irregular, variable, sometimes forget to eat</option>
-                                        <option value="strong">Strong, sharp, get irritable if hungry</option>
-                                        <option value="slow">Slow but steady, can skip meals easily</option>
+                                        <option value="unpredictable">Unpredictable: "My appetite changes a lot. I might feel hungry at odd times and sometimes I forget to eat."</option>
+                                        <option value="strong_urgent">Strong & Urgent: "I have a strong appetite and get irritable, impatient, or 'hangry' if I have to wait for a meal."</option>
+                                        <option value="slow_steady">Slow & Steady: "I have a consistent but mild appetite. I enjoy food, but I can easily skip a meal without much discomfort."</option>
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label>Energy Levels</label>
-                                    <select name="energy_levels" required>
+                                <div class="form-group full-width">
+                                    <label>9. How would you describe your digestion and bowel habits?</label>
+                                    <select name="digestion" required>
                                         <option value="">Select...</option>
-                                        <option value="variable">Variable, comes in bursts, easily fatigued</option>
-                                        <option value="moderate_focused">Moderate but focused and goal-oriented</option>
-                                        <option value="steady_endurance">Steady, good stamina and endurance</option>
+                                        <option value="dry_gas">Tends towards Dryness/Gas: "I sometimes experience gas, bloating, or a tendency towards constipation with dry, hard stools."</option>
+                                        <option value="acidity_urgency">Tends towards Acidity/Urgency: "I can have a strong digestion, but I'm also prone to acidity, heartburn, or looser, more frequent bowel movements."</option>
+                                        <option value="slow_heaviness">Tends towards Slowness/Heaviness: "My digestion feels slow and heavy. I can feel sluggish after eating, and my bowel movements are regular but slow."</option>
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label>Sleep Pattern</label>
-                                    <select name="sleep_pattern" required>
+                                <div class="form-group full-width">
+                                    <label>10. How is your thirst throughout the day?</label>
+                                    <select name="thirst" required>
                                         <option value="">Select...</option>
-                                        <option value="light_interrupted">Light, interrupted, difficulty falling asleep</option>
-                                        <option value="moderate_sound">Moderate but sound, may wake up feeling hot</option>
-                                        <option value="deep_long">Deep, long, heavy, difficulty waking up</option>
+                                        <option value="forget_to_drink">Often Forget to Drink: "I don't feel thirsty very often and can sometimes forget to drink enough water."</option>
+                                        <option value="frequently_thirsty">Frequently Thirsty: "I often feel a strong thirst and prefer cool drinks."</option>
+                                        <option value="moderate_consistent">Moderate & Consistent: "My thirst is steady and moderate throughout the day."</option>
                                     </select>
                                 </div>
                             </div>
-                            <h4 class="form-section-header">Part 4: Health Goals & Medical Information</h4>
+
+                            <h4 class="form-section-header">Section 4: Your Energy & Mind (Manas Prakriti)</h4>
+                            <p class="form-section-description">This helps us understand your mental and emotional tendencies.</p>
+                            <div class="form-grid">
+                                <div class="form-group full-width">
+                                    <label>11. How are your energy levels on a typical day?</label>
+                                    <select name="energy_levels" required>
+                                        <option value="">Select...</option>
+                                        <option value="bursts_of_energy">Bursts of Energy: "My energy comes in waves. I can be very active for a short period, but then I crash and feel tired."</option>
+                                        <option value="focused_driven">Focused & Driven: "I have consistent, high-energy levels, especially when I'm focused on a goal I'm passionate about."</option>
+                                        <option value="steady_enduring">Steady & Enduring: "I'm not a sprinter, I'm a marathoner. My energy is steady and I have great stamina once I get going."</option>
+                                    </select>
+                                </div>
+                                <div class="form-group full-width">
+                                    <label>12. When you are under stress, what is your first reaction?</label>
+                                    <select name="stress_reaction" required>
+                                        <option value="">Select...</option>
+                                        <option value="anxiety_worry">Anxiety & Worry: "I tend to become anxious, overthink things, and worry about the future."</option>
+                                        <option value="irritability_impatience">Irritability & Impatience: "I become easily irritated, critical, or frustrated when things don't go according to plan."</option>
+                                        <option value="withdrawal_lethargy">Withdrawal & Lethargy: "I tend to shut down, withdraw, and can feel unmotivated or emotionally attached to the situation."</option>
+                                    </select>
+                                </div>
+                                <div class="form-group full-width">
+                                    <label>13. What is your natural sleep pattern like?</label>
+                                    <select name="sleep_pattern" required>
+                                        <option value="">Select...</option>
+                                        <option value="light_interrupted">Light & Interrupted: "I'm a light sleeper and wake up easily. It can be hard for my mind to shut off at night."</option>
+                                        <option value="sound_short">Sound but Short: "I usually fall asleep quickly and sleep soundly, but I don't need a lot of sleep to feel rested."</option>
+                                        <option value="deep_long">Deep & Long: "I am a very deep sleeper. I can sleep for a long time and often have trouble waking up in the morning, feeling groggy."</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <h4 class="form-section-header">Section 5: Subtle Indicators & Preferences</h4>
+                             <p class="form-section-description">This final section helps us understand the subtle, day-to-day patterns of your body and mind.</p>
+                            <div class="form-grid">
+                                <div class="form-group full-width">
+                                    <label>14. What is your natural tendency when it comes to speaking?</label>
+                                    <select name="speaking_style" required>
+                                        <option value="">Select...</option>
+                                        <option value="fast_talkative">Fast & Talkative: "I talk quickly, can be very chatty, and sometimes jump from topic to topic."</option>
+                                        <option value="clear_purposeful">Clear & Purposeful: "I speak clearly and articulately. I like to make a point and can be persuasive or direct."</option>
+                                        <option value="slow_calm">Slow & Calm: "I speak in a slow, calm, and measured way. I choose my words carefully."</option>
+                                    </select>
+                                </div>
+                                <div class="form-group full-width">
+                                    <label>15. How would you describe your body temperature, especially your hands and feet?</label>
+                                    <select name="body_temperature" required>
+                                        <option value="">Select...</option>
+                                        <option value="tend_to_be_cold">Tend to be Cold: "My hands and feet are often cold to the touch, and I prefer warm environments."</option>
+                                        <option value="tend_to_be_warm">Tend to be Warm: "I often feel warm, even when others are cold. I might have warm hands and feet and prefer cooler temperatures."</option>
+                                        <option value="adaptable">Adaptable: "My body temperature seems to adapt well to the environment; I don't feel extreme heat or cold."</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <h4 class="form-section-header">Section 6: Your Lifestyle & Goals</h4>
+                             <p class="form-section-description">This helps us tailor the recommendations to your life.</p>
                             <div class="form-grid">
                                 <div class="form-group">
-                                    <label for="health_goal">Primary Health Goal</label>
+                                    <label for="health_goal">16. What is your primary health goal right now?</label>
                                     <select id="health_goal" name="health_goal" required>
                                         <option value="">Select...</option>
                                         <option value="weight_loss">Weight Loss</option>
@@ -161,12 +206,31 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="allergies">Allergies (if any)</label>
-                                    <input type="text" id="allergies" name="allergies" placeholder="e.g., Peanuts, Gluten">
+                                    <label for="activity_level">17. How would you describe your daily physical activity?</label>
+                                    <select id="activity_level" name="activity_level" required>
+                                        <option value="">Select...</option>
+                                        <option value="sedentary">Mostly Seated (e.g., Desk job, driving)</option>
+                                        <option value="light">Lightly Active (e.g., Walking, household chores)</option>
+                                        <option value="moderate">Moderately Active (e.g., Regular exercise, sports 3-5 days/week)</option>
+                                        <option value="very_active">Very Active (e.g., Physically demanding job, intense daily workouts)</option>
+                                    </select>
                                 </div>
                                 <div class="form-group full-width">
-                                    <label for="medical_conditions">Pre-existing Medical Conditions</label>
-                                    <textarea id="medical_conditions" name="medical_conditions" rows="3" placeholder="e.g., Diabetes, High Blood Pressure"></textarea>
+                                    <label for="yoga_experience">18. What is your level of experience with yoga?</label>
+                                    <select id="yoga_experience" name="yoga_experience" required>
+                                        <option value="">Select...</option>
+                                        <option value="beginner">Beginner: "I'm new to yoga or have practiced very little."</option>
+                                        <option value="intermediate">Intermediate: "I practice yoga occasionally and am familiar with basic poses."</option>
+                                        <option value="advanced">Advanced: "I have a regular and consistent yoga practice."</option>
+                                    </select>
+                                </div>
+                                <div class="form-group full-width">
+                                    <label for="allergies">19. Do you have any known food allergies or intolerances?</label>
+                                    <textarea id="allergies" name="allergies" rows="2" placeholder="e.g., Peanuts, Gluten, Dairy. Please list one per line."></textarea>
+                                </div>
+                                <div class="form-group full-width">
+                                    <label for="medical_conditions">20. Are you currently taking any medications or have any diagnosed medical conditions?</label>
+                                    <textarea id="medical_conditions" name="medical_conditions" rows="3" placeholder="e.g., Diabetes, High Blood Pressure, Thyroid issues. This is important for safety."></textarea>
                                 </div>
                             </div>
                             <div class="form-actions">
@@ -175,6 +239,7 @@
                         </form>
                     </div>
                 </div>
+
                 <div id="form-submit-popup" class="popup-message hidden"><p>Form Submitted!</p></div>
                 <div id="chart-actions-container" class="hidden">
                     <div class="card" id="scan-me-container">
@@ -206,7 +271,6 @@
                 </div>
             </div>
 
-            <!-- Tab Content: Chat-Bot -->
             <div id="ChatBot" class="tab-content">
                 <h3>Ayurvedic Personal Diet Tool</h3>
                 <div class="chatbox__support card">
@@ -224,13 +288,11 @@
                 </div>
             </div>
 
-            <!-- Tab Content: Recipe Search -->
             <div id="RecipeSearch" class="tab-content">
                 <h3>Your Personalized Recipe Library</h3>
                 <div class="card recipe-container">
                     <div id="recipe-content">
-                        <!-- JS will insert dynamic content here -->
-                    </div>
+                        </div>
                 </div>
             </div>
         </div>
@@ -240,6 +302,7 @@
 
 {% block scripts %}
 <script>
+    // The JavaScript remains the same
     function openTab(evt, tabName) {
         let i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName("tab-content");
@@ -348,8 +411,6 @@
     }
 </script>
 
-<!-- Link to other JS files -->
 <script src="{{ url_for('static', filename='js/ppg.js') }}"></script>
 <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
 {% endblock %}
-
