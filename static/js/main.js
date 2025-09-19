@@ -71,7 +71,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const scanMeBtn = document.getElementById('scan-me-btn');
     const finalOutputContainer = document.getElementById('final-output-container');
     const editFormBtn = document.getElementById('edit-form-btn');
-    const downloadChartBtn = document.getElementById('download-chart-btn');
+    
+    // NEW: Get references to the two new download buttons
+    const downloadDailyChartBtn = document.getElementById('download-daily-chart-btn');
+    const downloadWeeklyChartBtn = document.getElementById('download-weekly-chart-btn');
+    
+    // REMOVED: The old single download button reference is no longer needed.
+    // const downloadChartBtn = document.getElementById('download-chart-btn');
+    
     const cameraFeed = document.getElementById('camera-feed');
 
     // --- Camera Control ---
@@ -160,11 +167,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    if(downloadChartBtn) {
-        downloadChartBtn.addEventListener('click', () => {
-            // Trigger the download from the backend
-            window.location.href = '/patient/generate-diet-chart';
+    // REMOVED: The old event listener for the single download button.
+    // if(downloadChartBtn) {
+    //     downloadChartBtn.addEventListener('click', () => {
+    //         // Trigger the download from the backend
+    //         window.location.href = '/patient/generate-diet-chart';
+    //     });
+    // }
+    
+    // NEW: Add event listener for the daily chart button
+    if(downloadDailyChartBtn) {
+        downloadDailyChartBtn.addEventListener('click', () => {
+            // Trigger the download, specifying 'daily' plan type
+            window.location.href = '/patient/generate-diet-chart?plan_type=daily';
+        });
+    }
+
+    // NEW: Add event listener for the weekly chart button
+    if(downloadWeeklyChartBtn) {
+        downloadWeeklyChartBtn.addEventListener('click', () => {
+            // Trigger the download, specifying 'weekly' plan type
+            window.location.href = '/patient/generate-diet-chart?plan_type=weekly';
         });
     }
 });
-

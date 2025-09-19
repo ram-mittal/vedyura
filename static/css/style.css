@@ -1359,3 +1359,108 @@ h2 {
         box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
     }
 }
+/*
+-----------------------------------------
+  20. Recipe Search Tab Styles
+-----------------------------------------
+*/
+.recipe-container {
+    padding: 2rem;
+}
+
+.recipe-search-bar input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    box-sizing: border-box;
+}
+
+#recipe-list {
+    max-height: 600px;
+    overflow-y: auto;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+}
+
+.recipe-item {
+    border-bottom: 1px solid var(--color-border);
+}
+
+.recipe-item:last-child {
+    border-bottom: none;
+}
+
+.recipe-title {
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.2s;
+}
+
+.recipe-title::after {
+    content: '+';
+    position: absolute;
+    right: 1.5rem;
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    transition: transform 0.2s;
+}
+
+.recipe-item.active .recipe-title::after {
+    transform: rotate(45deg);
+}
+
+.recipe-item.active .recipe-title {
+    background-color: var(--color-background);
+}
+
+.recipe-title:hover {
+    background-color: var(--color-background);
+}
+
+.recipe-details {
+    display: none;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    background-color: var(--color-background);
+    border-top: 1px solid var(--color-border);
+}
+
+.recipe-details h4 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-primary);
+}
+
+.recipe-details p {
+    margin: 0;
+    line-height: 1.6;
+    white-space: pre-wrap; /* Preserves formatting */
+}
+
+.recipe-notice, .recipe-error {
+    text-align: center;
+    font-style: italic;
+    padding: 2rem;
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+}
+/* 21. Recipe Summary Styles
+------------------------------------- */
+.recipe-summary {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    padding: 1rem;
+    background-color: var(--color-background);
+    border-radius: 8px;
+}
+
+.recipe-summary strong {
+    color: var(--color-primary);
+    font-weight: 600;
+}

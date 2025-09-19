@@ -8,7 +8,7 @@ try:
 except (FileNotFoundError, json.JSONDecodeError):
     FOOD_DATA = []
 
-def generate_health_profile(form_data, ppg_data):
+def generate_health_profile(form_data, ppg_data, plan_type='daily'): # NEW: Added plan_type
     """
     Analyzes user data to determine dosha, caloric needs, and generate a
     personalized diet chart with advice. This is the "Intelligent Backend Engine".
@@ -31,7 +31,8 @@ def generate_health_profile(form_data, ppg_data):
     summary = generate_profile_summary(form_data, ppg_data, dominant_dosha)
     
     # --- 4. Construct the Upgraded LLM Prompt (Simulated) ---
-    simulated_llm_output = generate_simulated_llm_response(dominant_dosha, caloric_needs, summary, approved_foods)
+    # NEW: Pass plan_type to the response generator
+    simulated_llm_output = generate_simulated_llm_response(dominant_dosha, caloric_needs, summary, approved_foods, plan_type)
 
     return {
         'dominant_dosha': dominant_dosha,
@@ -125,12 +126,10 @@ def generate_profile_summary(form_data, ppg_data, dosha):
     # Future improvement: Add HRV analysis for stress here
     return summary
 
-def generate_simulated_llm_response(dosha, calories, profile, safe_foods):
+def generate_one_day_meal_plan(safe_foods):
     """
-    This function simulates the output of a Large Language Model to generate
-    the diet chart and personalized recommendations.
+    NEW: Generates a single day's meal plan. This function is created to be reusable.
     """
-    # Simple logic to pick some foods for the diet chart from the safe list
     breakfast_options = [f for f in safe_foods if any(k in f.lower() for k in ['poha', 'upma', 'idli', 'dosa', 'oats'])]
     lunch_options = [f for f in safe_foods if any(k in f.lower() for k in ['roti', 'chapati', 'rice', 'dal', 'sabzi', 'curry'])]
     dinner_options = [f for f in safe_foods if any(k in f.lower() for k in ['khichdi', 'soup', 'dal'])]
@@ -138,7 +137,37 @@ def generate_simulated_llm_response(dosha, calories, profile, safe_foods):
     breakfast = random.choice(breakfast_options) if breakfast_options else "a light and suitable breakfast"
     lunch = random.choice(lunch_options) if lunch_options else "a balanced lunch"
     dinner = random.choice(dinner_options) if dinner_options else "a light dinner"
+
+    return f"""
+**Breakfast:**
+- Meal: {breakfast}
+- Rationale: [A real AI would explain why this is a good choice for your dosha.]
+
+**Lunch:**
+- Meal: {lunch} with a side of seasonal greens.
+- Rationale: [A real AI would provide a reason for this choice.]
+
+**Dinner:**
+- Meal: {dinner}
+- Rationale: [A real AI would provide a reason for this choice.]
+"""
+
+def generate_simulated_llm_response(dosha, calories, profile, safe_foods, plan_type='daily'):
+    """
+    This function simulates the output of a Large Language Model to generate
+    the diet chart and personalized recommendations.
+    UPDATED: Now generates either a daily or weekly plan.
+    """
     
+    meal_plan_text = ""
+    if plan_type == 'weekly':
+        days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        for day in days:
+            meal_plan_text += f"\n--- {day} ---\n"
+            meal_plan_text += generate_one_day_meal_plan(safe_foods)
+    else: # Default to daily
+        meal_plan_text = generate_one_day_meal_plan(safe_foods)
+
     recommendations = ""
     if dosha == 'Vata':
         recommendations = (
@@ -171,22 +200,9 @@ User Health Profile Summary:
 ----------------------------
 {profile}
 
-Your One-Day Meal Plan (Approx. Target: {calories} kcal):
+Your Meal Plan (Approx. Target: {calories} kcal per day):
 ------------------------------------------------
-**Breakfast:**
-- Meal: {breakfast}
-- Rationale: [A real AI would explain why this is a good choice for your dosha, e.g., "Oats provide grounding energy for Vata..."]
-- Simple Recipe: [A simple, creative recipe for {breakfast} would be generated here by the real AI.]
-
-**Lunch:**
-- Meal: {lunch} with a side of seasonal greens.
-- Rationale: [A real AI would provide a reason, e.g., "A balanced lunch to provide sustained energy for a Pitta type..."]
-- Simple Recipe: [A simple, creative recipe for {lunch} would be generated here by the real AI.]
-
-**Dinner:**
-- Meal: {dinner}
-- Rationale: [A real AI would provide a reason, e.g., "A light and easily digestible meal for Kapha to prevent heaviness..."]
-- Simple Recipe: [A simple, creative recipe for {dinner} would be generated here by the real AI.]
+{meal_plan_text}
 
 Personalized Recommendations:
 -----------------------------
@@ -195,4 +211,3 @@ Personalized Recommendations:
 Disclaimer: This diet chart is a preliminary suggestion based on the provided data. It is not a substitute for professional medical advice. Please consult with a qualified healthcare professional before making significant changes to your diet or lifestyle.
 """
     return diet_chart_text
-

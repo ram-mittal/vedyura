@@ -8,7 +8,7 @@ from personal_diet_tool import get_tool_response
 from fpdf import FPDF
 
 # --- NEW: Import the Health Analyzer ---
-from health_analyzer import generate_health_profile
+from health_analyzer import generate_health_profile, determine_dominant_dosha
 
 # --- Imports for PPG Functionality ---
 import cv2
@@ -197,29 +197,35 @@ def patient_profile():
         return render_template('patient_profile.html')
     return redirect(url_for('signup'))
 
-# --- "Rogi Pariksha" Workflow Routes ---
+# --- "Rogi Pariksha" and Recipe Workflow Routes ---
 
 @app.route('/patient/save-form-data', methods=['POST'])
 def save_form_data():
-    """Saves the detailed form data to the user's session."""
+    """Saves the detailed form data and determined dosha to the user's session."""
     if 'user_id' in session and session.get('role') == 'patient':
         form_data = request.form.to_dict()
         session['form_data'] = form_data
+
+        # Analyze and store the dominant dosha immediately
+        session['dominant_dosha'] = determine_dominant_dosha(form_data)
+        
         session.modified = True
         return jsonify({'status': 'success', 'message': 'Form data saved.'})
     return jsonify({'status': 'error', 'message': 'User not logged in.'})
+
 
 @app.route('/patient/generate-diet-chart')
 def generate_diet_chart_pdf():
     """Generates and returns the diet chart as a downloadable PDF."""
     if 'user_id' in session and session.get('role') == 'patient':
+        plan_type = request.args.get('plan_type', 'daily')
         form_data = session.get('form_data')
         ppg_results = session.get('ppg_results', {})
 
         if not form_data:
             return "Error: No form data found. Please complete the self-diagnosis form first.", 400
 
-        health_profile = generate_health_profile(form_data, ppg_results)
+        health_profile = generate_health_profile(form_data, ppg_results, plan_type)
         
         class PDF(FPDF):
             def header(self):
@@ -236,7 +242,8 @@ def generate_diet_chart_pdf():
         pdf.add_page()
         pdf.set_font("Arial", size=12)
         
-        pdf.multi_cell(0, 10, health_profile['diet_chart_text'].encode('latin-1', 'replace').decode('latin-1'))
+        clean_text = health_profile['diet_chart_text'].encode('latin-1', 'replace').decode('latin-1')
+        pdf.multi_cell(0, 10, clean_text)
         
         pdf_bytes = pdf.output(dest='S').encode('latin-1')
         
@@ -246,6 +253,39 @@ def generate_diet_chart_pdf():
         
         return response
     return redirect(url_for('signup'))
+
+# --- MODIFIED: API Route to fetch recipes now includes count and dosha ---
+@app.route('/patient/get-recipes')
+def get_recipes():
+    """
+    Fetches recipes suitable for the patient's dominant dosha stored in the session.
+    """
+    if 'user_id' not in session or session.get('role') != 'patient':
+        return jsonify({'error': 'Not authorized'}), 401
+
+    if 'dominant_dosha' not in session:
+        return jsonify({'error': 'Please complete the self-diagnosis test first.'}), 400
+
+    dominant_dosha = session['dominant_dosha'].lower()
+    
+    try:
+        with open('data/recipes.json', 'r', encoding='utf-8') as f:
+            all_recipes = json.load(f)
+        
+        recommended_recipes = [
+            recipe for recipe in all_recipes
+            if recipe.get('properties', {}).get(dominant_dosha) in ['Decrease', 'Neutral']
+        ]
+        
+        # NEW: Return a dictionary with count, dosha, and the recipe list
+        return jsonify({
+            'count': len(recommended_recipes),
+            'dosha': dominant_dosha.capitalize(),
+            'recipes': recommended_recipes
+        })
+        
+    except (FileNotFoundError, json.JSONDecodeError):
+        return jsonify({'error': 'Recipe database not found.'}), 500
 
 
 # --- PPG (Heart Rate Monitor) Integration ---
