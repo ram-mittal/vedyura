@@ -8,41 +8,93 @@ try:
 except (FileNotFoundError, json.JSONDecodeError):
     FOOD_DATA = []
 
+# --- NEW: Helper function to calculate BMI ---
+def calculate_bmi(form_data):
+    """Calculates BMI and provides a category."""
+    try:
+        weight_kg = float(form_data.get('weight', 0))
+        height_cm = float(form_data.get('height', 0))
+        if weight_kg == 0 or height_cm == 0:
+            return None, "N/A"
+
+        height_m = height_cm / 100
+        bmi = round(weight_kg / (height_m ** 2), 1)
+
+        if bmi < 18.5:
+            category = "Underweight"
+        elif 18.5 <= bmi < 24.9:
+            category = "Normal Weight"
+        elif 25 <= bmi < 29.9:
+            category = "Overweight"
+        else:
+            category = "Obesity"
+        return bmi, category
+    except (ValueError, TypeError, ZeroDivisionError):
+        return None, "N/A"
+
+# --- NEW: Helper function to calculate Protein needs ---
+def calculate_protein_needs(form_data):
+    """Estimates daily protein needs based on weight and activity level."""
+    try:
+        weight_kg = float(form_data.get('weight', 0))
+        activity = form_data.get('activity_level', 'sedentary')
+        if weight_kg == 0:
+            return "N/A"
+
+        multipliers = {
+            'sedentary': 0.8,
+            'light': 1.0,
+            'moderate': 1.2,
+            'very_active': 1.4
+        }
+        multiplier = multipliers.get(activity, 0.8)
+        protein_grams = int(weight_kg * multiplier)
+        return f"Approx. {protein_grams}g / day"
+    except (ValueError, TypeError):
+        return "N/A"
+
+
 def generate_health_profile(form_data, ppg_data, plan_type='daily'):
     """
-    Analyzes user data to determine dosha, caloric needs, and generate a
-    personalized diet chart with advice. This is the "Intelligent Backend Engine".
+    MODIFIED: Analyzes user data and calculates key health metrics.
     """
     # --- 1. Rule-Based Engine: Determine Dosha & Caloric Needs ---
-    # UPDATED: This function is now compatible with the new form
     dominant_dosha = determine_dominant_dosha(form_data)
-
-    # This function remains compatible
     caloric_needs = calculate_caloric_needs(form_data)
+
+    # --- NEW: Calculate additional health metrics ---
+    bmi_value, bmi_category = calculate_bmi(form_data)
+    protein_target = calculate_protein_needs(form_data)
+    heart_rate = ppg_data.get('heart_rate')
 
     # --- 2. Rule-Based Engine: Filter Food Database ---
     approved_foods = [
-        food['food_name'] for food in FOOD_DATA
+        food for food in FOOD_DATA
         if food.get('ayurvedic_properties', {}).get(dominant_dosha.lower()) in ['Decrease', 'Neutral']
     ]
 
     # --- 3. Generate Health Profile Summary for the LLM ---
-    # UPDATED: This function now creates a richer summary
     summary = generate_profile_summary(form_data, ppg_data, dominant_dosha)
 
     # --- 4. Construct the Upgraded LLM Prompt (Simulated) ---
-    simulated_llm_output = generate_simulated_llm_response(dominant_dosha, caloric_needs, summary, approved_foods, plan_type)
+    simulated_llm_output = generate_simulated_llm_response(
+        dosha=dominant_dosha,
+        calories=caloric_needs,
+        profile=summary,
+        safe_foods=approved_foods,
+        plan_type=plan_type,
+        bmi_value=bmi_value,
+        bmi_category=bmi_category,
+        protein_target=protein_target,
+        heart_rate=heart_rate
+    )
 
-    return {
-        'dominant_dosha': dominant_dosha,
-        'caloric_target': caloric_needs,
-        'health_profile_summary': summary,
-        'diet_chart_text': simulated_llm_output
-    }
+    return simulated_llm_output
+
 
 def determine_dominant_dosha(form_data):
     """
-    UPDATED: Determines dominant dosha based on a weighted scoring of the NEW form data.
+    Determines dominant dosha based on a weighted scoring of the form data.
     """
     scores = {'Vata': 0, 'Pitta': 0, 'Kapha': 0}
 
@@ -117,7 +169,7 @@ def calculate_caloric_needs(form_data):
             'very_active': 1.725
         }
         multiplier = activity_multipliers.get(activity, 1.2)
-        
+
         caloric_needs = bmr * multiplier
 
         # Adjust for health goal
@@ -126,7 +178,7 @@ def calculate_caloric_needs(form_data):
             caloric_needs -= 400 # Caloric deficit
         elif goal == 'weight_gain':
             caloric_needs += 400 # Caloric surplus
-            
+
         return int(caloric_needs)
 
     except (ValueError, TypeError):
@@ -134,9 +186,8 @@ def calculate_caloric_needs(form_data):
 
 def generate_profile_summary(form_data, ppg_data, dosha):
     """
-    UPDATED: Generates a more detailed health profile summary using the NEW form data.
+    Generates a more detailed health profile summary using the new form data.
     """
-    # Helper to format the descriptive answers
     def format_answer(key):
         raw_answer = form_data.get(key, 'N/A')
         return raw_answer.replace('_', ' ').replace(' and ', ' & ')
@@ -152,56 +203,63 @@ def generate_profile_summary(form_data, ppg_data, dosha):
     )
     if 'heart_rate' in ppg_data and 'error' not in ppg_data:
         summary += f" An objective biometric scan shows a resting heart rate of {int(ppg_data['heart_rate'])} BPM."
-    
+
     summary += f" Their yoga experience is at a '{format_answer('yoga_experience')}' level."
-    
+
     return summary
 
-def generate_one_day_meal_plan(safe_foods):
+def get_rationale(food_name, dosha):
+    """Generates a simple, dosha-specific rationale for a food choice."""
+    dosha_qualities = {
+        'Vata': {'balancing': 'grounding and nourishing', 'avoiding': 'light and dry'},
+        'Pitta': {'balancing': 'cooling and hydrating', 'avoiding': 'spicy and heating'},
+        'Kapha': {'balancing': 'light and stimulating', 'avoiding': 'heavy and oily'}
+    }
+    if 'soup' in food_name.lower() or 'dal' in food_name.lower():
+        return f"This is a warm, {dosha_qualities[dosha]['balancing']} choice, making it excellent for you."
+    if 'rice' in food_name.lower() or 'roti' in food_name.lower():
+        return f"Provides sustained energy and is easy to digest, which supports your constitution."
+    if 'poha' in food_name.lower() or 'oats' in food_name.lower():
+        return f"A light but satisfying option to start your day without feeling heavy."
+    return f"This food is chosen for its {dosha_qualities[dosha]['balancing']} properties."
+
+def generate_one_day_meal_plan(safe_foods, dosha):
     """
-    Generates a single day's meal plan. This function is created to be reusable.
+    Generates a single day's meal plan with meaningful, dosha-specific rationales.
     """
-    breakfast_options = [f for f in safe_foods if any(k in f.lower() for k in ['poha', 'upma', 'idli', 'dosa', 'oats'])]
-    lunch_options = [f for f in safe_foods if any(k in f.lower() for k in ['roti', 'chapati', 'rice', 'dal', 'sabzi', 'curry'])]
-    dinner_options = [f for f in safe_foods if any(k in f.lower() for k in ['khichdi', 'soup', 'dal'])]
+    breakfast_options = [f for f in safe_foods if any(k in f['food_name'].lower() for k in ['poha', 'upma', 'idli', 'dosa', 'oats'])]
+    lunch_options = [f for f in safe_foods if any(k in f['food_name'].lower() for k in ['roti', 'chapati', 'rice', 'dal', 'sabzi', 'curry'])]
+    dinner_options = [f for f in safe_foods if any(k in f['food_name'].lower() for k in ['khichdi', 'soup', 'dal'])]
 
-    breakfast = random.choice(breakfast_options) if breakfast_options else "a light and suitable breakfast"
-    lunch = random.choice(lunch_options) if lunch_options else "a balanced lunch"
-    dinner = random.choice(dinner_options) if dinner_options else "a light dinner"
+    breakfast = random.choice(breakfast_options) if breakfast_options else {"food_name": "A light and suitable breakfast"}
+    lunch = random.choice(lunch_options) if lunch_options else {"food_name": "A balanced lunch"}
+    dinner = random.choice(dinner_options) if dinner_options else {"food_name": "A light dinner"}
 
-    return f"""
-**Breakfast:**
-- Meal: {breakfast}
-- Rationale: [A real AI would explain why this is a good choice for your dosha.]
+    return [
+        {"meal": "Breakfast", "food": breakfast['food_name'], "rationale": get_rationale(breakfast['food_name'], dosha)},
+        {"meal": "Lunch", "food": f"{lunch['food_name']} with seasonal greens.", "rationale": get_rationale(lunch['food_name'], dosha)},
+        {"meal": "Dinner", "food": dinner['food_name'], "rationale": get_rationale(dinner['food_name'], dosha)}
+    ]
 
-**Lunch:**
-- Meal: {lunch} with a side of seasonal greens.
-- Rationale: [A real AI would provide a reason for this choice.]
-
-**Dinner:**
-- Meal: {dinner}
-- Rationale: [A real AI would provide a reason for this choice.]
-"""
-
-def generate_simulated_llm_response(dosha, calories, profile, safe_foods, plan_type='daily'):
+def generate_simulated_llm_response(dosha, calories, profile, safe_foods, plan_type, **kwargs):
     """
-    This function simulates the output of a Large Language Model to generate
-    the diet chart and personalized recommendations.
-    This contains the professional, 10-step Yoga sequence.
+    MODIFIED: Now accepts and returns a dictionary with all health data.
     """
-    
-    meal_plan_text = ""
+    meal_plan = []
     if plan_type == 'weekly':
         days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         for day in days:
-            meal_plan_text += f"\n--- {day} ---\n"
-            meal_plan_text += generate_one_day_meal_plan(safe_foods)
+            day_plan = generate_one_day_meal_plan(safe_foods, dosha)
+            for item in day_plan:
+                item['day'] = day
+            meal_plan.extend(day_plan)
     else: # Default to daily
-        meal_plan_text = generate_one_day_meal_plan(safe_foods)
+        meal_plan = generate_one_day_meal_plan(safe_foods, dosha)
 
     recommendations = ""
-    yoga_recommendations = "" 
+    yoga_recommendations = ""
 
+    # ... (The logic for generating recommendations and yoga sequences remains the same) ...
     if dosha == 'Vata':
         recommendations = (
             "1. Favor warm, moist, and grounding foods. Your constitution benefits from routine and nourishment.\n"
@@ -285,26 +343,22 @@ def generate_simulated_llm_response(dosha, calories, profile, safe_foods, plan_t
             "10. **Final Relaxation (Savasana):** 5-10 minutes."
         )
 
-    diet_chart_text = f"""
-Vedyura Personalized Health Plan
-=================================
+    disclaimer = (
+        "This diet chart is a preliminary suggestion based on the provided data. It is not a substitute for professional "
+        "medical advice. Please consult with a qualified healthcare professional or a certified yoga instructor before "
+        "making significant changes to your diet or lifestyle, especially if you have pre-existing health conditions."
+    )
 
-User Health Profile Summary:
-----------------------------
-{profile}
-
-Your Meal Plan (Approx. Target: {calories} kcal per day):
-------------------------------------------------
-{meal_plan_text}
-
-Personalized Lifestyle Recommendations:
-------------------------------------
-{recommendations}
-
-Your Daily Yoga & Movement Sequence:
-------------------------------------
-{yoga_recommendations}
-
-Disclaimer: This diet chart is a preliminary suggestion based on the provided data. It is not a substitute for professional medical advice. Please consult with a qualified healthcare professional or a certified yoga instructor before making significant changes to your diet or lifestyle, especially if you have pre-existing health conditions.
-"""
-    return diet_chart_text
+    return {
+        'profile_summary': profile,
+        'calories': calories,
+        'meal_plan': meal_plan,
+        'plan_type': plan_type,
+        'recommendations': recommendations,
+        'yoga_sequence': yoga_recommendations,
+        'disclaimer': disclaimer,
+        'bmi_value': kwargs.get('bmi_value'),
+        'bmi_category': kwargs.get('bmi_category'),
+        'protein_target': kwargs.get('protein_target'),
+        'heart_rate': kwargs.get('heart_rate')
+    }
