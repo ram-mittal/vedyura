@@ -166,26 +166,21 @@ def doctor_diet_chart():
                         with open(f'data/patient_diagnosis_{patient["id"]}.json', 'r') as f:
                             diagnosis_data = json.load(f)
                         
-                        # --- MODIFIED: Generate a full health profile for the patient ---
                         form_data = diagnosis_data.get('form_data', {})
                         ppg_results = diagnosis_data.get('ppg_results', {})
                         
-                        # Use the existing health_analyzer function to get all metrics
-                        health_profile = generate_health_profile(form_data, ppg_results, 'daily')
+                        health_profile = generate_health_profile(form_data, ppg_results)
 
                         patient['diagnosis'] = {
                             'dominant_dosha': diagnosis_data.get('dominant_dosha', 'N/A'),
                             'health_goals': form_data.get('health_goal', 'N/A'),
                             'dietary_preferences': form_data.get('dietary_preferences', 'N/A'),
                             'allergies': form_data.get('allergies', 'N/A'),
-                            # Add new metrics from the health profile
                             'bmi_value': health_profile.get('bmi_value', 'N/A'),
                             'bmi_category': health_profile.get('bmi_category', 'Not Calculated'),
                             'heart_rate': int(health_profile.get('heart_rate')) if health_profile.get('heart_rate') else "N/A",
                             'protein_target': health_profile.get('protein_target', 'Not Calculated')
                         }
-                        # --- END MODIFICATION ---
-
                     except (FileNotFoundError, json.JSONDecodeError):
                         patient['diagnosis'] = None
                     current_patients.append(patient)
@@ -199,7 +194,6 @@ def generate_doctor_diet_chart_pdf():
         return redirect(url_for('signup'))
 
     patient_id = request.form.get('patient_id')
-    # Again, placeholder data. You'd fetch this from your data store.
     patient_info = {
         'id': patient_id,
         'name': 'John Doe',
@@ -351,7 +345,7 @@ def remove_patient():
         request_updated = False
         for req in requests_list:
             if str(req.get('patient_id')) == str(patient_id) and str(req.get('doctor_id')) == str(doctor_id) and req.get('status') == 'accepted':
-                req['status'] = 'declined'  # Or any other status that marks them as removed
+                req['status'] = 'declined'
                 request_updated = True
                 break
         
@@ -455,7 +449,6 @@ def save_form_data():
         except IOError as e:
             return jsonify({'status': 'error', 'message': f'Could not save data: {e}'})
 
-        # We can still keep it in the session for the patient's current use
         session['form_data'] = form_data
         session['dominant_dosha'] = dominant_dosha
         session.modified = True
@@ -464,7 +457,6 @@ def save_form_data():
     return jsonify({'status': 'error', 'message': 'User not logged in.'})
 
 
-# --- MODIFIED: PDF Generation Route with table fix and new metrics ---
 @app.route('/patient/generate-diet-chart')
 def generate_diet_chart_pdf():
     """Generates and returns a well-formatted diet chart as a downloadable PDF."""
@@ -476,9 +468,8 @@ def generate_diet_chart_pdf():
 
     if not form_data:
         return "Error: No form data found. Please complete the self-diagnosis form first.", 400
-
-    plan_type = request.args.get('plan_type', 'daily')
-    health_profile = generate_health_profile(form_data, ppg_results, plan_type)
+    
+    health_profile = generate_health_profile(form_data, ppg_results)
 
     class PDF(FPDF):
         def header(self):
@@ -506,8 +497,7 @@ def generate_diet_chart_pdf():
             self.set_text_color(0, 0, 0)
             self.multi_cell(0, 6, body)
             self.ln()
-
-        # --- NEW: Heavily revised table creation method to fix all overlap issues ---
+        
         def create_table(self, table_data, headers, col_widths):
             self.set_font('Arial', 'B', 10)
             self.set_fill_color(230, 230, 230)
@@ -516,7 +506,6 @@ def generate_diet_chart_pdf():
                 self.cell(col_widths[i], 7, header, 1, 0, 'C', 1)
             self.ln()
 
-            # Data rows
             self.set_font('Arial', '', 10)
             line_height = self.font_size * 1.5
 
@@ -525,35 +514,29 @@ def generate_diet_chart_pdf():
                 x_pos = self.get_x()
                 max_y = start_y
 
-                # Draw the cells and track the maximum Y position
                 for i, header in enumerate(headers):
                     key = header.lower().replace(' ', '_')
                     text = str(row.get(key, '')).encode('latin-1', 'replace').decode('latin-1')
                     self.set_xy(x_pos, start_y)
                     self.multi_cell(col_widths[i], line_height, text, 0, 'L')
-                    # Update max_y if the current cell is taller
                     if self.get_y() > max_y:
                         max_y = self.get_y()
                     x_pos += col_widths[i]
 
-                # Draw borders for the entire row using the calculated max height
-                self.set_xy(self.l_margin, start_y) # Go back to the start of the row
+                self.set_xy(self.l_margin, start_y)
                 row_height = max_y - start_y
                 for i, _ in enumerate(headers):
                     self.cell(col_widths[i], row_height, '', 1, 0)
 
-                # Move cursor to the bottom of the drawn row for the next iteration
                 self.set_y(max_y)
 
 
     pdf = PDF()
     pdf.add_page()
 
-    # 1. Profile Summary
     pdf.section_title('Your Health Profile Summary')
     pdf.section_body(health_profile['profile_summary'])
 
-    # 2. Key Health Metrics Section
     pdf.section_title('Key Health Metrics')
     bmi_val = health_profile.get('bmi_value') or "N/A"
     bmi_cat = health_profile.get('bmi_category') or "Not Calculated"
@@ -567,14 +550,13 @@ def generate_diet_chart_pdf():
     )
     pdf.section_body(metrics_text)
 
-    # 3. Meal Plan
     plan_title = 'Your Daily Meal Plan'
-    if health_profile['plan_type'] == 'weekly':
+    if health_profile.get('plan_type') == 'weekly':
         plan_title = 'Your Weekly Meal Plan'
 
     pdf.section_title(f"{plan_title} (Approx. Target: {health_profile['calories']} kcal per day)")
 
-    if health_profile['plan_type'] == 'weekly':
+    if health_profile.get('plan_type') == 'weekly':
         table_headers = ['Day', 'Meal', 'Food', 'Rationale']
         col_widths = [25, 25, 60, 80]
     else:
@@ -584,22 +566,18 @@ def generate_diet_chart_pdf():
     pdf.create_table(health_profile['meal_plan'], table_headers, col_widths)
     pdf.ln(5)
 
-    # 4. Lifestyle Recommendations
     pdf.section_title('Personalized Lifestyle Recommendations')
     pdf.section_body(health_profile['recommendations'])
 
-    # 5. Yoga Sequence
     pdf.section_title('Your Daily Yoga & Movement Sequence')
     yoga_text = health_profile['yoga_sequence'].replace('**', '')
     pdf.section_body(yoga_text)
 
-    # 6. Disclaimer
     pdf.section_title('Disclaimer')
     pdf.set_font('Arial', 'I', 9)
     pdf.set_text_color(100, 100, 100)
     pdf.multi_cell(0, 5, health_profile['disclaimer'])
 
-    # Create response
     pdf_bytes = pdf.output(dest='S').encode('latin-1')
     response = make_response(pdf_bytes)
     response.headers.set('Content-Disposition', 'attachment', filename='Vedyura_Diet_Chart.pdf')
@@ -643,13 +621,13 @@ def get_recipes():
 
 # --- PPG (Heart Rate Monitor) Integration ---
 
-# Global variables
 green_values = []
 timestamps = []
 measurement_active = False
 liveness_check_passed = False
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
+# --- FIX: Initialize classifiers as None for lazy loading ---
+face_cascade = None
+eye_cascade = None
 
 def bandpass_filter(data, lowcut, highcut, fs, order=5):
     nyq = 0.5 * fs
@@ -670,7 +648,14 @@ def calculate_heart_rate(signal_data, fs):
     return heart_rate
 
 def process_frame(frame):
-    global green_values, timestamps, liveness_check_passed, measurement_active
+    global green_values, timestamps, liveness_check_passed, measurement_active, face_cascade, eye_cascade
+
+    # --- FIX: Lazy load the classifiers on first use ---
+    if face_cascade is None:
+        face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+    if eye_cascade is None:
+        eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
+
     if not measurement_active:
         return frame
 
@@ -700,17 +685,36 @@ def process_frame(frame):
 def generate_frames():
     cap = cv2.VideoCapture(0)
     if not cap.isOpened():
-        print("Cannot open camera")
-        return
+        print("Error: Cannot open camera. Check if it's connected or used by another app.")
+        return # Stop the function if camera isn't available
+
     while True:
-        success, frame = cap.read()
-        if not success:
+        try:
+            success, frame = cap.read()
+            # If read was not successful or frame is empty, stop the stream
+            if not success or frame is None:
+                print("Error: Failed to grab a frame. Stopping video stream.")
+                break
+
+            # Process the frame as you were before
+            processed_frame = process_frame(frame)
+
+            # Encode the frame to JPEG
+            ret, buffer = cv2.imencode('.jpg', processed_frame)
+            if not ret:
+                print("Error: Failed to encode frame.")
+                continue # Skip this frame and try the next one
+
+            frame_bytes = buffer.tobytes()
+            # Yield the frame in the required format for streaming
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
+
+        except Exception as e:
+            print(f"An error occurred during video streaming: {e}")
             break
-        frame = process_frame(frame)
-        ret, buffer = cv2.imencode('.jpg', frame)
-        frame_bytes = buffer.tobytes()
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
+
+    print("Releasing camera resource.")
     cap.release()
 
 
@@ -756,4 +760,9 @@ def stop_measurement():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # --- For Development: Use this for fast auto-reloading ---
+    app.run(debug=True, port=5000)
+
+    # --- For Presentation: Use this for a stable, crash-free experience ---
+    # from waitress import serve
+    # serve(app, host='0.0.0.0', port=5000)
