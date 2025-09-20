@@ -34,10 +34,8 @@
 
         <section class="quick-actions">
             <div class="card-grid">
-                <!-- Card 1: Self Diagnosis -->
                 <a href="{{ url_for('patient_self_diagnosis') }}" class="card action-card">
                     <div class="card-icon">
-                        <!-- Placeholder for an icon, e.g., a form icon -->
                         <span>📝</span>
                     </div>
                     <div class="card-content">
@@ -46,18 +44,29 @@
                     </div>
                 </a>
 
-                <!-- Card 2: Consult a Doctor -->
                 <a href="{{ url_for('patient_consult_doctor') }}" class="card action-card">
                     <div class="card-icon">
-                         <!-- Placeholder for an icon, e.g., a doctor icon -->
-                        <span>👨‍⚕️</span>
+                         <span>👨‍⚕️</span>
                     </div>
                     <div class="card-content">
                         <h3>Consult a Doctor</h3>
                         <p>Find and connect with our registered Ayurvedic practitioners.</p>
                     </div>
                 </a>
-            </div>
+
+                <div class="card action-card">
+                    <div class="card-icon">
+                        <span>🍳</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Find Dosha-Balancing Recipes</h3>
+                        <p>Discover recipes recommended for your constitution.</p>
+                        <button id="find-recipes-btn" class="btn" style="margin-top: 15px;">Find Recipes</button>
+                        <div id="recipe-results-container" class="recipe-container" style="margin-top: 20px;">
+                            </div>
+                    </div>
+                </div>
+                </div>
         </section>
     </div>
 </main>

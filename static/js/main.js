@@ -191,3 +191,46 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// ========== ADD THIS SCRIPT FOR RECIPE SEARCH ==========
+document.addEventListener('DOMContentLoaded', function() {
+    const findRecipesBtn = document.getElementById('find-recipes-btn');
+    const recipeResultsContainer = document.getElementById('recipe-results-container');
+
+    if (findRecipesBtn) {
+        findRecipesBtn.addEventListener('click', function() {
+            // Show a loading message
+            recipeResultsContainer.innerHTML = '<p>Finding recipes for you...</p>';
+
+            // Fetch recipes from the backend API
+            fetch('/patient/get-recipes')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        recipeResultsContainer.innerHTML = `<p class="error">${data.error}</p>`;
+                        return;
+                    }
+
+                    if (data.count === 0) {
+                        recipeResultsContainer.innerHTML = `<p>No specific recipes found for your Dosha (${data.dosha}).</p>`;
+                        return;
+                    }
+
+                    // Build the HTML for the recipe list
+                    let recipesHtml = `<h4>Recommended Recipes for ${data.dosha} (${data.count} found)</h4>`;
+                    recipesHtml += '<ul>';
+                    data.recipes.forEach(recipe => {
+                        recipesHtml += `<li><strong>${recipe.recipe_name}</strong></li>`;
+                    });
+                    recipesHtml += '</ul>';
+
+                    recipeResultsContainer.innerHTML = recipesHtml;
+                })
+                .catch(error => {
+                    console.error('Error fetching recipes:', error);
+                    recipeResultsContainer.innerHTML = '<p class="error">Could not fetch recipes. Please try again later.</p>';
+                });
+        });
+    }
+});
+// =======================================================
