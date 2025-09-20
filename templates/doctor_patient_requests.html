@@ -109,7 +109,7 @@
                 <h3>Your Current Patients</h3>
                 {% if current_patients %}
                     {% for patient in current_patients %}
-                    <div class="current-patient">
+                    <div class="current-patient" data-patient-id="{{ patient.id }}">
                         <div class="patient-info">
                             <p><strong>Patient Name:</strong> {{ patient.name }}</p>
                             <p><strong>Email:</strong> {{ patient.email }}</p>
@@ -118,6 +118,7 @@
                         <div class="patient-actions">
                             <a href="{{ url_for('doctor_diet_chart', patient_id=patient.id) }}" class="btn btn-primary">Create Diet Chart</a>
                             <a href="#" class="btn btn-secondary">Generate Diet Chart</a>
+                            <button class="btn btn-danger remove-btn" data-patient-id="{{ patient.id }}">Remove</button>
                         </div>
                     </div>
                     {% endfor %}
@@ -145,6 +146,7 @@ function openTab(evt, tabName) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Handle Accept/Decline buttons
     const actionButtons = document.querySelectorAll('.action-btn');
     actionButtons.forEach(button => {
         button.addEventListener('click', function() {
@@ -166,7 +168,6 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (data.success) {
                     requestDiv.remove();
-                    // Optionally, add the patient to the "Current Patients" tab if accepted
                     if (action === 'accept' && data.patient) {
                         const currentPatientsDiv = document.getElementById('CurrentPatients');
                         const noPatientsMessage = currentPatientsDiv.querySelector('p');
@@ -175,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                         
                         const newPatientHTML = `
-                            <div class="current-patient">
+                            <div class="current-patient" data-patient-id="${data.patient.id}">
                                 <div class="patient-info">
                                     <p><strong>Patient Name:</strong> ${data.patient.name}</p>
                                     <p><strong>Email:</strong> ${data.patient.email}</p>
@@ -184,10 +185,13 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <div class="patient-actions">
                                     <a href="/doctor/diet_chart?patient_id=${data.patient.id}" class="btn btn-primary">Create Diet Chart</a>
                                     <a href="#" class="btn btn-secondary">Generate Diet Chart</a>
+                                    <button class="btn btn-danger remove-btn" data-patient-id="${data.patient.id}">Remove</button>
                                 </div>
                             </div>
                         `;
                         currentPatientsDiv.insertAdjacentHTML('beforeend', newPatientHTML);
+                        // Re-attach event listener to the new remove button
+                        attachRemoveButtonListeners(); 
                     }
                 } else {
                     alert('An error occurred: ' + data.message);
@@ -199,6 +203,50 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
+
+    // Function to attach event listeners to remove buttons
+    function attachRemoveButtonListeners() {
+        const removeButtons = document.querySelectorAll('.remove-btn');
+        removeButtons.forEach(button => {
+            // Prevent adding duplicate listeners
+            if (button.dataset.listenerAttached) return;
+            button.dataset.listenerAttached = true;
+
+            button.addEventListener('click', function() {
+                const patientId = this.dataset.patientId;
+                const patientDiv = document.querySelector(`.current-patient[data-patient-id='${patientId}']`);
+
+                if (!confirm('Are you sure you want to remove this patient?')) {
+                    return;
+                }
+
+                fetch("{{ url_for('remove_patient') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        patient_id: patientId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        patientDiv.remove();
+                    } else {
+                        alert('An error occurred: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while removing the patient.');
+                });
+            });
+        });
+    }
+
+    // Initial attachment of listeners
+    attachRemoveButtonListeners();
 });
 </script>
 {% endblock %}

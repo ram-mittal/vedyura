@@ -197,6 +197,39 @@ def handle_patient_request():
 
     return jsonify({'success': False, 'message': 'Request not found or already handled.'})
 
+
+@app.route('/doctor/remove-patient', methods=['POST'])
+def remove_patient():
+    """Handles removing a patient from the doctor's current patient list."""
+    if 'user_id' not in session or session.get('role') != 'doctor':
+        return jsonify({'success': False, 'message': 'Unauthorized'}), 401
+
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'success': False, 'message': 'Invalid request'}), 400
+
+        patient_id = data.get('patient_id')
+        doctor_id = session['user_id']
+
+        all_requests_data = load_requests()
+        requests_list = all_requests_data.get('requests', [])
+        
+        request_updated = False
+        for req in requests_list:
+            if str(req.get('patient_id')) == str(patient_id) and str(req.get('doctor_id')) == str(doctor_id) and req.get('status') == 'accepted':
+                req['status'] = 'declined'  # Or any other status that marks them as removed
+                request_updated = True
+                break
+        
+        if request_updated:
+            save_requests(all_requests_data)
+            return jsonify({'success': True})
+
+        return jsonify({'success': False, 'message': 'Patient not found in your list.'})
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
 # --- Patient Authentication and Dashboard Routes ---
 
 @app.route('/patient/login', methods=['POST'])
