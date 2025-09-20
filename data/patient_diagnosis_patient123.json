@@ -1,25 +1,35 @@
 {
     "form_data": {
-        "age": "23",
-        "gender": "male",
-        "weight": "56",
-        "height": "123",
+        "age": "213",
+        "gender": "female",
+        "weight": "23",
+        "height": "32",
         "body_frame": "light_lean",
         "skin_texture": "warm_sensitive",
         "hair_type": "dry_brittle",
         "appetite": "unpredictable",
-        "digestion": "dry_gas",
-        "thirst": "forget_to_drink",
+        "digestion": "acidity_urgency",
+        "thirst": "frequently_thirsty",
         "energy_levels": "focused_driven",
         "stress_reaction": "anxiety_worry",
-        "sleep_pattern": "light_interrupted",
-        "speaking_style": "clear_purposeful",
+        "sleep_pattern": "sound_short",
+        "speaking_style": "fast_talkative",
         "body_temperature": "tend_to_be_cold",
-        "health_goal": "weight_gain",
-        "activity_level": "light",
-        "yoga_experience": "intermediate",
+        "health_goal": "weight_loss",
+        "activity_level": "moderate",
+        "yoga_experience": "beginner",
         "allergies": "none",
         "medical_conditions": "none"
     },
-    "dominant_dosha": "Vata"
+    "dominant_dosha": "Vata",
+    "ppg_results": {
+        "description": "Your heart rate points to a Vata dominant constitution, which can be quick and variable. You are likely creative, energetic, and quick-thinking.",
+        "dosha": "vata",
+        "heart_rate": 88,
+        "recommendations": [
+            "Establish a regular daily routine.",
+            "Favor warm, moist, and grounding foods.",
+            "Practice calming exercises like yoga and meditation."
+        ]
+    }
 }

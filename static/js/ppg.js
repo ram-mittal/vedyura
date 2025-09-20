@@ -14,6 +14,10 @@ $(document).ready(function() {
     $startBtn.on('click', function() {
         if (isMeasuring) return;
         
+        // --- FIX: Start the camera feed ---
+        $cameraFeed.attr('src', '/video_feed');
+        // --- END FIX ---
+
         // Show loading state
         $startBtn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Starting...');
         
@@ -111,6 +115,10 @@ $(document).ready(function() {
         $startBtn.prop('disabled', false).text('Start Measurement');
         $stopBtn.prop('disabled', true).text('Stop Measurement');
         $cameraFeed.removeClass('measurement-active');
+
+        // --- FIX: Stop the camera feed by clearing the src attribute ---
+        $cameraFeed.attr('src', '');
+        // --- END FIX ---
     }
     
     // Helper function to show a temporary message
@@ -133,4 +141,3 @@ $(document).ready(function() {
         }, 5000);
     }
 });
-

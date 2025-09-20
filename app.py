@@ -769,9 +769,16 @@ def start_measurement_advanced():
 @app.route('/stop_measurement', methods=['POST'])
 def stop_measurement_advanced():
     """Stops the measurement and processes the collected PPG data."""
-    global measurement_active
+    global measurement_active, camera
     measurement_active = False
     print(f"Measurement stopped. Collected {len(green_values)} data points.")
+
+    # --- FIX: Release the camera ---
+    if camera is not None:
+        camera.release()
+        camera = None
+        print("Camera released.")
+    # --- END FIX ---
 
     if len(green_values) < 60: # Need at least ~2 seconds of data
         message = "Could not get a clear reading. Please ensure your face is well-lit and stable."
