@@ -35,38 +35,31 @@
         <div class="diet-chart-container">
             <div class="patient-info-column">
                 <div class="card">
+                    <h3>Current Patients</h3>
+                    <div class="patient-list">
+                        {% if current_patients %}
+                            <ul>
+                                {% for patient in current_patients %}
+                                    <li class="patient-item" data-patient-id="{{ patient.id }}" data-patient='{{ patient | tojson }}' onclick="showPatientInfo(this)">
+                                        {{ patient.name }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>You have no current patients.</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card" id="patient-diagnosis-card" style="display: none;">
                     <h3>Patient's Self-Diagnosis Info</h3>
-                    {% if patient_info %}
-                        <div class="info-section">
-                            <strong>Name:</strong> {{ patient_info.name }}
+                    <div id="patient-diagnosis-content">
                         </div>
-                        <div class="info-section">
-                            <strong>Age:</strong> {{ patient_info.age }}
-                        </div>
-                        <div class="info-section">
-                            <strong>Gender:</strong> {{ patient_info.gender }}
-                        </div>
-                        <div class="info-section">
-                            <strong>Dominant Dosha:</strong> {{ patient_info.dominant_dosha }}
-                        </div>
-                        <div class="info-section">
-                            <strong>Health Goals:</strong> {{ patient_info.health_goals }}
-                        </div>
-                        <div class="info-section">
-                            <strong>Dietary Preferences:</strong> {{ patient_info.dietary_preferences }}
-                        </div>
-                        <div class="info-section">
-                            <strong>Allergies:</strong> {{ patient_info.allergies }}
-                        </div>
-                    {% else %}
-                        <p>Select a patient to view their information.</p>
-                    {% endif %}
                 </div>
             </div>
             <div class="diet-chart-creator-column">
                 <div class="card diet-chart-creator">
                     <form action="{{ url_for('generate_doctor_diet_chart_pdf') }}" method="POST">
-                        <input type="hidden" name="patient_id" value="{{ patient_info.id if patient_info else '' }}">
+                        <input type="hidden" id="patient_id_field" name="patient_id" value="">
                         
                         <section class="diet-plan-section">
                             <h3>Create One-Day Meal Plan</h3>
@@ -119,4 +112,34 @@
         </div>
     </div>
 </main>
+
+<script>
+    function showPatientInfo(element) {
+        const patient = JSON.parse(element.getAttribute('data-patient'));
+        const diagnosisCard = document.getElementById('patient-diagnosis-card');
+        const diagnosisContent = document.getElementById('patient-diagnosis-content');
+        const patientIdField = document.getElementById('patient_id_field');
+
+        if (patient && patient.diagnosis) {
+            diagnosisContent.innerHTML = `
+                <div class="info-section"><strong>Name:</strong> ${patient.name}</div>
+                <div class="info-section"><strong>Age:</strong> ${patient.age}</div>
+                <div class="info-section"><strong>Gender:</strong> ${patient.gender}</div>
+                <div class="info-section"><strong>Dominant Dosha:</strong> ${patient.diagnosis.dominant_dosha}</div>
+                <div class="info-section"><strong>Health Goals:</strong> ${patient.diagnosis.health_goals}</div>
+                <div class="info-section"><strong>Dietary Preferences:</strong> ${patient.diagnosis.dietary_preferences}</div>
+                <div class="info-section"><strong>Allergies:</strong> ${patient.diagnosis.allergies}</div>
+            `;
+            diagnosisCard.style.display = 'block';
+            patientIdField.value = patient.id;
+        } else if (patient) {
+            diagnosisContent.innerHTML = '<p>No diagnosis data available for this patient.</p>';
+            diagnosisCard.style.display = 'block';
+            patientIdField.value = patient.id;
+        } else {
+            diagnosisCard.style.display = 'none';
+            patientIdField.value = '';
+        }
+    }
+</script>
 {% endblock %}

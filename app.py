@@ -147,32 +147,35 @@ def doctor_patient_requests():
 def doctor_diet_chart():
     """Renders the diet chart creation page for the doctor."""
     if 'user_id' in session and session.get('role') == 'doctor':
-        patient_id = request.args.get('patient_id')
-        patient_info = None
-        if patient_id:
-            try:
-                with open(f'data/patient_diagnosis_{patient_id}.json', 'r') as f:
-                    diagnosis_data = json.load(f)
-                
-                # Load patient details from users.json
-                users = load_users()
-                patient_details = next((user for user in users if str(user.get('id')) == str(patient_id)), None)
+        doctor_id = session['user_id']
+        all_requests_data = load_requests()
+        all_users = load_users()
 
-                if patient_details:
-                    patient_info = {
-                        'id': patient_id,
-                        'name': patient_details.get('name', 'N/A'),
-                        'age': patient_details.get('age', 'N/A'),
-                        'gender': patient_details.get('gender', 'N/A'),
-                        'dominant_dosha': diagnosis_data.get('dominant_dosha', 'N/A'),
-                        'health_goals': diagnosis_data.get('form_data', {}).get('health_goals', 'N/A'),
-                        'dietary_preferences': diagnosis_data.get('form_data', {}).get('dietary_preferences', 'N/A'),
-                        'allergies': diagnosis_data.get('form_data', {}).get('allergies', 'N/A')
-                    }
-            except (FileNotFoundError, json.JSONDecodeError):
-                flash(f"Could not find diagnosis data for patient ID {patient_id}.", 'error')
+        def get_user_by_id(user_id):
+            for user in all_users:
+                if str(user.get('id')) == str(user_id):
+                    return user
+            return None
 
-        return render_template('doctor_diet_chart.html', patient_info=patient_info)
+        current_patients = []
+        for req in all_requests_data.get('requests', []):
+            if str(req.get('doctor_id')) == str(doctor_id) and req.get('status') == 'accepted':
+                patient = get_user_by_id(req.get('patient_id'))
+                if patient:
+                    try:
+                        with open(f'data/patient_diagnosis_{patient["id"]}.json', 'r') as f:
+                            diagnosis_data = json.load(f)
+                        patient['diagnosis'] = {
+                            'dominant_dosha': diagnosis_data.get('dominant_dosha', 'N/A'),
+                            'health_goals': diagnosis_data.get('form_data', {}).get('health_goals', 'N/A'),
+                            'dietary_preferences': diagnosis_data.get('form_data', {}).get('dietary_preferences', 'N/A'),
+                            'allergies': diagnosis_data.get('form_data', {}).get('allergies', 'N/A')
+                        }
+                    except (FileNotFoundError, json.JSONDecodeError):
+                        patient['diagnosis'] = None
+                    current_patients.append(patient)
+
+        return render_template('doctor_diet_chart.html', current_patients=current_patients)
     return redirect(url_for('signup'))
 
 @app.route('/doctor/generate-diet-chart-pdf', methods=['POST'])
