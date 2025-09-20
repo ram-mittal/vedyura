@@ -117,8 +117,30 @@ def doctor_dashboard():
 def doctor_patient_requests():
     """Renders the page that lists patient requests for the doctor."""
     if 'user_id' in session and session.get('role') == 'doctor':
+        doctor_id = session['user_id']
         all_requests_data = load_requests()
-        return render_template('doctor_patient_requests.html', requests=all_requests_data.get('requests', []))
+        all_users = load_users()
+
+        # Helper to get user details by ID
+        def get_user_by_id(user_id):
+            for user in all_users:
+                if str(user.get('id')) == str(user_id):
+                    return user
+            return None
+
+        # Filter requests for the logged-in doctor
+        pending_requests = []
+        current_patients = []
+        # FIX: Iterate over the list of requests, not the dictionary keys.
+        for req in all_requests_data.get('requests', []):
+            if str(req.get('doctor_id')) == str(doctor_id):
+                patient = get_user_by_id(req.get('patient_id'))
+                if patient:
+                    if req.get('status') == 'pending':
+                        pending_requests.append({'request': req, 'patient': patient})
+                    elif req.get('status') == 'accepted':
+                        current_patients.append(patient)
+        return render_template('doctor_patient_requests.html', pending_requests=pending_requests, current_patients=current_patients)
     return redirect(url_for('signup'))
 
 @app.route('/doctor/diet-chart')
@@ -134,6 +156,46 @@ def doctor_profile():
     if 'user_id' in session and session.get('role') == 'doctor':
         return render_template('doctor_profile.html')
     return redirect(url_for('signup'))
+
+@app.route('/doctor/handle-request', methods=['POST'])
+def handle_patient_request():
+    """Handles accepting or declining a patient request."""
+    if 'user_id' not in session or session.get('role') != 'doctor':
+        return jsonify({'success': False, 'message': 'Unauthorized'}), 401
+
+    data = request.get_json()
+    if not data:
+        return jsonify({'success': False, 'message': 'Invalid request'}), 400
+
+    patient_id = data.get('patient_id')
+    action = data.get('action')
+    doctor_id = session['user_id']
+
+    all_requests_data = load_requests()
+    requests_list = all_requests_data.get('requests', [])
+    
+    request_updated = False
+    for req in requests_list:
+        if str(req.get('patient_id')) == str(patient_id) and str(req.get('doctor_id')) == str(doctor_id) and req.get('status') == 'pending':
+            if action == 'accept':
+                req['status'] = 'accepted'
+                request_updated = True
+            elif action == 'decline':
+                req['status'] = 'declined'
+                request_updated = True
+            
+            if request_updated:
+                save_requests(all_requests_data)
+                
+                if action == 'accept':
+                    all_users = load_users()
+                    patient_details = next((user for user in all_users if str(user.get('id')) == str(patient_id)), None)
+                    if patient_details:
+                        return jsonify({'success': True, 'patient': patient_details})
+
+                return jsonify({'success': True})
+
+    return jsonify({'success': False, 'message': 'Request not found or already handled.'})
 
 # --- Patient Authentication and Dashboard Routes ---
 

@@ -4,59 +4,201 @@
     Patient Requests - Vedyura
 {% endblock %}
 
+{% block head %}
+{{ super() }}
+<style>
+    /* Basic styling for tabs */
+    .tabs {
+        display: flex;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 20px;
+    }
+    .tab-link {
+        padding: 10px 20px;
+        cursor: pointer;
+        border: 1px solid transparent;
+        border-bottom: none;
+        background-color: #f1f1f1;
+    }
+    .tab-link.active {
+        background-color: #fff;
+        border-color: #ccc;
+        border-bottom: 1px solid #fff;
+        margin-bottom: -1px;
+    }
+    .tab-content {
+        display: none;
+    }
+    .tab-content.active {
+        display: block;
+    }
+    .patient-request, .current-patient {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .patient-info {
+        flex-grow: 1;
+    }
+    .patient-actions button, .patient-actions .btn {
+        margin-left: 10px;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
-<header class="dashboard-header">
+<!-- This header is a placeholder. You should include your dynamic header here. -->
+<header class="main-header">
     <nav class="navbar">
-        <div class="navbar-logo">
-            <a href="{{ url_for('doctor_dashboard') }}">
-                <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='images/vedyura_logo.png') }}" alt="Vedyura Logo" class="logo-img"></a>
-            </a>
-        </div>
-        <div class="navbar-links">
-            <a href="{{ url_for('doctor_dashboard') }}">Home</a>
-            <a href="{{ url_for('doctor_patient_requests') }}" class="active">Patient Requests</a>
-            <a href="{{ url_for('doctor_diet_chart') }}">Diet Chart</a>
-            <a href="{{ url_for('contact_us') }}">Contact Us</a>
-            <a href="{{ url_for('doctor_profile') }}">Profile</a>
-        </div>
-        <div class="navbar-action">
-             <button id="dark-mode-toggle" class="dark-mode-button">Toggle Dark Mode</button>
-        </div>
+        {% if session.role == 'doctor' %}
+            <!-- Doctor's Navbar -->
+            <div class="navbar-logo">
+                <a href="{{ url_for('doctor_dashboard') }}">
+                    <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='images/vedyura_logo.png') }}" alt="Vedyura Logo" class="logo-img"></a>
+                </a>
+            </div>
+            <div class="navbar-links">
+                <a href="{{ url_for('doctor_dashboard') }}">Home</a>
+                <a href="{{ url_for('doctor_patient_requests') }}" class="active">Patient Requests</a>
+                <a href="{{ url_for('doctor_diet_chart') }}">Diet Chart</a>
+                <a href="{{ url_for('contact_us') }}">Contact Us</a>
+                <a href="{{ url_for('doctor_profile') }}">Profile</a>
+            </div>
+            <div class="navbar-action">
+                 <button id="dark-mode-toggle" class="dark-mode-button">Toggle Dark Mode</button>
+            </div>
+        {% endif %}
     </nav>
 </header>
 
-<main class="page-content dashboard-content">
-    <div class="dashboard-container">
-        <section class="page-header">
-            <h1>Patient Consultation Requests</h1>
-            <p>Review and respond to requests from patients seeking your consultation.</p>
-        </section>
+<main class="page-content">
+    <section class="patient-requests-section">
+        <div class="container">
+            <h2>Patient Management</h2>
 
-        <section class="requests-list">
-            
-            <!-- CORRECTED: This section is now dynamic and loops through real requests -->
-            {% if requests %}
-                {% for req in requests %}
-                <div class="card request-card">
-                    <div class="request-info">
-                        <h4>Request from: {{ req.patient_id }}</h4>
-                        <p class="request-meta"><strong>Status:</strong> {{ req.status | capitalize }}</p>
-                    </div>
-                    <div class="request-actions">
-                        <!-- These buttons are for display only for now -->
-                        <a href="#" class="btn btn-primary">Accept</a>
-                        <a href="#" class="btn btn-secondary">Reject</a>
-                    </div>
-                </div>
-                {% endfor %}
-            {% else %}
-                <!-- This card shows if there are no requests -->
-                <div class="card no-requests-card">
-                    <p>You have no new patient requests at the moment.</p>
-                </div>
-            {% endif %}
+            <div class="tabs">
+                <div class="tab-link active" onclick="openTab(event, 'Requests')">Requests</div>
+                <div class="tab-link" onclick="openTab(event, 'CurrentPatients')">Current Patients</div>
+            </div>
 
-        </section>
-    </div>
+            <div id="Requests" class="tab-content active">
+                <h3>New Patient Requests</h3>
+                {% if pending_requests %}
+                    {% for item in pending_requests %}
+                    <div class="patient-request" data-patient-id="{{ item.patient.id }}">
+                        <div class="patient-info">
+                            <strong>Patient Name:</strong> {{ item.patient.name }}<br>
+                            <strong>Request Date:</strong> {{ item.request.get('request_date', 'N/A') }}
+                        </div>
+                        <div class="patient-actions">
+                            <button class="btn btn-secondary action-btn" data-action="accept" data-patient-id="{{ item.patient.id }}">Accept</button>
+                            <button class="btn btn-danger action-btn" data-action="decline" data-patient-id="{{ item.patient.id }}">Decline</button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No new patient requests.</p>
+                {% endif %}
+            </div>
+
+            <div id="CurrentPatients" class="tab-content">
+                <h3>Your Current Patients</h3>
+                {% if current_patients %}
+                    {% for patient in current_patients %}
+                    <div class="current-patient">
+                        <div class="patient-info">
+                            <p><strong>Patient Name:</strong> {{ patient.name }}</p>
+                            <p><strong>Email:</strong> {{ patient.email }}</p>
+                            <p><strong>Age:</strong> {{ patient.age }}</p>
+                        </div>
+                        <div class="patient-actions">
+                            <a href="{{ url_for('doctor_diet_chart', patient_id=patient.id) }}" class="btn btn-primary">Create Diet Chart</a>
+                            <a href="#" class="btn btn-secondary">Generate Diet Chart</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p>You have no current patients.</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
 </main>
+
+<script>
+function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tab-content");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tab-link");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const actionButtons = document.querySelectorAll('.action-btn');
+    actionButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const patientId = this.dataset.patientId;
+            const action = this.dataset.action;
+            const requestDiv = document.querySelector(`.patient-request[data-patient-id='${patientId}']`);
+
+            fetch("{{ url_for('handle_patient_request') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    patient_id: patientId,
+                    action: action
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    requestDiv.remove();
+                    // Optionally, add the patient to the "Current Patients" tab if accepted
+                    if (action === 'accept' && data.patient) {
+                        const currentPatientsDiv = document.getElementById('CurrentPatients');
+                        const noPatientsMessage = currentPatientsDiv.querySelector('p');
+                        if (noPatientsMessage && noPatientsMessage.innerText.includes('no current patients')) {
+                            noPatientsMessage.remove();
+                        }
+                        
+                        const newPatientHTML = `
+                            <div class="current-patient">
+                                <div class="patient-info">
+                                    <p><strong>Patient Name:</strong> ${data.patient.name}</p>
+                                    <p><strong>Email:</strong> ${data.patient.email}</p>
+                                    <p><strong>Age:</strong> ${data.patient.age}</p>
+                                </div>
+                                <div class="patient-actions">
+                                    <a href="/doctor/diet_chart?patient_id=${data.patient.id}" class="btn btn-primary">Create Diet Chart</a>
+                                    <a href="#" class="btn btn-secondary">Generate Diet Chart</a>
+                                </div>
+                            </div>
+                        `;
+                        currentPatientsDiv.insertAdjacentHTML('beforeend', newPatientHTML);
+                    }
+                } else {
+                    alert('An error occurred: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while processing the request.');
+            });
+        });
+    });
+});
+</script>
 {% endblock %}
