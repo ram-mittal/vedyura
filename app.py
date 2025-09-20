@@ -165,12 +165,27 @@ def doctor_diet_chart():
                     try:
                         with open(f'data/patient_diagnosis_{patient["id"]}.json', 'r') as f:
                             diagnosis_data = json.load(f)
+                        
+                        # --- MODIFIED: Generate a full health profile for the patient ---
+                        form_data = diagnosis_data.get('form_data', {})
+                        ppg_results = diagnosis_data.get('ppg_results', {})
+                        
+                        # Use the existing health_analyzer function to get all metrics
+                        health_profile = generate_health_profile(form_data, ppg_results, 'daily')
+
                         patient['diagnosis'] = {
                             'dominant_dosha': diagnosis_data.get('dominant_dosha', 'N/A'),
-                            'health_goals': diagnosis_data.get('form_data', {}).get('health_goals', 'N/A'),
-                            'dietary_preferences': diagnosis_data.get('form_data', {}).get('dietary_preferences', 'N/A'),
-                            'allergies': diagnosis_data.get('form_data', {}).get('allergies', 'N/A')
+                            'health_goals': form_data.get('health_goal', 'N/A'),
+                            'dietary_preferences': form_data.get('dietary_preferences', 'N/A'),
+                            'allergies': form_data.get('allergies', 'N/A'),
+                            # Add new metrics from the health profile
+                            'bmi_value': health_profile.get('bmi_value', 'N/A'),
+                            'bmi_category': health_profile.get('bmi_category', 'Not Calculated'),
+                            'heart_rate': int(health_profile.get('heart_rate')) if health_profile.get('heart_rate') else "N/A",
+                            'protein_target': health_profile.get('protein_target', 'Not Calculated')
                         }
+                        # --- END MODIFICATION ---
+
                     except (FileNotFoundError, json.JSONDecodeError):
                         patient['diagnosis'] = None
                     current_patients.append(patient)
@@ -356,10 +371,12 @@ def patient_login():
     user_id = request.form.get('user_id')
     password = request.form.get('password')
 
-    if user_id == '123' and password == '123':
-        session['user_id'] = user_id
-        session['role'] = 'patient'
-        return redirect(url_for('patient_dashboard'))
+    users = load_users()
+    for user in users:
+        if user.get('role') == 'patient' and str(user.get('id')) == user_id and str(user.get('password')) == password:
+            session['user_id'] = user_id
+            session['role'] = 'patient'
+            return redirect(url_for('patient_dashboard'))
 
     flash('Invalid credentials. Please try again.', 'error')
     return redirect(url_for('signup'))

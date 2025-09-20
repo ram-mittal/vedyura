@@ -1,10 +1,17 @@
 [
   {
-    "id": "123",
+    "id": "doctor456",
     "password": "123",
     "role": "doctor",
     "name": "Dr. Anjali Sharma",
     "specialty": "Ayurvedic Nutrition"
+  },
+  {
+    "id": "patient123",
+    "password": "123",
+    "role": "patient",
+    "name": "John Doe",
+    "age": 30,
+    "gender": "male"
   }
 ]
-

@@ -1,73 +1,13 @@
 {
     "requests": [
         {
-            "doctor_id": "123",
-            "patient_id": "bypassed_user",
-            "status": "pending"
-        },
-        {
-            "doctor_id": "123",
-            "patient_id": "bypassed_user",
-            "status": "pending"
-        },
-        {
-            "doctor_id": "123",
-            "patient_id": "bypassed_user",
-            "status": "pending"
-        },
-        {
-            "doctor_id": "123",
-            "patient_id": "bypassed_user",
-            "status": "pending"
-        },
-        {
-            "doctor_id": "123",
-            "patient_id": "bypassed_user",
-            "status": "pending"
-        },
-        {
-            "doctor_id": "123",
-            "patient_id": "bypassed_user",
-            "status": "pending"
-        },
-        {
-            "doctor_id": "123",
-            "patient_id": "123",
+            "doctor_id": "doctor456",
+            "patient_id": "patient123",
             "status": "declined"
         },
         {
-            "doctor_id": "123",
-            "patient_id": "123",
-            "status": "declined"
-        },
-        {
-            "doctor_id": "123",
-            "patient_id": "123",
-            "status": "declined"
-        },
-        {
-            "doctor_id": "123",
-            "patient_id": "123",
-            "status": "declined"
-        },
-        {
-            "doctor_id": "123",
-            "patient_id": "123",
-            "status": "declined"
-        },
-        {
-            "doctor_id": "123",
-            "patient_id": "123",
-            "status": "declined"
-        },
-        {
-            "doctor_id": "123",
-            "patient_id": "123",
-            "status": "declined"
-        },
-        {
-            "doctor_id": "123",
-            "patient_id": "123",
+            "doctor_id": "doctor456",
+            "patient_id": "patient123",
             "status": "accepted"
         }
     ]

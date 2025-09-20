@@ -120,20 +120,37 @@
         const diagnosisContent = document.getElementById('patient-diagnosis-content');
         const patientIdField = document.getElementById('patient_id_field');
 
+        // Highlight the selected patient
+        document.querySelectorAll('.patient-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        element.classList.add('active');
+
         if (patient && patient.diagnosis) {
             diagnosisContent.innerHTML = `
                 <div class="info-section"><strong>Name:</strong> ${patient.name}</div>
-                <div class="info-section"><strong>Age:</strong> ${patient.age}</div>
-                <div class="info-section"><strong>Gender:</strong> ${patient.gender}</div>
+                <div class="info-section"><strong>Age:</strong> ${patient.age || 'N/A'}</div>
+                <div class="info-section"><strong>Gender:</strong> ${patient.gender || 'N/A'}</div>
+                <hr>
                 <div class="info-section"><strong>Dominant Dosha:</strong> ${patient.diagnosis.dominant_dosha}</div>
+                <div class="info-section"><strong>Heart Rate (BPM):</strong> ${patient.diagnosis.heart_rate}</div>
+                <div class="info-section"><strong>BMI:</strong> ${patient.diagnosis.bmi_value} (${patient.diagnosis.bmi_category})</div>
+                <div class="info-section"><strong>Daily Protein Target:</strong> ${patient.diagnosis.protein_target}</div>
+                <hr>
                 <div class="info-section"><strong>Health Goals:</strong> ${patient.diagnosis.health_goals}</div>
-                <div class="info-section"><strong>Dietary Preferences:</strong> ${patient.diagnosis.dietary_preferences}</div>
+                <div class="info-section"><strong>Dietary Preferences:</strong> ${patient.diagnosis.dietary_preferences || 'N/A'}</div>
                 <div class="info-section"><strong>Allergies:</strong> ${patient.diagnosis.allergies}</div>
             `;
             diagnosisCard.style.display = 'block';
             patientIdField.value = patient.id;
         } else if (patient) {
-            diagnosisContent.innerHTML = '<p>No diagnosis data available for this patient.</p>';
+             diagnosisContent.innerHTML = `
+                <div class="info-section"><strong>Name:</strong> ${patient.name}</div>
+                <div class="info-section"><strong>Age:</strong> ${patient.age || 'N/A'}</div>
+                <div class="info-section"><strong>Gender:</strong> ${patient.gender || 'N/A'}</div>
+                <hr>
+                <p>No diagnosis data available for this patient. The patient needs to complete the self-diagnosis form.</p>
+            `;
             diagnosisCard.style.display = 'block';
             patientIdField.value = patient.id;
         } else {
