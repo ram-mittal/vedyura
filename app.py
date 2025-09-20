@@ -147,8 +147,121 @@ def doctor_patient_requests():
 def doctor_diet_chart():
     """Renders the diet chart creation page for the doctor."""
     if 'user_id' in session and session.get('role') == 'doctor':
-        return render_template('doctor_diet_chart.html')
+        patient_id = request.args.get('patient_id')
+        patient_info = None
+        if patient_id:
+            try:
+                with open(f'data/patient_diagnosis_{patient_id}.json', 'r') as f:
+                    diagnosis_data = json.load(f)
+                
+                # Load patient details from users.json
+                users = load_users()
+                patient_details = next((user for user in users if str(user.get('id')) == str(patient_id)), None)
+
+                if patient_details:
+                    patient_info = {
+                        'id': patient_id,
+                        'name': patient_details.get('name', 'N/A'),
+                        'age': patient_details.get('age', 'N/A'),
+                        'gender': patient_details.get('gender', 'N/A'),
+                        'dominant_dosha': diagnosis_data.get('dominant_dosha', 'N/A'),
+                        'health_goals': diagnosis_data.get('form_data', {}).get('health_goals', 'N/A'),
+                        'dietary_preferences': diagnosis_data.get('form_data', {}).get('dietary_preferences', 'N/A'),
+                        'allergies': diagnosis_data.get('form_data', {}).get('allergies', 'N/A')
+                    }
+            except (FileNotFoundError, json.JSONDecodeError):
+                flash(f"Could not find diagnosis data for patient ID {patient_id}.", 'error')
+
+        return render_template('doctor_diet_chart.html', patient_info=patient_info)
     return redirect(url_for('signup'))
+
+@app.route('/doctor/generate-diet-chart-pdf', methods=['POST'])
+def generate_doctor_diet_chart_pdf():
+    if 'user_id' not in session or session.get('role') != 'doctor':
+        return redirect(url_for('signup'))
+
+    patient_id = request.form.get('patient_id')
+    # Again, placeholder data. You'd fetch this from your data store.
+    patient_info = {
+        'id': patient_id,
+        'name': 'John Doe',
+        'age': 35,
+    }
+
+    meal_plan = {
+        'Breakfast': {
+            'items': request.form.get('breakfast_items'),
+            'advice': request.form.get('breakfast_advice')
+        },
+        'Lunch': {
+            'items': request.form.get('lunch_items'),
+            'advice': request.form.get('lunch_advice')
+        },
+        'Dinner': {
+            'items': request.form.get('dinner_items'),
+            'advice': request.form.get('dinner_advice')
+        },
+        'Snacks': {
+            'items': request.form.get('snacks_items'),
+            'advice': request.form.get('snacks_advice')
+        }
+    }
+    professional_advice = request.form.get('professional_advice')
+
+    class PDF(FPDF):
+        def header(self):
+            self.set_font('Arial', 'B', 16)
+            self.set_text_color(34, 139, 34)
+            self.cell(0, 10, 'Vedyura - Doctor\'s Diet Plan', 0, 1, 'C')
+            self.ln(5)
+
+        def footer(self):
+            self.set_y(-15)
+            self.set_font('Arial', 'I', 8)
+            self.set_text_color(128, 128, 128)
+            self.cell(0, 10, f'Page {self.page_no()}', 0, 0, 'C')
+
+        def section_title(self, title):
+            self.set_font('Arial', 'B', 12)
+            self.set_fill_color(200, 220, 200)
+            self.set_text_color(0, 0, 0)
+            self.cell(0, 8, title, 0, 1, 'L', fill=True)
+            self.ln(4)
+
+        def section_body(self, body):
+            body = body.encode('latin-1', 'replace').decode('latin-1')
+            self.set_font('Arial', '', 11)
+            self.set_text_color(0, 0, 0)
+            self.multi_cell(0, 6, body)
+            self.ln()
+
+    pdf = PDF()
+    pdf.add_page()
+
+    pdf.section_title(f"Diet Plan for {patient_info['name']}")
+    
+    for meal, details in meal_plan.items():
+        pdf.set_font('Arial', 'B', 11)
+        pdf.cell(0, 8, meal, 0, 1, 'L')
+        pdf.set_font('Arial', '', 11)
+        pdf.multi_cell(0, 6, f"**Items:** {details['items']}")
+        pdf.multi_cell(0, 6, f"**Advice:** {details['advice']}")
+        pdf.ln(2)
+
+    pdf.section_title('Professional Advice')
+    pdf.section_body(professional_advice)
+
+    pdf.section_title('Disclaimer')
+    pdf.set_font('Arial', 'I', 9)
+    pdf.set_text_color(100, 100, 100)
+    pdf.multi_cell(0, 5, 'This diet chart is a recommendation based on the information provided. Please consult with your doctor for any further questions.')
+
+    pdf_bytes = pdf.output(dest='S').encode('latin-1')
+    response = make_response(pdf_bytes)
+    response.headers.set('Content-Disposition', 'attachment', filename=f'Diet_Chart_{patient_info["name"].replace(" ", "_")}.pdf')
+    response.headers.set('Content-Type', 'application/pdf')
+
+    return response
 
 @app.route('/doctor/profile')
 def doctor_profile():
@@ -192,6 +305,8 @@ def handle_patient_request():
                     patient_details = next((user for user in all_users if str(user.get('id')) == str(patient_id)), None)
                     if patient_details:
                         return jsonify({'success': True, 'patient': patient_details})
+                    else:
+                        return jsonify({'success': False, 'message': 'Patient not found.'})
 
                 return jsonify({'success': True})
 
@@ -303,15 +418,28 @@ def patient_profile():
 
 @app.route('/patient/save-form-data', methods=['POST'])
 def save_form_data():
-    """Saves the detailed form data and determined dosha to the user's session."""
+    """Saves the detailed form data and determined dosha to a file."""
     if 'user_id' in session and session.get('role') == 'patient':
         form_data = request.form.to_dict()
+        dominant_dosha = determine_dominant_dosha(form_data)
+
+        patient_id = session['user_id']
+        diagnosis_data = {
+            'form_data': form_data,
+            'dominant_dosha': dominant_dosha
+        }
+
+        try:
+            with open(f'data/patient_diagnosis_{patient_id}.json', 'w') as f:
+                json.dump(diagnosis_data, f, indent=4)
+        except IOError as e:
+            return jsonify({'status': 'error', 'message': f'Could not save data: {e}'})
+
+        # We can still keep it in the session for the patient's current use
         session['form_data'] = form_data
-
-        # Analyze and store the dominant dosha immediately
-        session['dominant_dosha'] = determine_dominant_dosha(form_data)
-
+        session['dominant_dosha'] = dominant_dosha
         session.modified = True
+
         return jsonify({'status': 'success', 'message': 'Form data saved.'})
     return jsonify({'status': 'error', 'message': 'User not logged in.'})
 
@@ -594,7 +722,7 @@ def stop_measurement():
     filtered_signal = bandpass_filter(green_values, 0.8, 2.5, fs_est)
     heart_rate = calculate_heart_rate(filtered_signal, fs_est)
 
-    if not (40 < heart_rate < 160):
+    if not 40 < heart_rate < 160:
         message = f"Heart rate ({int(heart_rate)} bpm) out of normal range. Generating chart based on form answers only."
         session['ppg_results'] = {'error': message, 'heart_rate': heart_rate}
         session.modified = True

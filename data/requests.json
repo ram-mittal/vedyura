@@ -64,6 +64,11 @@
             "doctor_id": "123",
             "patient_id": "123",
             "status": "declined"
+        },
+        {
+            "doctor_id": "123",
+            "patient_id": "123",
+            "status": "accepted"
         }
     ]
 }

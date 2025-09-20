@@ -32,89 +32,90 @@
             <p>Build a personalized Ayurvedic diet plan for your patients.</p>
         </section>
 
-        <div class="card diet-chart-creator">
-            <form action="#" method="POST">
-                
-                <section class="patient-details-section">
-                    <h3>Patient Details</h3>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="patient-name">Patient Name</label>
-                            <input type="text" id="patient-name" name="patient_name" placeholder="e.g., John Doe" required>
+        <div class="diet-chart-container">
+            <div class="patient-info-column">
+                <div class="card">
+                    <h3>Patient's Self-Diagnosis Info</h3>
+                    {% if patient_info %}
+                        <div class="info-section">
+                            <strong>Name:</strong> {{ patient_info.name }}
                         </div>
-                        <div class="form-group">
-                            <label for="patient-age">Age</label>
-                            <input type="number" id="patient-age" name="patient_age" placeholder="e.g., 35" required>
+                        <div class="info-section">
+                            <strong>Age:</strong> {{ patient_info.age }}
                         </div>
-                         <div class="form-group">
-                            <label for="patient-gender">Gender</label>
-                            <select id="patient-gender" name="patient_gender">
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
-                            </select>
+                        <div class="info-section">
+                            <strong>Gender:</strong> {{ patient_info.gender }}
                         </div>
-                    </div>
-                </section>
-                
-                <hr class="section-divider">
-
-                <section class="diet-plan-section">
-                    <h3>Diet Plan</h3>
-                    <table class="diet-table">
-                        <thead>
-                            <tr>
-                                <th>Meal Time</th>
-                                <th>Food Items</th>
-                                <th>Quantity</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Example Row: Early Morning -->
-                            <tr>
-                                <td>Early Morning (6:00 AM)</td>
-                                <td><textarea name="meal_1_items" placeholder="e.g., Warm water with lemon"></textarea></td>
-                                <td><input type="text" name="meal_1_qty" placeholder="e.g., 1 glass"></td>
-                            </tr>
-                            <!-- Example Row: Breakfast -->
-                            <tr>
-                                <td>Breakfast (8:00 AM)</td>
-                                <td><textarea name="meal_2_items" placeholder="e.g., Moong Dal Chilla, Mint Chutney"></textarea></td>
-                                <td><input type="text" name="meal_2_qty" placeholder="e.g., 2 medium, 2 tbsp"></td>
-                            </tr>
-                             <!-- Example Row: Mid-Morning -->
-                            <tr>
-                                <td>Mid-Morning (11:00 AM)</td>
-                                <td><textarea name="meal_3_items" placeholder="e.g., Coconut water or a fruit"></textarea></td>
-                                <td><input type="text" name="meal_3_qty" placeholder="e.g., 1 glass or 1 apple"></td>
-                            </tr>
-                            <!-- Example Row: Lunch -->
-                            <tr>
-                                <td>Lunch (1:00 PM)</td>
-                                <td><textarea name="meal_4_items" placeholder="e.g., Roti, Seasonal Sabzi, Dal, Salad"></textarea></td>
-                                <td><input type="text" name="meal_4_qty" placeholder="e.g., 2, 1 katori, 1 katori, 1 plate"></td>
-                            </tr>
-                             <!-- Example Row: Evening Snack -->
-                            <tr>
-                                <td>Evening Snack (4:00 PM)</td>
-                                <td><textarea name="meal_5_items" placeholder="e.g., Herbal Tea, Roasted Makhana"></textarea></td>
-                                <td><input type="text" name="meal_5_qty" placeholder="e.g., 1 cup, 1 bowl"></td>
-                            </tr>
-                             <!-- Example Row: Dinner -->
-                            <tr>
-                                <td>Dinner (7:00 PM)</td>
-                                <td><textarea name="meal_6_items" placeholder="e.g., Khichdi, Steamed Vegetables"></textarea></td>
-                                <td><input type="text" name="meal_6_qty" placeholder="e.g., 1 bowl, 1 katori"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </section>
-
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">Save & Generate Chart</button>
-                    <button type="reset" class="btn btn-secondary">Clear Form</button>
+                        <div class="info-section">
+                            <strong>Dominant Dosha:</strong> {{ patient_info.dominant_dosha }}
+                        </div>
+                        <div class="info-section">
+                            <strong>Health Goals:</strong> {{ patient_info.health_goals }}
+                        </div>
+                        <div class="info-section">
+                            <strong>Dietary Preferences:</strong> {{ patient_info.dietary_preferences }}
+                        </div>
+                        <div class="info-section">
+                            <strong>Allergies:</strong> {{ patient_info.allergies }}
+                        </div>
+                    {% else %}
+                        <p>Select a patient to view their information.</p>
+                    {% endif %}
                 </div>
-            </form>
+            </div>
+            <div class="diet-chart-creator-column">
+                <div class="card diet-chart-creator">
+                    <form action="{{ url_for('generate_doctor_diet_chart_pdf') }}" method="POST">
+                        <input type="hidden" name="patient_id" value="{{ patient_info.id if patient_info else '' }}">
+                        
+                        <section class="diet-plan-section">
+                            <h3>Create One-Day Meal Plan</h3>
+                            <table class="diet-table">
+                                <thead>
+                                    <tr>
+                                        <th>Meal</th>
+                                        <th>Food Items</th>
+                                        <th>Advice</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Breakfast</td>
+                                        <td><textarea name="breakfast_items" placeholder="e.g., Poha, Upma"></textarea></td>
+                                        <td><textarea name="breakfast_advice" placeholder="e.g., Light and easy to digest"></textarea></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lunch</td>
+                                        <td><textarea name="lunch_items" placeholder="e.g., Roti, Sabzi, Dal"></textarea></td>
+                                        <td><textarea name="lunch_advice" placeholder="e.g., Include all 6 tastes"></textarea></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dinner</td>
+                                        <td><textarea name="dinner_items" placeholder="e.g., Khichdi, Soup"></textarea></td>
+                                        <td><textarea name="dinner_advice" placeholder="e.g., Light and early dinner"></textarea></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Snacks</td>
+                                        <td><textarea name="snacks_items" placeholder="e.g., Fruits, Nuts"></textarea></td>
+                                        <td><textarea name="snacks_advice" placeholder="e.g., Avoid fried snacks"></textarea></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
+
+                        <section class="professional-advice-section">
+                            <h3>Professional Advice</h3>
+                            <div class="form-group">
+                                <textarea name="professional_advice" placeholder="e.g., Drink warm water throughout the day..."></textarea>
+                            </div>
+                        </section>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Download as PDF</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </main>

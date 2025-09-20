@@ -117,7 +117,6 @@
                         </div>
                         <div class="patient-actions">
                             <a href="{{ url_for('doctor_diet_chart', patient_id=patient.id) }}" class="btn btn-primary">Create Diet Chart</a>
-                            <a href="#" class="btn btn-secondary">Generate Diet Chart</a>
                             <button class="btn btn-danger remove-btn" data-patient-id="{{ patient.id }}">Remove</button>
                         </div>
                     </div>
@@ -184,7 +183,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </div>
                                 <div class="patient-actions">
                                     <a href="/doctor/diet_chart?patient_id=${data.patient.id}" class="btn btn-primary">Create Diet Chart</a>
-                                    <a href="#" class="btn btn-secondary">Generate Diet Chart</a>
                                     <button class="btn btn-danger remove-btn" data-patient-id="${data.patient.id}">Remove</button>
                                 </div>
                             </div>
