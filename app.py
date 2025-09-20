@@ -137,12 +137,19 @@ def doctor_profile():
 
 # --- Patient Authentication and Dashboard Routes ---
 
-@app.route('/patient/bypass')
-def patient_bypass_login():
-    """Allows a patient to bypass login for development purposes."""
-    session['user_id'] = 'bypassed_user'
-    session['role'] = 'patient'
-    return redirect(url_for('patient_dashboard'))
+@app.route('/patient/login', methods=['POST'])
+def patient_login():
+    """Handles the patient login form submission."""
+    user_id = request.form.get('user_id')
+    password = request.form.get('password')
+
+    if user_id == '123' and password == '123':
+        session['user_id'] = user_id
+        session['role'] = 'patient'
+        return redirect(url_for('patient_dashboard'))
+
+    flash('Invalid credentials. Please try again.', 'error')
+    return redirect(url_for('signup'))
 
 @app.route('/patient/dashboard')
 def patient_dashboard():

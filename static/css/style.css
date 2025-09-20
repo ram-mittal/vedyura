@@ -1465,3 +1465,9 @@ h2 {
     font-weight: 600;
 }
 
+/* --- Navbar Logo Styling --- */
+.logo-img {
+    height: 40px;
+    width: auto;
+    vertical-align: middle;
+}

@@ -11,7 +11,9 @@
         {% if session.role == 'doctor' %}
             <!-- Doctor's Navbar -->
             <div class="navbar-logo">
-                <a href="{{ url_for('doctor_dashboard') }}">Vedyura [Doctor]</a>
+                <a href="{{ url_for('doctor_dashboard') }}">
+                    <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='images/vedyura_logo.png') }}" alt="Vedyura Logo" class="logo-img"></a>
+                </a>
             </div>
             <div class="navbar-links">
                 <a href="{{ url_for('doctor_dashboard') }}">Home</a>
@@ -26,7 +28,9 @@
         {% elif session.role == 'patient' %}
             <!-- Patient's Navbar -->
             <div class="navbar-logo">
-                <a href="{{ url_for('patient_dashboard') }}">Vedyura [Patient]</a>
+                <a href="{{ url_for('patient_dashboard') }}">
+                    <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='images/vedyura_logo.png') }}" alt="Vedyura Logo" class="logo-img"></a>
+                </a>
             </div>
             <div class="navbar-links">
                 <a href="{{ url_for('patient_dashboard') }}">Home</a>

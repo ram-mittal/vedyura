@@ -2,11 +2,13 @@
 
 {% block title %}Sign Up - Vedyura{% endblock %}
 
-{% block content %}
+{% block header %}
 <header class="main-header">
     <nav class="navbar">
         <div class="navbar-logo">
-            <a href="{{ url_for('home') }}">Vedyura</a>
+            <a href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/vedyura_logo.png') }}" alt="Vedyura Logo" class="logo-img">
+            </a>
         </div>
         <div class="navbar-links">
             <a href="{{ url_for('home') }}">Home</a>
@@ -18,15 +20,15 @@
         </div>
     </nav>
 </header>
+{% endblock %}
 
-<main class="page-content">
+{% block content %}
+<div class="page-content">
     <section class="signup-section">
-        <!-- CORRECTED: Using signup-container to match the CSS file -->
         <div class="signup-container">
             <h2>Join Vedyura</h2>
             <p>Please select your role to get started.</p>
 
-            <!-- Flash messages for errors -->
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     <ul class="flash-messages" style="list-style: none; padding: 0;">
@@ -37,16 +39,13 @@
                 {% endif %}
             {% endwith %}
 
-            <!-- CORRECTED: Using role-selector to match the CSS file -->
             <div class="role-selector">
                 <button class="role-button" id="doctor-btn">I am a Doctor</button>
                 <button class="role-button" id="patient-btn">I am a Patient</button>
             </div>
 
-            <!-- Doctor Login Form (Initially hidden) -->
             <div id="doctor-login-form" class="hidden">
                 <h3>Doctor Sign In</h3>
-                <!-- CORRECTED: Using login-form class to match CSS -->
                 <form class="login-form" action="{{ url_for('doctor_login') }}" method="POST">
                     <div class="form-group">
                         <label for="user_id">User ID</label>
@@ -60,15 +59,24 @@
                 </form>
             </div>
 
-            <!-- Patient Login Options (Initially hidden) -->
             <div id="patient-login-options" class="hidden">
                 <h3>Patient Sign In / Sign Up</h3>
                 <div class="patient-options">
                     <a href="#" class="btn btn-google">Sign In with Google</a>
-                    <a href="{{ url_for('patient_bypass_login') }}" class="btn btn-bypass">Bypass Login (Dev)</a>
                 </div>
+                <form class="login-form" action="{{ url_for('patient_login') }}" method="POST">
+                    <div class="form-group">
+                        <label for="patient_user_id">User ID</label>
+                        <input type="text" id="patient_user_id" name="user_id" value="123" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="patient_password">Password</label>
+                        <input type="password" id="patient_password" name="password" value="123" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In</button>
+                </form>
             </div>
         </div>
     </section>
-</main>
+</div>
 {% endblock %}
