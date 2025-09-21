@@ -43,6 +43,10 @@ def save_requests(requests_data):
 
 # --- Public & Core App Routes (Unchanged) ---
 
+@app.route('/loading')
+def loading():
+    return render_template('loading.html')
+
 @app.route('/')
 def home():
     return render_template('home.html')
@@ -203,6 +207,12 @@ def generate_doctor_diet_chart_pdf():
     professional_advice = request.form.get('professional_advice')
 
     class PDF(FPDF):
+        def __init__(self):
+            super().__init__()
+            # Set proper margins to prevent text overflow
+            self.set_margins(20, 20, 20)
+            self.set_auto_page_break(auto=True, margin=20)
+            
         def header(self):
             self.set_font('Arial', 'B', 16)
             self.set_text_color(34, 139, 34)
@@ -216,20 +226,56 @@ def generate_doctor_diet_chart_pdf():
             self.cell(0, 10, f'Page {self.page_no()}', 0, 0, 'C')
 
         def section_title(self, title):
+            # Ensure title fits on page
+            if not isinstance(title, str):
+                title = str(title)
+            title = title.encode('latin-1', 'replace').decode('latin-1')
+            
             self.set_font('Arial', 'B', 12)
             self.set_fill_color(200, 220, 200)
             self.set_text_color(0, 0, 0)
-            self.cell(0, 8, title, 0, 1, 'L', fill=True)
+            
+            # Check if we need a new page
+            if self.get_y() > 250:
+                self.add_page()
+                
+            self.cell(0, 8, title[:80], 0, 1, 'L', fill=True)  # Limit title length
             self.ln(4)
 
         def section_body(self, body):
             # Ensure body is a string and handle potential encoding issues
             if not isinstance(body, str):
                 body = str(body)
+            if not body or body.strip() == '':
+                body = 'No information available.'
+                
             body = body.encode('latin-1', 'replace').decode('latin-1')
-            self.set_font('Arial', '', 11)
+            self.set_font('Arial', '', 10)  # Slightly smaller font
             self.set_text_color(0, 0, 0)
-            self.multi_cell(0, 6, body)
+            
+            # Check if we need a new page
+            if self.get_y() > 240:
+                self.add_page()
+                
+            # Split long text into manageable chunks
+            max_chars_per_line = 80
+            if len(body) > max_chars_per_line * 10:  # If text is very long
+                words = body.split(' ')
+                current_chunk = ''
+                for word in words:
+                    if len(current_chunk + word + ' ') > max_chars_per_line * 8:
+                        if current_chunk:
+                            self.multi_cell(0, 5, current_chunk.strip())
+                            current_chunk = word + ' '
+                        else:
+                            # Single word is too long, truncate it
+                            self.multi_cell(0, 5, word[:max_chars_per_line * 8])
+                    else:
+                        current_chunk += word + ' '
+                if current_chunk:
+                    self.multi_cell(0, 5, current_chunk.strip())
+            else:
+                self.multi_cell(0, 5, body)
             self.ln()
 
     pdf = PDF()
@@ -239,19 +285,33 @@ def generate_doctor_diet_chart_pdf():
     
     for meal, details in meal_plan.items():
         pdf.set_font('Arial', 'B', 11)
-        pdf.cell(0, 8, meal, 0, 1, 'L')
-        pdf.set_font('Arial', '', 11)
-        pdf.multi_cell(0, 6, f"**Items:** {details['items']}")
-        pdf.multi_cell(0, 6, f"**Advice:** {details['advice']}")
+        pdf.cell(0, 8, str(meal)[:50], 0, 1, 'L')  # Limit meal name length
+        
+        # Handle items safely
+        items = details.get('items', 'No items specified')
+        if not isinstance(items, str):
+            items = str(items)
+        items = items[:200]  # Limit length
+        pdf.section_body(f"Items: {items}")
+        
+        # Handle advice safely  
+        advice = details.get('advice', 'No advice provided')
+        if not isinstance(advice, str):
+            advice = str(advice)
+        advice = advice[:300]  # Limit length
+        pdf.section_body(f"Advice: {advice}")
+        
         pdf.ln(2)
 
     pdf.section_title('Professional Advice')
-    pdf.section_body(professional_advice)
+    safe_advice = professional_advice if professional_advice else 'No additional advice provided.'
+    if not isinstance(safe_advice, str):
+        safe_advice = str(safe_advice)
+    pdf.section_body(safe_advice[:500])  # Limit length
 
     pdf.section_title('Disclaimer')
-    pdf.set_font('Arial', 'I', 9)
-    pdf.set_text_color(100, 100, 100)
-    pdf.multi_cell(0, 5, 'This diet chart is a recommendation based on the information provided. Please consult with your doctor for any further questions.')
+    disclaimer_text = 'This diet chart is a recommendation based on the information provided. Please consult with your doctor for any further questions.'
+    pdf.section_body(disclaimer_text)
 
     pdf_bytes = pdf.output(dest='S').encode('latin-1')
     response = make_response(pdf_bytes)
@@ -442,6 +502,152 @@ def save_form_data():
 
         return jsonify({'status': 'success', 'message': 'Form data saved.'})
     return jsonify({'status': 'error', 'message': 'User not logged in.'})
+
+@app.route('/generate_pdf', methods=['POST'])
+def generate_diagnosis_pdf():
+    """Generates a comprehensive dosha analysis PDF report."""
+    if 'user_id' not in session or session.get('role') != 'patient':
+        return jsonify({'error': 'Unauthorized'}), 401
+    
+    try:
+        # Get form data from request
+        form_data = request.get_json()
+        if not form_data:
+            return jsonify({'error': 'No form data provided'}), 400
+        
+        # Determine dominant dosha
+        dominant_dosha = determine_dominant_dosha(form_data)
+        
+        # Create PDF using existing class structure
+        class PDF(FPDF):
+            def header(self):
+                self.set_font('Arial', 'B', 16)
+                self.set_text_color(34, 139, 34)
+                self.cell(0, 15, 'Vedyura Ayurvedic Healthcare', 0, 1, 'C')
+                self.ln(5)
+
+            def section_title(self, title):
+                self.set_font('Arial', 'B', 14)
+                self.set_text_color(0, 0, 0)
+                self.cell(0, 10, title, 0, 1, 'L')
+                self.ln(3)
+
+            def section_body(self, body):
+                self.set_font('Arial', '', 11)
+                self.set_text_color(50, 50, 50)
+                # Handle multi-line text
+                lines = body.split('\n')
+                for line in lines:
+                    if len(line) > 80:
+                        # Wrap long lines
+                        words = line.split(' ')
+                        current_line = ''
+                        for word in words:
+                            if len(current_line + word) < 80:
+                                current_line += word + ' '
+                            else:
+                                self.cell(0, 6, current_line.strip(), 0, 1, 'L')
+                                current_line = word + ' '
+                        if current_line:
+                            self.cell(0, 6, current_line.strip(), 0, 1, 'L')
+                    else:
+                        self.cell(0, 6, line, 0, 1, 'L')
+                self.ln(5)
+
+        pdf = PDF()
+        pdf.add_page()
+        
+        # Title
+        pdf.set_font('Arial', 'B', 20)
+        pdf.cell(0, 15, 'Vedyura Dosha Analysis Report', 0, 1, 'C')
+        pdf.ln(10)
+        
+        # Patient Info
+        pdf.set_font('Arial', 'B', 14)
+        pdf.cell(0, 10, f'Patient ID: {session["user_id"]}', 0, 1)
+        pdf.cell(0, 10, f'Date: {time.strftime("%Y-%m-%d %H:%M:%S")}', 0, 1)
+        pdf.ln(5)
+        
+        # Dominant Dosha Section
+        pdf.section_title('Dominant Dosha Analysis')
+        pdf.section_body(f'Your dominant dosha is: {dominant_dosha}')
+        
+        # Dosha descriptions
+        dosha_descriptions = {
+            'Vata': 'Vata governs movement and is associated with air and space elements. People with dominant Vata tend to be energetic, creative, and quick-thinking, but may experience anxiety and irregular digestion.',
+            'Pitta': 'Pitta governs transformation and is associated with fire and water elements. People with dominant Pitta tend to be focused, ambitious, and have strong digestion, but may experience anger and inflammation.',
+            'Kapha': 'Kapha governs structure and is associated with earth and water elements. People with dominant Kapha tend to be calm, stable, and have strong immunity, but may experience sluggishness and weight gain.'
+        }
+        
+        pdf.section_body(dosha_descriptions.get(dominant_dosha, 'Unknown dosha type.'))
+        
+        # Assessment Responses
+        pdf.section_title('Assessment Responses')
+        for key, value in form_data.items():
+            if value:
+                formatted_key = key.replace('_', ' ').title()
+                pdf.section_body(f'{formatted_key}: {value}')
+        
+        # Recommendations
+        pdf.section_title('Personalized Recommendations')
+        
+        recommendations = {
+            'Vata': [
+                'Follow a regular daily routine',
+                'Eat warm, cooked, and nourishing foods',
+                'Practice calming activities like yoga and meditation',
+                'Get adequate sleep and rest',
+                'Use warming spices like ginger and cinnamon'
+            ],
+            'Pitta': [
+                'Avoid excessive heat and sun exposure',
+                'Choose cool, fresh, and sweet foods',
+                'Engage in moderate, cooling exercises',
+                'Practice stress management techniques',
+                'Use cooling herbs like coconut and mint'
+            ],
+            'Kapha': [
+                'Stay active and avoid excessive sleep',
+                'Eat light, warm, and spicy foods',
+                'Engage in vigorous, energizing exercise',
+                'Avoid heavy, oily, and sweet foods',
+                'Use stimulating spices like black pepper and ginger'
+            ]
+        }
+        
+        dosha_recommendations = recommendations.get(dominant_dosha, [])
+        for i, recommendation in enumerate(dosha_recommendations, 1):
+            pdf.section_body(f'{i}. {recommendation}')
+        
+        # Lifestyle Tips
+        pdf.section_title('Lifestyle Guidelines')
+        pdf.section_body('Based on your dosha, here are some general lifestyle guidelines to maintain balance and optimal health:')
+        
+        lifestyle_tips = {
+            'Vata': 'Maintain regularity in meals, sleep, and daily activities. Stay warm and avoid cold, dry environments.',
+            'Pitta': 'Keep cool and avoid overheating. Practice moderation in all activities and avoid excessive competition.',
+            'Kapha': 'Stay active and energized. Avoid sedentary lifestyle and heavy, rich foods.'
+        }
+        
+        pdf.section_body(lifestyle_tips.get(dominant_dosha, 'Follow general Ayurvedic principles.'))
+        
+        # Disclaimer
+        pdf.section_title('Important Disclaimer')
+        pdf.section_body('This analysis is for educational purposes only and should not replace professional medical advice. Please consult with a qualified healthcare provider for any health concerns.')
+        
+        # Generate PDF content
+        pdf_content = pdf.output(dest='S').encode('latin-1')
+        
+        # Create response
+        response = make_response(pdf_content)
+        response.headers['Content-Type'] = 'application/pdf'
+        response.headers['Content-Disposition'] = f'attachment; filename=vedyura-dosha-analysis-{session["user_id"]}.pdf'
+        
+        return response
+        
+    except Exception as e:
+        print(f"Error generating PDF: {e}")
+        return jsonify({'error': 'Failed to generate PDF'}), 500
 
 # --- <<<<<<<<<<<<<<<<<<<<<<<< MODIFIED SECTION STARTS HERE >>>>>>>>>>>>>>>>>>>>>>>> ---
 

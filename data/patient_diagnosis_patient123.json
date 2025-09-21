@@ -1,35 +1,25 @@
 {
     "form_data": {
-        "age": "28",
-        "gender": "male",
-        "weight": "72",
-        "height": "252",
-        "body_frame": "moderate_athletic",
-        "skin_texture": "warm_sensitive",
-        "hair_type": "dry_brittle",
-        "appetite": "strong_urgent",
-        "digestion": "acidity_urgency",
+        "age": "22",
+        "gender": "female",
+        "weight": "60",
+        "height": "180",
+        "body_frame": "light_lean",
+        "skin_texture": "thick_smooth",
+        "hair_type": "thick_lustrous",
+        "appetite": "unpredictable",
+        "digestion": "dry_gas",
         "thirst": "frequently_thirsty",
-        "energy_levels": "steady_enduring",
+        "energy_levels": "bursts_of_energy",
         "stress_reaction": "anxiety_worry",
-        "sleep_pattern": "sound_short",
+        "sleep_pattern": "deep_long",
         "speaking_style": "clear_purposeful",
         "body_temperature": "tend_to_be_warm",
-        "health_goal": "weight_gain",
-        "activity_level": "sedentary",
+        "health_goal": "increase_energy",
+        "activity_level": "light",
         "yoga_experience": "intermediate",
         "allergies": "none",
         "medical_conditions": "none"
     },
-    "dominant_dosha": "Pitta",
-    "ppg_results": {
-        "description": "Your heart rate indicates a Pitta dominant constitution, with a moderate and sharp pulse. You are likely intelligent, focused, and have strong digestion.",
-        "dosha": "pitta",
-        "heart_rate": 74,
-        "recommendations": [
-            "Engage in calming activities like swimming or walking in nature.",
-            "Favor cooling, sweet, and bitter foods.",
-            "Avoid excessive heat and spicy foods."
-        ]
-    }
+    "dominant_dosha": "Vata"
 }

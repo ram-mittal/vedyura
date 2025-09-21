@@ -4,113 +4,419 @@
     Consult a Doctor - Vedyura
 {% endblock %}
 
+{% block body_class %}patient-consult-page{% endblock %}
+
 {% block content %}
-<header class="dashboard-header">
-    <nav class="navbar">
-        <div class="navbar-logo">
-            <a href="{{ url_for('patient_dashboard') }}">
-                <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='images/vedyura_logo.png') }}" alt="Vedyura Logo" class="logo-img"></a>
-            </a>
-        </div>
-        <div class="navbar-links">
-            <a href="{{ url_for('patient_dashboard') }}">Home</a>
-            <a href="{{ url_for('patient_self_diagnosis') }}">Self-Diagnosis</a>
-            <a href="{{ url_for('patient_consult_doctor') }}" class="active">Consult Doctor</a>
-            <a href="{{ url_for('contact_us') }}">Contact Us</a>
-            <a href="{{ url_for('patient_profile') }}">Profile</a>
-        </div>
-        <div class="navbar-action">
-             <button id="dark-mode-toggle" class="dark-mode-button">Toggle Dark Mode</button>
-        </div>
-    </nav>
-</header>
+<!-- Include Universal Navigation -->
+{% include 'components/universal_nav.html' %}
 
-<main class="page-content dashboard-content">
-    <div class="dashboard-container">
-        <section class="page-header">
-            <h1>Find a Practitioner</h1>
-            <p>Connect with registered doctors online or find one near you.</p>
-        </section>
-
-        <!-- Tab Navigation -->
-        <div class="tabs-container">
-            <div class="tab-nav">
-                <button class="tab-link active" onclick="openTab(event, 'Online')">Online</button>
-                <button class="tab-link" onclick="openTab(event, 'Nearby')">Nearby</button>
-            </div>
-
-            <!-- Tab Content: Online Doctors -->
-            <div id="Online" class="tab-content" style="display: block;">
-                <h3>Available Online</h3>
-                <div class="card-grid">
-                    {% for doctor in doctors %}
-                    <div class="card doctor-card">
-                        <div class="card-content">
-                            <h4>Dr. {{ doctor.name }}</h4>
-                            <p class="doctor-specialty">{{ doctor.specialty }}</p>
-                            <!-- CORRECTED: The form action now points to the correct function name 'send_request' -->
-                            <form action="{{ url_for('send_request') }}" method="POST" class="request-form">
-                                <input type="hidden" name="doctor_id" value="{{ doctor.id }}">
-                                <button type="submit" class="btn btn-primary btn-small">Send Request</button>
-                            </form>
+<main class="page-content">
+    <!-- Hero Section -->
+    <section class="consult-hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">Connect with Expert Practitioners</h1>
+                    <p class="hero-subtitle">Get personalized Ayurvedic consultation from certified doctors and experienced practitioners</p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Certified Doctors</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">1000+</div>
+                            <div class="stat-label">Happy Patients</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Available</div>
                         </div>
                     </div>
-                    {% else %}
-                    <div class="card">
-                        <p>No doctors are currently available online.</p>
-                    </div>
-                    {% endfor %}
                 </div>
-            </div>
-
-            <!-- Tab Content: Nearby Search -->
-            <div id="Nearby" class="tab-content">
-                <h3>Find a Doctor Nearby</h3>
-                <div class="card">
-                    <form id="nearby-search-form">
-                        <div class="form-group">
-                            <label for="locality">Enter Your City or Locality</label>
-                            <input type="text" id="locality" name="locality" placeholder="e.g., Pimpri-Chinchwad, Maharashtra" required>
+                <div class="hero-visual">
+                    <div class="consultation-graphic">
+                        <div class="doctor-avatar">👨‍⚕️</div>
+                        <div class="consultation-elements">
+                            <div class="element pulse-1">💊</div>
+                            <div class="element pulse-2">🌿</div>
+                            <div class="element pulse-3">📋</div>
                         </div>
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">Search on Google Maps</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+        <div class="grid-overlay"></div>
+    </section>
+
+    <!-- Consultation Options -->
+    <section class="consultation-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Choose Your Consultation Method</h2>
+                <p class="section-subtitle">Flexible options to connect with our expert practitioners</p>
+            </div>
+
+            <!-- Modern Tab System -->
+            <div class="modern-tabs">
+                <div class="tab-nav">
+                    <button class="tab-button active" data-tab="online">
+                        <span class="tab-icon">💻</span>
+                        <span class="tab-text">Online Consultation</span>
+                        <span class="tab-description">Video/Chat Sessions</span>
+                    </button>
+                    <button class="tab-button" data-tab="nearby">
+                        <span class="tab-icon">📍</span>
+                        <span class="tab-text">Find Nearby</span>
+                        <span class="tab-description">Local Practitioners</span>
+                    </button>
+                    <button class="tab-button" data-tab="request">
+                        <span class="tab-icon">📝</span>
+                        <span class="tab-text">Request Consultation</span>
+                        <span class="tab-description">Book Appointment</span>
+                    </button>
+                </div>
+
+                <!-- Online Consultation Tab -->
+                <div class="tab-content active" id="online-tab">
+                    <div class="doctors-grid">
+                        {% if doctors %}
+                            {% for doctor in doctors %}
+                            <div class="doctor-card" data-tilt>
+                                <div class="card-background"></div>
+                                <div class="doctor-header">
+                                    <div class="doctor-avatar-img">
+                                        <span class="avatar-text">{{ doctor.name[0].upper() }}</span>
+                                    </div>
+                                    <div class="doctor-info">
+                                        <h3 class="doctor-name">Dr. {{ doctor.name }}</h3>
+                                        <p class="doctor-specialty">{{ doctor.specialty }}</p>
+                                        <div class="doctor-rating">
+                                            <span class="rating-stars">⭐⭐⭐⭐⭐</span>
+                                            <span class="rating-text">4.8 (120 reviews)</span>
+                                        </div>
+                                    </div>
+                                    <div class="availability-status online">
+                                        <span class="status-dot"></span>
+                                        <span class="status-text">Online</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="doctor-details">
+                                    <div class="detail-item">
+                                        <span class="detail-icon">🎓</span>
+                                        <span class="detail-text">15+ Years Experience</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-icon">🏥</span>
+                                        <span class="detail-text">Certified Ayurvedic Practitioner</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-icon">💬</span>
+                                        <span class="detail-text">English, Hindi</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="consultation-options">
+                                    <div class="option-item">
+                                        <span class="option-icon">📹</span>
+                                        <span class="option-text">Video Call</span>
+                                        <span class="option-price">₹500</span>
+                                    </div>
+                                    <div class="option-item">
+                                        <span class="option-icon">💬</span>
+                                        <span class="option-text">Chat Session</span>
+                                        <span class="option-price">₹300</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="card-actions">
+                                    <button class="consult-btn primary" onclick="bookConsultation('{{ doctor.id }}', 'video')">
+                                        <span class="btn-icon">📹</span>
+                                        <span>Book Video Call</span>
+                                    </button>
+                                    <button class="consult-btn secondary" onclick="bookConsultation('{{ doctor.id }}', 'chat')">
+                                        <span class="btn-icon">💬</span>
+                                        <span>Start Chat</span>
+                                    </button>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="empty-state">
+                                <div class="empty-icon">👨‍⚕️</div>
+                                <h3 class="empty-title">No Doctors Available</h3>
+                                <p class="empty-description">Currently no doctors are online. Please try again later or request a consultation.</p>
+                                <button class="empty-action-btn" onclick="switchTab('request')">
+                                    <span class="btn-icon">📝</span>
+                                    <span>Request Consultation</span>
+                                </button>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Nearby Doctors Tab -->
+                <div class="tab-content" id="nearby-tab">
+                    <div class="location-finder">
+                        <div class="finder-header">
+                            <h3 class="finder-title">Find Practitioners Near You</h3>
+                            <p class="finder-subtitle">Discover certified Ayurvedic doctors in your area</p>
+                        </div>
+                        
+                        <div class="location-search">
+                            <div class="search-wrapper">
+                                <input type="text" id="location-input" placeholder="Enter your city or pincode..." class="location-input">
+                                <button class="search-btn" onclick="searchNearby()">
+                                    <span class="btn-icon">🔍</span>
+                                    <span>Search</span>
+                                </button>
+                            </div>
+                            <button class="current-location-btn" onclick="useCurrentLocation()">
+                                <span class="btn-icon">📍</span>
+                                <span>Use Current Location</span>
+                            </button>
+                        </div>
+                        
+                        <div class="nearby-results" id="nearby-results">
+                            <!-- Results will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Request Consultation Tab -->
+                <div class="tab-content" id="request-tab">
+                    <div class="request-form-container">
+                        <div class="form-header">
+                            <h3 class="form-title">Request a Consultation</h3>
+                            <p class="form-subtitle">Fill out this form and we'll connect you with the right practitioner</p>
+                        </div>
+                        
+                        <form class="consultation-request-form" id="consultation-form">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Full Name</label>
+                                    <input type="text" name="name" class="form-input" placeholder="Enter your full name" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Email Address</label>
+                                    <input type="email" name="email" class="form-input" placeholder="Enter your email" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="tel" name="phone" class="form-input" placeholder="Enter your phone number" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Age</label>
+                                    <input type="number" name="age" class="form-input" placeholder="Enter your age" min="1" max="120" required>
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label class="form-label">Consultation Type</label>
+                                    <select name="consultation_type" class="form-select" required>
+                                        <option value="">Select consultation type</option>
+                                        <option value="general">General Health Consultation</option>
+                                        <option value="diet">Diet & Nutrition Planning</option>
+                                        <option value="chronic">Chronic Disease Management</option>
+                                        <option value="wellness">Wellness & Prevention</option>
+                                        <option value="specific">Specific Health Concern</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label class="form-label">Preferred Time</label>
+                                    <select name="preferred_time" class="form-select" required>
+                                        <option value="">Select preferred time</option>
+                                        <option value="morning">Morning (9 AM - 12 PM)</option>
+                                        <option value="afternoon">Afternoon (12 PM - 5 PM)</option>
+                                        <option value="evening">Evening (5 PM - 8 PM)</option>
+                                        <option value="flexible">Flexible</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label class="form-label">Health Concerns</label>
+                                    <textarea name="concerns" class="form-textarea" placeholder="Please describe your health concerns or questions..." rows="4" required></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="submit-btn">
+                                    <span class="btn-icon">📝</span>
+                                    <span>Submit Request</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Why Choose Our Practitioners?</h2>
+                <p class="section-subtitle">Experience the best of traditional Ayurveda with modern convenience</p>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎓</div>
+                    <h4 class="benefit-title">Certified Experts</h4>
+                    <p class="benefit-text">All our doctors are certified Ayurvedic practitioners with years of experience</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🔒</div>
+                    <h4 class="benefit-title">Secure & Private</h4>
+                    <p class="benefit-text">Your consultations are completely confidential and HIPAA compliant</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">⚡</div>
+                    <h4 class="benefit-title">Quick Response</h4>
+                    <p class="benefit-text">Get connected with a practitioner within 24 hours of your request</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">💰</div>
+                    <h4 class="benefit-title">Affordable Care</h4>
+                    <p class="benefit-text">Quality healthcare at transparent and affordable pricing</p>
+                </div>
+            </div>
+        </div>
+    </section>
 </main>
+{% endblock %}
 
-<!-- Page-specific JavaScript -->
+{% block scripts %}
 <script>
-    // --- Tab Logic ---
-    function openTab(evt, tabName) {
-        let i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tab-content");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tab-link");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(tabName).style.display = "block";
-        evt.currentTarget.className += " active";
-    }
-
-    // --- Nearby Search Logic ---
-    document.addEventListener('DOMContentLoaded', () => {
-        const nearbyForm = document.getElementById('nearby-search-form');
-        nearbyForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // Prevent default form submission
-            const locality = document.getElementById('locality').value;
-            if (locality) {
-                const searchQuery = `Ayurvedic Doctor near ${locality}`;
-                const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(searchQuery)}`;
-                window.open(googleMapsUrl, '_blank'); // Open in a new tab
-            }
+document.addEventListener('DOMContentLoaded', function() {
+    // Tab switching functionality
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const targetTab = this.dataset.tab;
+            switchTab(targetTab);
         });
     });
+    
+    // Form submission
+    const consultationForm = document.getElementById('consultation-form');
+    if (consultationForm) {
+        consultationForm.addEventListener('submit', handleFormSubmission);
+    }
+});
+
+function switchTab(targetTab) {
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    // Remove active class from all tabs and contents
+    tabButtons.forEach(btn => btn.classList.remove('active'));
+    tabContents.forEach(content => content.classList.remove('active'));
+    
+    // Add active class to target tab and content
+    document.querySelector(`[data-tab="${targetTab}"]`).classList.add('active');
+    document.getElementById(targetTab + '-tab').classList.add('active');
+}
+
+function bookConsultation(doctorId, type) {
+    // Show loading state
+    const button = event.target.closest('.consult-btn');
+    button.classList.add('loading');
+    button.disabled = true;
+    
+    // Simulate booking process
+    setTimeout(() => {
+        alert(`Booking ${type} consultation with doctor ${doctorId}. You will be redirected to payment.`);
+        button.classList.remove('loading');
+        button.disabled = false;
+    }, 2000);
+}
+
+function searchNearby() {
+    const locationInput = document.getElementById('location-input');
+    const location = locationInput.value.trim();
+    
+    if (!location) {
+        alert('Please enter a location to search');
+        return;
+    }
+    
+    const resultsContainer = document.getElementById('nearby-results');
+    resultsContainer.innerHTML = `
+        <div class="loading-state">
+            <div class="loading-spinner"></div>
+            <p>Searching for practitioners near ${location}...</p>
+        </div>
+    `;
+    
+    // Simulate search
+    setTimeout(() => {
+        const mockResults = [
+            { name: 'Dr. Rajesh Kumar', specialty: 'General Ayurveda', distance: '2.5 km', rating: '4.7' },
+            { name: 'Dr. Priya Sharma', specialty: 'Panchakarma', distance: '3.8 km', rating: '4.9' },
+            { name: 'Dr. Amit Patel', specialty: 'Herbal Medicine', distance: '5.2 km', rating: '4.6' }
+        ];
+        
+        resultsContainer.innerHTML = `
+            <div class="nearby-doctors">
+                ${mockResults.map(doctor => `
+                    <div class="nearby-doctor-card">
+                        <div class="doctor-info">
+                            <h4 class="doctor-name">Dr. ${doctor.name}</h4>
+                            <p class="doctor-specialty">${doctor.specialty}</p>
+                            <div class="doctor-meta">
+                                <span class="distance">📍 ${doctor.distance}</span>
+                                <span class="rating">⭐ ${doctor.rating}</span>
+                            </div>
+                        </div>
+                        <button class="contact-btn" onclick="contactDoctor('${doctor.name}')">
+                            <span class="btn-icon">📞</span>
+                            <span>Contact</span>
+                        </button>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }, 2000);
+}
+
+function useCurrentLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            document.getElementById('location-input').value = 'Current Location';
+            searchNearby();
+        }, function(error) {
+            alert('Unable to get your location. Please enter manually.');
+        });
+    } else {
+        alert('Geolocation is not supported by this browser.');
+    }
+}
+
+function contactDoctor(doctorName) {
+    alert(`Contacting ${doctorName}. You will receive their contact details via email.`);
+}
+
+function handleFormSubmission(e) {
+    e.preventDefault();
+    
+    const submitBtn = document.querySelector('.submit-btn');
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+    
+    // Simulate form submission
+    setTimeout(() => {
+        alert('Your consultation request has been submitted! We will contact you within 24 hours.');
+        e.target.reset();
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+    }, 2000);
+}
 </script>
 {% endblock %}

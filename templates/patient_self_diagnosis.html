@@ -4,413 +4,1094 @@
     Self-Diagnosis - Vedyura
 {% endblock %}
 
+{% block body_class %}patient-self-diagnosis-page{% endblock %}
+
 {% block content %}
-<header class="dashboard-header">
-    <nav class="navbar">
-        <div class="navbar-logo">
-            <a href="{{ url_for('patient_dashboard') }}">
-                <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='images/vedyura_logo.png') }}" alt="Vedyura Logo" class="logo-img"></a>
-            </a>
-        </div>
-        <div class="navbar-links">
-            <a href="{{ url_for('patient_dashboard') }}">Home</a>
-            <a href="{{ url_for('patient_self_diagnosis') }}" class="active">Self-Diagnosis</a>
-            <a href="{{ url_for('patient_consult_doctor') }}">Consult Doctor</a>
-            <a href="{{ url_for('contact_us') }}">Contact Us</a>
-            <a href="{{ url_for('patient_profile') }}">Profile</a>
-        </div>
-        <div class="navbar-action">
-             <button id="dark-mode-toggle" class="dark-mode-button">Toggle Dark Mode</button>
-        </div>
-    </nav>
-</header>
+<!-- Include Universal Navigation -->
+{% include 'components/universal_nav.html' %}
 
-<main class="page-content dashboard-content">
-    <div class="dashboard-container">
-        <section class="page-header">
-            <h1>Self-Diagnosis Tools</h1>
-            <p>Generate a preliminary diet chart or explore recipes suitable for you.</p>
-        </section>
+<main class="page-content">
+    <!-- Hero Section -->
+    <section class="diagnosis-hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">Discover Your Dosha</h1>
+                    <p class="hero-subtitle">Unlock the secrets of your unique constitution through ancient Ayurvedic wisdom and modern AI analysis</p>
+                    <div class="hero-features">
+                        <div class="feature-item">
+                            <span class="feature-icon">🧬</span>
+                            <span class="feature-text">Personalized Analysis</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">🤖</span>
+                            <span class="feature-text">AI-Powered Insights</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">📊</span>
+                            <span class="feature-text">Detailed Reports</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="dosha-wheel">
+                        <div class="wheel-center">
+                            <div class="center-symbol">⚖️</div>
+                        </div>
+                        <div class="wheel-segment vata">
+                            <span class="dosha-name">Vata</span>
+                            <span class="dosha-element">Air + Space</span>
+                        </div>
+                        <div class="wheel-segment pitta">
+                            <span class="dosha-name">Pitta</span>
+                            <span class="dosha-element">Fire + Water</span>
+                        </div>
+                        <div class="wheel-segment kapha">
+                            <span class="dosha-name">Kapha</span>
+                            <span class="dosha-element">Earth + Water</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-overlay"></div>
+    </section>
 
-        <div class="tabs-container">
-            <div class="tab-nav">
-                <button class="tab-link active" onclick="openTab(event, 'DietChart')">Diet Chart</button>
-                <button class="tab-link" onclick="openTab(event, 'ChatBot')">Chat-Bot</button>
-                <button class="tab-link" onclick="openTab(event, 'RecipeSearch')">Search Recipes</button>
+    <!-- Tools Section -->
+    <section class="diagnosis-tools">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Choose Your Path to Wellness</h2>
+                <p class="section-subtitle">Multiple ways to discover your unique constitution and health insights</p>
             </div>
 
-            <div id="DietChart" class="tab-content" style="display: block;">
-                <h3>Your Personalized Ayurvedic Analysis (Rogi Pariksha)</h3>
+            <!-- Modern Tab System -->
+            <div class="modern-tabs">
+                <div class="tab-nav">
+                    <button class="tab-button active" data-tab="assessment">
+                        <span class="tab-icon">📝</span>
+                        <span class="tab-text">Dosha Assessment</span>
+                        <span class="tab-description">Complete Analysis</span>
+                    </button>
+                    <button class="tab-button" data-tab="chatbot">
+                        <span class="tab-icon">🤖</span>
+                        <span class="tab-text">AI Assistant</span>
+                        <span class="tab-description">Interactive Chat</span>
+                    </button>
+                    <button class="tab-button" data-tab="recipes">
+                        <span class="tab-icon">🍽️</span>
+                        <span class="tab-text">Recipe Finder</span>
+                        <span class="tab-description">Personalized Meals</span>
+                    </button>
+                </div>
 
-                <div id="diagnosis-form-container">
-                    <p>Please fill in your details below to begin. The more accurate your answers, the better your results.</p>
-                    <div class="card diet-chart-creator">
-                        <form id="diagnosis-form">
-                            <h4 class="form-section-header">Section 1: Foundational Information</h4>
-                            <p class="form-section-description">This section helps us understand your basic physical makeup and metabolic rate.</p>
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label for="age">1. What is your age?</label>
-                                    <input type="number" id="age" name="age" required placeholder="e.g., 35" min="1" oninput="this.value = !!this.value && Math.abs(this.value) >= 1 ? Math.abs(this.value) : null">
+                <!-- Assessment Tab -->
+                <div class="tab-content active" id="assessment-tab">
+                    <div class="assessment-container">
+                        <div class="assessment-header">
+                            <h3 class="assessment-title">Comprehensive Dosha Assessment</h3>
+                            <p class="assessment-subtitle">Answer these questions to discover your unique Ayurvedic constitution</p>
+                            <div class="progress-container">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="progress-fill"></div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="gender">2. What is your biological gender?</label>
-                                    <select id="gender" name="gender" required>
-                                        <option value="">Select...</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                    </select>
+                                <span class="progress-text" id="progress-text">0% Complete</span>
+                            </div>
+                        </div>
+
+                        <form id="diagnosis-form" class="assessment-form">
+                            <!-- Section 1: Physical Characteristics -->
+                            <div class="form-section active" data-section="1">
+                                <div class="section-header">
+                                    <div class="section-number">01</div>
+                                    <div class="section-info">
+                                        <h4 class="section-title">Physical Characteristics</h4>
+                                        <p class="section-description">Understanding your body's natural structure and tendencies</p>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="weight">3. What is your current weight? (in kg)</label>
-                                    <input type="number" id="weight" name="weight" step="0.1" required placeholder="e.g., 70" min="1">
+
+                                <div class="questions-grid">
+                                    <div class="question-card">
+                                        <label class="question-label">Body Frame</label>
+                                        <div class="radio-group">
+                                            <label class="radio-option">
+                                                <input type="radio" name="body_frame" value="thin">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Thin/Lean</span>
+                                                    <span class="option-desc">Naturally slender, find it hard to gain weight</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="body_frame" value="medium">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Medium</span>
+                                                    <span class="option-desc">Moderate build, gain/lose weight easily</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="body_frame" value="heavy">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Heavy/Solid</span>
+                                                    <span class="option-desc">Naturally broad, gain weight easily</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="question-card">
+                                        <label class="question-label">Skin Type</label>
+                                        <div class="radio-group">
+                                            <label class="radio-option">
+                                                <input type="radio" name="skin_type" value="dry">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Dry/Rough</span>
+                                                    <span class="option-desc">Often feels dry, may crack easily</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="skin_type" value="oily">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Oily/Warm</span>
+                                                    <span class="option-desc">Tends to be oily, warm to touch</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="skin_type" value="smooth">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Smooth/Cool</span>
+                                                    <span class="option-desc">Soft, smooth, cool to touch</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="question-card">
+                                        <label class="question-label">Hair Characteristics</label>
+                                        <div class="radio-group">
+                                            <label class="radio-option">
+                                                <input type="radio" name="hair_type" value="dry">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Dry/Brittle</span>
+                                                    <span class="option-desc">Tends to be dry, frizzy, or brittle</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="hair_type" value="fine">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Fine/Straight</span>
+                                                    <span class="option-desc">Fine texture, straight, may thin early</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="hair_type" value="thick">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Thick/Wavy</span>
+                                                    <span class="option-desc">Thick, wavy, lustrous hair</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="height">4. What is your height? (in cm)</label>
-                                    <input type="number" id="height" name="height" required placeholder="e.g., 175" min="1">
+
+                                <div class="section-navigation">
+                                    <button type="button" class="nav-btn next-btn" onclick="nextSection()">
+                                        <span>Next Section</span>
+                                        <span class="btn-icon">→</span>
+                                    </button>
                                 </div>
                             </div>
 
-                            <h4 class="form-section-header">Section 2: Your Physical Nature (Deha Prakriti)</h4>
-                             <p class="form-section-description">This helps us understand your inherent physical constitution.</p>
-                            <div class="form-grid">
-                                <div class="form-group full-width">
-                                    <label>5. Which description best fits your overall body frame?</label>
-                                    <select name="body_frame" required>
-                                        <option value="">Select...</option>
-                                        <option value="light_lean">Light & Lean: "I'm naturally thin, have prominent joints, and find it difficult to gain weight."</option>
-                                        <option value="moderate_athletic">Moderate & Athletic: "I have a medium, muscular build. I can gain or lose weight with moderate effort."</option>
-                                        <option value="solid_sturdy">Solid & Sturdy: "I have a larger, well-built frame and tend to gain weight easily, but find it hard to lose."</option>
-                                    </select>
+                            <!-- Section 2: Mental & Emotional Characteristics -->
+                            <div class="form-section" data-section="2">
+                                <div class="section-header">
+                                    <div class="section-number">02</div>
+                                    <div class="section-info">
+                                        <h4 class="section-title">Mental & Emotional Traits</h4>
+                                        <p class="section-description">Understanding your mental patterns and emotional responses</p>
+                                    </div>
                                 </div>
-                                <div class="form-group full-width">
-                                    <label>6. How would you describe your skin?</label>
-                                    <select name="skin_texture" required>
-                                        <option value="">Select...</option>
-                                        <option value="dry_cool">Dry & Cool: "My skin often feels dry, rough, or cool to the touch, especially in winter."</option>
-                                        <option value="warm_sensitive">Warm & Sensitive: "My skin is warm, tends to be oily, and can be sensitive, sometimes breaking out in rashes or acne."</option>
-                                        <option value="thick_smooth">Thick & Smooth: "My skin feels thick, smooth, and is generally well-moisturized, sometimes feeling cool or clammy."</option>
-                                    </select>
+
+                                <div class="questions-grid">
+                                    <div class="question-card">
+                                        <label class="question-label">Mental Activity</label>
+                                        <div class="radio-group">
+                                            <label class="radio-option">
+                                                <input type="radio" name="mental_activity" value="quick">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Quick/Restless</span>
+                                                    <span class="option-desc">Mind moves quickly, easily distracted</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="mental_activity" value="sharp">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Sharp/Focused</span>
+                                                    <span class="option-desc">Good concentration, decisive thinking</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="mental_activity" value="calm">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Calm/Steady</span>
+                                                    <span class="option-desc">Slow to process but retains well</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="question-card">
+                                        <label class="question-label">Sleep Pattern</label>
+                                        <div class="radio-group">
+                                            <label class="radio-option">
+                                                <input type="radio" name="sleep_pattern" value="light">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Light Sleeper</span>
+                                                    <span class="option-desc">Easily awakened, restless sleep</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="sleep_pattern" value="moderate">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Moderate Sleep</span>
+                                                    <span class="option-desc">Good sleep quality, regular patterns</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="sleep_pattern" value="deep">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Deep Sleeper</span>
+                                                    <span class="option-desc">Heavy sleep, hard to wake up</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group full-width">
-                                    <label>7. How does your hair typically feel and look?</label>
-                                    <select name="hair_type" required>
-                                        <option value="">Select...</option>
-                                        <option value="dry_brittle">Dry & Brittle: "My hair is on the thinner side and can be dry, frizzy, or brittle."</option>
-                                        <option value="fine_oily">Fine & Oily: "My hair is fine and can get oily. I might be prone to premature graying or thinning."</option>
-                                        <option value="thick_lustrous">Thick & Lustrous: "I have thick, strong, and often wavy hair that is generally healthy."</option>
-                                    </select>
+
+                                <div class="section-navigation">
+                                    <button type="button" class="nav-btn prev-btn" onclick="prevSection()">
+                                        <span class="btn-icon">←</span>
+                                        <span>Previous</span>
+                                    </button>
+                                    <button type="button" class="nav-btn next-btn" onclick="nextSection()">
+                                        <span>Next Section</span>
+                                        <span class="btn-icon">→</span>
+                                    </button>
                                 </div>
                             </div>
 
-                            <h4 class="form-section-header">Section 3: Your Metabolism & Digestion (Agni)</h4>
-                            <p class="form-section-description">This section is crucial for understanding how your body processes food.</p>
-                            <div class="form-grid">
-                                <div class="form-group full-width">
-                                    <label>8. What is your appetite usually like?</label>
-                                    <select name="appetite" required>
-                                        <option value="">Select...</option>
-                                        <option value="unpredictable">Unpredictable: "My appetite changes a lot. I might feel hungry at odd times and sometimes I forget to eat."</option>
-                                        <option value="strong_urgent">Strong & Urgent: "I have a strong appetite and get irritable, impatient, or 'hangry' if I have to wait for a meal."</option>
-                                        <option value="slow_steady">Slow & Steady: "I have a consistent but mild appetite. I enjoy food, but I can easily skip a meal without much discomfort."</option>
-                                    </select>
+                            <!-- Section 3: Lifestyle & Preferences -->
+                            <div class="form-section" data-section="3">
+                                <div class="section-header">
+                                    <div class="section-number">03</div>
+                                    <div class="section-info">
+                                        <h4 class="section-title">Lifestyle & Preferences</h4>
+                                        <p class="section-description">Your daily habits and natural preferences</p>
+                                    </div>
                                 </div>
-                                <div class="form-group full-width">
-                                    <label>9. How would you describe your digestion and bowel habits?</label>
-                                    <select name="digestion" required>
-                                        <option value="">Select...</option>
-                                        <option value="dry_gas">Tends towards Dryness/Gas: "I sometimes experience gas, bloating, or a tendency towards constipation with dry, hard stools."</option>
-                                        <option value="acidity_urgency">Tends towards Acidity/Urgency: "I can have a strong digestion, but I'm also prone to acidity, heartburn, or looser, more frequent bowel movements."</option>
-                                        <option value="slow_heaviness">Tends towards Slowness/Heaviness: "My digestion feels slow and heavy. I can feel sluggish after eating, and my bowel movements are regular but slow."</option>
-                                    </select>
+
+                                <div class="questions-grid">
+                                    <div class="question-card">
+                                        <label class="question-label">Food Preferences</label>
+                                        <div class="radio-group">
+                                            <label class="radio-option">
+                                                <input type="radio" name="food_preference" value="warm">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Warm/Cooked</span>
+                                                    <span class="option-desc">Prefer warm, cooked, moist foods</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="food_preference" value="cool">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Cool/Fresh</span>
+                                                    <span class="option-desc">Enjoy cool, fresh, raw foods</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="food_preference" value="rich">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Rich/Heavy</span>
+                                                    <span class="option-desc">Like rich, heavy, sweet foods</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="question-card">
+                                        <label class="question-label">Weather Preference</label>
+                                        <div class="radio-group">
+                                            <label class="radio-option">
+                                                <input type="radio" name="weather_preference" value="warm">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Warm Weather</span>
+                                                    <span class="option-desc">Feel better in warm, humid climate</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="weather_preference" value="cool">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Cool Weather</span>
+                                                    <span class="option-desc">Prefer cool, dry climate</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="weather_preference" value="moderate">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Moderate Weather</span>
+                                                    <span class="option-desc">Comfortable in moderate temperatures</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group full-width">
-                                    <label>10. How is your thirst throughout the day?</label>
-                                    <select name="thirst" required>
-                                        <option value="">Select...</option>
-                                        <option value="forget_to_drink">Often Forget to Drink: "I don't feel thirsty very often and can sometimes forget to drink enough water."</option>
-                                        <option value="frequently_thirsty">Frequently Thirsty: "I often feel a strong thirst and prefer cool drinks."</option>
-                                        <option value="moderate_consistent">Moderate & Consistent: "My thirst is steady and moderate throughout the day."</option>
-                                    </select>
+
+                                <div class="section-navigation">
+                                    <button type="button" class="nav-btn prev-btn" onclick="prevSection()">
+                                        <span class="btn-icon">←</span>
+                                        <span>Previous</span>
+                                    </button>
+                                    <button type="button" class="nav-btn next-btn" onclick="nextSection()">
+                                        <span>Next Section</span>
+                                        <span class="btn-icon">→</span>
+                                    </button>
                                 </div>
                             </div>
 
-                            <h4 class="form-section-header">Section 4: Your Energy & Mind (Manas Prakriti)</h4>
-                            <p class="form-section-description">This helps us understand your mental and emotional tendencies.</p>
-                            <div class="form-grid">
-                                <div class="form-group full-width">
-                                    <label>11. How are your energy levels on a typical day?</label>
-                                    <select name="energy_levels" required>
-                                        <option value="">Select...</option>
-                                        <option value="bursts_of_energy">Bursts of Energy: "My energy comes in waves. I can be very active for a short period, but then I crash and feel tired."</option>
-                                        <option value="focused_driven">Focused & Driven: "I have consistent, high-energy levels, especially when I'm focused on a goal I'm passionate about."</option>
-                                        <option value="steady_enduring">Steady & Enduring: "I'm not a sprinter, I'm a marathoner. My energy is steady and I have great stamina once I get going."</option>
-                                    </select>
+                            <!-- Section 4: PPG Heart Rate Measurement -->
+                            <div class="form-section" data-section="4">
+                                <div class="section-header">
+                                    <div class="section-number">04</div>
+                                    <div class="section-info">
+                                        <h4 class="section-title">Pulse Analysis (Nadi Pariksha)</h4>
+                                        <p class="section-description">Advanced pulse analysis using your device camera for Ayurvedic insights</p>
+                                    </div>
                                 </div>
-                                <div class="form-group full-width">
-                                    <label>12. When you are under stress, what is your first reaction?</label>
-                                    <select name="stress_reaction" required>
-                                        <option value="">Select...</option>
-                                        <option value="anxiety_worry">Anxiety & Worry: "I tend to become anxious, overthink things, and worry about the future."</option>
-                                        <option value="irritability_impatience">Irritability & Impatience: "I become easily irritated, critical, or frustrated when things don't go according to plan."</option>
-                                        <option value="withdrawal_lethargy">Withdrawal & Lethargy: "I tend to shut down, withdraw, and can feel unmotivated or emotionally attached to the situation."</option>
-                                    </select>
-                                </div>
-                                <div class="form-group full-width">
-                                    <label>13. What is your natural sleep pattern like?</label>
-                                    <select name="sleep_pattern" required>
-                                        <option value="">Select...</option>
-                                        <option value="light_interrupted">Light & Interrupted: "I'm a light sleeper and wake up easily. It can be hard for my mind to shut off at night."</option>
-                                        <option value="sound_short">Sound but Short: "I usually fall asleep quickly and sleep soundly, but I don't need a lot of sleep to feel rested."</option>
-                                        <option value="deep_long">Deep & Long: "I am a very deep sleeper. I can sleep for a long time and often have trouble waking up in the morning, feeling groggy."</option>
-                                    </select>
-                                </div>
-                            </div>
 
-                            <h4 class="form-section-header">Section 5: Subtle Indicators & Preferences</h4>
-                             <p class="form-section-description">This final section helps us understand the subtle, day-to-day patterns of your body and mind.</p>
-                            <div class="form-grid">
-                                <div class="form-group full-width">
-                                    <label>14. What is your natural tendency when it comes to speaking?</label>
-                                    <select name="speaking_style" required>
-                                        <option value="">Select...</option>
-                                        <option value="fast_talkative">Fast & Talkative: "I talk quickly, can be very chatty, and sometimes jump from topic to topic."</option>
-                                        <option value="clear_purposeful">Clear & Purposeful: "I speak clearly and articulately. I like to make a point and can be persuasive or direct."</option>
-                                        <option value="slow_calm">Slow & Calm: "I speak in a slow, calm, and measured way. I choose my words carefully."</option>
-                                    </select>
+                                <div class="ppg-measurement-container">
+                                    <div class="ppg-header">
+                                        <h4 class="ppg-title">Heart Rate & Pulse Analysis</h4>
+                                        <p class="ppg-subtitle">Place your finger over the camera lens to measure your pulse and get Ayurvedic insights</p>
+                                    </div>
+
+                                    <div class="ppg-interface">
+                                        <div class="video-container">
+                                            <video id="video" autoplay muted style="display: none;"></video>
+                                            <img id="video_feed" src="/video_feed" alt="Camera Feed" style="width: 100%; max-width: 400px; border-radius: 12px;">
+                                        </div>
+
+                                        <div class="ppg-controls">
+                                            <div class="measurement-status" id="measurement-status">
+                                                <span class="status-icon">📱</span>
+                                                <span class="status-text">Ready to measure</span>
+                                            </div>
+
+                                            <div class="ppg-instructions">
+                                                <div class="instruction-item">
+                                                    <span class="instruction-icon">👆</span>
+                                                    <span class="instruction-text">Place finger over camera</span>
+                                                </div>
+                                                <div class="instruction-item">
+                                                    <span class="instruction-icon">💡</span>
+                                                    <span class="instruction-text">Ensure good lighting</span>
+                                                </div>
+                                                <div class="instruction-item">
+                                                    <span class="instruction-icon">⏱️</span>
+                                                    <span class="instruction-text">Hold still for 30 seconds</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="ppg-buttons">
+                                                <button type="button" class="ppg-btn start-btn" id="start-measurement" onclick="startPPGMeasurement()">
+                                                    <span class="btn-icon">▶️</span>
+                                                    <span>Start Measurement</span>
+                                                </button>
+                                                <button type="button" class="ppg-btn stop-btn" id="stop-measurement" onclick="stopPPGMeasurement()" style="display: none;">
+                                                    <span class="btn-icon">⏹️</span>
+                                                    <span>Stop Measurement</span>
+                                                </button>
+                                            </div>
+
+                                            <div class="ppg-results" id="ppg-results" style="display: none;">
+                                                <h5 class="results-title">Measurement Results</h5>
+                                                <div class="results-grid">
+                                                    <div class="result-item">
+                                                        <span class="result-label">Heart Rate</span>
+                                                        <span class="result-value" id="heart-rate-value">-- BPM</span>
+                                                    </div>
+                                                    <div class="result-item">
+                                                        <span class="result-label">Pulse Dosha</span>
+                                                        <span class="result-value" id="pulse-dosha-value">--</span>
+                                                    </div>
+                                                </div>
+                                                <div class="pulse-description" id="pulse-description">
+                                                    <!-- Pulse analysis description will be populated here -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group full-width">
-                                    <label>15. How would you describe your body temperature, especially your hands and feet?</label>
-                                    <select name="body_temperature" required>
-                                        <option value="">Select...</option>
-                                        <option value="tend_to_be_cold">Tend to be Cold: "My hands and feet are often cold to the touch, and I prefer warm environments."</option>
-                                        <option value="tend_to_be_warm">Tend to be Warm: "I often feel warm, even when others are cold. I might have warm hands and feet and prefer cooler temperatures."</option>
-                                        <option value="adaptable">Adaptable: "My body temperature seems to adapt well to the environment; I don't feel extreme heat or cold."</option>
-                                    </select>
+
+                                <div class="section-navigation">
+                                    <button type="button" class="nav-btn prev-btn" onclick="prevSection()">
+                                        <span class="btn-icon">←</span>
+                                        <span>Previous</span>
+                                    </button>
+                                    <button type="button" class="nav-btn next-btn" onclick="showResults()">
+                                        <span>View Results</span>
+                                        <span class="btn-icon">✨</span>
+                                    </button>
                                 </div>
                             </div>
                             
-                            <h4 class="form-section-header">Section 6: Your Lifestyle & Goals</h4>
-                             <p class="form-section-description">This helps us tailor the recommendations to your life.</p>
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label for="health_goal">16. What is your primary health goal right now?</label>
-                                    <select id="health_goal" name="health_goal" required>
-                                        <option value="">Select...</option>
-                                        <option value="weight_loss">Weight Loss</option>
-                                        <option value="weight_gain">Weight Gain</option>
-                                        <option value="better_digestion">Improve Digestion</option>
-                                        <option value="increase_energy">Increase Energy</option>
-                                        <option value="stress_management">Stress Management</option>
-                                        <option value="general_wellness">General Wellness</option>
-                                    </select>
+                            <div class="form-section" data-section="results" style="display: none;">
+                                <div class="results-container">
+                                    <div class="results-header">
+                                        <h3 class="results-title">Your Dosha Analysis</h3>
+                                        <p class="results-subtitle">Based on your responses, here's your personalized constitution</p>
+                                    </div>
+                                    
+                                    <div class="dosha-results" id="dosha-results">
+                                        <!-- Results will be populated by JavaScript -->
+                                    </div>
+                                    
+                                    <div class="action-buttons">
+                                        <button type="button" class="action-btn primary" onclick="generatePDF()">
+                                            <span class="btn-icon">📄</span>
+                                            <span>Download PDF Report</span>
+                                        </button>
+                                        <button type="button" class="action-btn secondary" onclick="generateDietChart()">
+                                            <span class="btn-icon">📋</span>
+                                            <span>Generate Diet Chart</span>
+                                        </button>
+                                        <button type="button" class="action-btn tertiary" onclick="retakeAssessment()">
+                                            <span class="btn-icon">🔄</span>
+                                            <span>Retake Assessment</span>
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="activity_level">17. How would you describe your daily physical activity?</label>
-                                    <select id="activity_level" name="activity_level" required>
-                                        <option value="">Select...</option>
-                                        <option value="sedentary">Mostly Seated (e.g., Desk job, driving)</option>
-                                        <option value="light">Lightly Active (e.g., Walking, household chores)</option>
-                                        <option value="moderate">Moderately Active (e.g., Regular exercise, sports 3-5 days/week)</option>
-                                        <option value="very_active">Very Active (e.g., Physically demanding job, intense daily workouts)</option>
-                                    </select>
-                                </div>
-                                <div class="form-group full-width">
-                                    <label for="yoga_experience">18. What is your level of experience with yoga?</label>
-                                    <select id="yoga_experience" name="yoga_experience" required>
-                                        <option value="">Select...</option>
-                                        <option value="beginner">Beginner: "I'm new to yoga or have practiced very little."</option>
-                                        <option value="intermediate">Intermediate: "I practice yoga occasionally and am familiar with basic poses."</option>
-                                        <option value="advanced">Advanced: "I have a regular and consistent yoga practice."</option>
-                                    </select>
-                                </div>
-                                <div class="form-group full-width">
-                                    <label for="allergies">19. Do you have any known food allergies or intolerances?</label>
-                                    <textarea id="allergies" name="allergies" rows="2" placeholder="e.g., Peanuts, Gluten, Dairy. Please list one per line."></textarea>
-                                </div>
-                                <div class="form-group full-width">
-                                    <label for="medical_conditions">20. Are you currently taking any medications or have any diagnosed medical conditions?</label>
-                                    <textarea id="medical_conditions" name="medical_conditions" rows="3" placeholder="e.g., Diabetes, High Blood Pressure, Thyroid issues. This is important for safety."></textarea>
-                                </div>
-                            </div>
-                            <div class="form-actions">
-                                <button type="submit" class="btn btn-primary">Submit & Proceed to Scan</button>
                             </div>
                         </form>
                     </div>
                 </div>
 
-                <div id="form-submit-popup" class="popup-message hidden"><p>Form Submitted!</p></div>
-                <div id="chart-actions-container" class="hidden">
-                    <div class="card" id="scan-me-container">
-                         <p>Your information has been saved. The next step is a quick biometric scan to measure key vital signs.</p>
-                         <div class="form-actions">
-                            <button id="scan-me-btn" class="btn btn-primary">Scan Me</button>
+                <!-- Chatbot Tab -->
+                <div class="tab-content" id="chatbot-tab">
+                    <div class="chatbot-container">
+                        <div class="chat-header">
+                            <div class="chat-avatar">🤖</div>
+                            <div class="chat-info">
+                                <h3 class="chat-title">Ayurveda AI Assistant</h3>
+                                <p class="chat-status">Online • Ready to help</p>
+                            </div>
                         </div>
-                    </div>
-                    <div id="ppg-interface-container" class="hidden">
-                        <div class="card-body text-center">
-                            <p class="text-muted">For an accurate reading, please ensure your face is well-lit and fits inside the frame. Remain still during the scan.</p>
-                            <img src="#" class="img-fluid" id="camera-feed">
-                            <div class="mt-3">
-                                <button id="start-btn" class="btn btn-primary me-2">Start Measurement</button>
-                                <button id="stop-btn" class="btn btn-danger" disabled>Stop Measurement</button>
+                        
+                        <div class="chat-messages" id="chat-messages">
+                            <div class="message bot-message">
+                                <div class="message-avatar">🤖</div>
+                                <div class="message-content">
+                                    <p>Hello! I'm your Ayurvedic AI assistant. I can help you understand your dosha, suggest remedies, and answer questions about Ayurvedic principles. How can I assist you today?</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-input-container">
+                            <div class="chat-input-wrapper">
+                                <input type="text" id="chat-input" placeholder="Ask me about Ayurveda, doshas, or health..." class="chat-input">
+                                <button type="button" id="send-btn" class="send-btn">
+                                    <span class="send-icon">📤</span>
+                                </button>
+                            </div>
+                            <div class="quick-questions">
+                                <button class="quick-btn" onclick="askQuickQuestion('What is my dosha?')">What is my dosha?</button>
+                                <button class="quick-btn" onclick="askQuickQuestion('Foods for Vata')">Foods for Vata</button>
+                                <button class="quick-btn" onclick="askQuickQuestion('Pitta balancing tips')">Pitta balancing tips</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div id="final-output-container" class="hidden">
-                    <div class="card">
-                         <p>Your analysis is complete and your personalized diet chart has been generated.</p>
-                         <div class="form-actions">
-                            <button id="download-daily-chart-btn" class="btn btn-primary">Download Daily Chart</button>
-                            <button id="download-weekly-chart-btn" class="btn btn-primary">Download Weekly Chart</button>
-                            <button id="edit-form-btn" class="btn btn-secondary">Edit Form</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div id="ChatBot" class="tab-content">
-                <h3>Ayurvedic Personal Diet Tool</h3>
-                <div class="chatbox__support card">
-                    <div class="chatbox__header">
-                        <div class="chatbox__content--header">
-                            <h4 class="chatbox__heading--header">Chat with Vedyura Tool</h4>
-                            <p class="chatbox__description--header">Ask me anything about your diet</p>
+                <!-- Recipes Tab -->
+                <div class="tab-content" id="recipes-tab">
+                    <div class="recipes-container">
+                        <div class="recipes-header">
+                            <h3 class="recipes-title">Personalized Recipe Finder</h3>
+                            <p class="recipes-subtitle">Discover delicious meals tailored to your dosha and dietary preferences</p>
+                        </div>
+                        
+                        <div class="recipe-filters">
+                            <div class="filter-group">
+                                <label class="filter-label">Dosha Type</label>
+                                <select class="filter-select" id="dosha-filter">
+                                    <option value="">All Doshas</option>
+                                    <option value="vata">Vata Balancing</option>
+                                    <option value="pitta">Pitta Balancing</option>
+                                    <option value="kapha">Kapha Balancing</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label class="filter-label">Meal Type</label>
+                                <select class="filter-select" id="meal-filter">
+                                    <option value="">All Meals</option>
+                                    <option value="breakfast">Breakfast</option>
+                                    <option value="lunch">Lunch</option>
+                                    <option value="dinner">Dinner</option>
+                                    <option value="snack">Snacks</option>
+                                </select>
+                            </div>
+                            <button class="filter-btn" onclick="searchRecipes()">
+                                <span class="btn-icon">🔍</span>
+                                <span>Find Recipes</span>
+                            </button>
+                        </div>
+                        
+                        <div class="recipes-grid" id="recipes-grid">
+                            <!-- Recipes will be populated by JavaScript -->
                         </div>
                     </div>
-                    <div class="chatbox__messages"><div></div></div>
-                    <div class="chatbox__footer">
-                        <input type="text" placeholder="Write a message...">
-                        <button class="chatbox__send--footer send__button">Send</button>
-                    </div>
-                </div>
-            </div>
-
-            <div id="RecipeSearch" class="tab-content">
-                <h3>Your Personalized Recipe Library</h3>
-                <div class="card recipe-container">
-                    <div id="recipe-content">
-                        </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </main>
 {% endblock %}
 
 {% block scripts %}
 <script>
-    // The JavaScript remains the same
-    function openTab(evt, tabName) {
-        let i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tab-content");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tab-link");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(tabName).style.display = "block";
-        evt.currentTarget.className += " active";
-
-        if (tabName === 'RecipeSearch') {
-            loadRecipes();
-        }
-    }
-
-    const recipeContentEl = document.getElementById('recipe-content');
-    let allRecipes = []; 
-
-    async function loadRecipes() {
-        recipeContentEl.innerHTML = '<p>Loading suitable recipes for you...</p>';
-        try {
-            const response = await fetch('/patient/get-recipes');
+document.addEventListener('DOMContentLoaded', function() {
+    // Tab switching functionality
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const targetTab = this.dataset.tab;
             
-            if (response.status === 400) {
-                const data = await response.json();
-                recipeContentEl.innerHTML = `<p class="recipe-notice">${data.error}</p>`;
-                return;
+            // Remove active class from all tabs and contents
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Add active class to clicked tab and corresponding content
+            this.classList.add('active');
+            document.getElementById(targetTab + '-tab').classList.add('active');
+        });
+    });
+    
+    // Initialize variables
+let currentSection = 1;
+const totalSections = 4; // Adjust based on actual sections
+    
+    // Chat functionality
+    const chatInput = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('send-btn');
+    const chatMessages = document.getElementById('chat-messages');
+    
+    if (chatInput && sendBtn) {
+        sendBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
             }
-            if (!response.ok) {
-                throw new Error('Failed to load recipes.');
-            }
-
-            const data = await response.json();
-            allRecipes = data.recipes;
-            displayRecipes(data.recipes, data.count, data.dosha);
-
-        } catch (error) {
-            recipeContentEl.innerHTML = `<p class="recipe-error">Could not load recipes. Please try again.</p>`;
-            console.error('Recipe load error:', error);
-        }
+        });
     }
-
-    function displayRecipes(recipes, count, dosha) {
-        if (recipes.length === 0) {
-            recipeContentEl.innerHTML = '<p>No recipes found that match your profile.</p>';
-            return;
-        }
-
-        let content = `
-            <div class="recipe-summary">
-                <p>Found <strong>${count}</strong> suitable recipes for your <strong>${dosha}</strong> profile.</p>
+    
+    function sendMessage() {
+        const message = chatInput.value.trim();
+        if (!message) return;
+        
+        // Add user message
+        addMessage(message, 'user');
+        chatInput.value = '';
+        
+        // Simulate bot response
+        setTimeout(() => {
+            const responses = [
+                "Based on Ayurvedic principles, I'd recommend focusing on balancing your dominant dosha. Would you like me to explain more about your constitution?",
+                "That's a great question! In Ayurveda, we believe that food is medicine. Let me suggest some specific foods for your dosha type.",
+                "I understand your concern. Ayurveda offers natural solutions for this. Let me provide some personalized recommendations."
+            ];
+            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+            addMessage(randomResponse, 'bot');
+        }, 1000);
+    }
+    
+    function addMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${sender}-message`;
+        
+        messageDiv.innerHTML = `
+            <div class="message-avatar">${sender === 'user' ? '👤' : '🤖'}</div>
+            <div class="message-content">
+                <p>${text}</p>
             </div>
-            <div class="recipe-search-bar">
-                <input type="text" id="recipe-search-input" placeholder="Search for a recipe by name...">
-            </div>
-            <div id="recipe-list">
         `;
         
-        recipes.forEach(recipe => {
-            content += `
-                <div class="recipe-item">
-                    <div class="recipe-title">
-                        ${recipe.name}
-                    </div>
-                    <div class="recipe-details">
-                        <h4>Ingredients</h4>
-                        <p>${recipe.ingredients.replace(/,/g, ', ')}</p>
-                        <h4>Instructions</h4>
-                        <p>${recipe.instructions}</p>
-                    </div>
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+});
+
+function nextSection() {
+    const currentFormSection = document.querySelector('.form-section.active');
+    const nextFormSection = currentFormSection.nextElementSibling;
+    
+    if (nextFormSection && nextFormSection.classList.contains('form-section')) {
+        // Hide current section
+        currentFormSection.classList.remove('active');
+        
+        // Show next section
+        nextFormSection.classList.add('active');
+        
+        // Update progress
+        currentSection++;
+        updateProgress();
+        
+        // Scroll to top of form
+        document.querySelector('.assessment-container').scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+        });
+    } else {
+        // If no more sections, show results
+        showResults();
+    }
+}
+
+function updateProgress() {
+    const progress = (currentSection / totalSections) * 100;
+    document.getElementById('progress-fill').style.width = progress + '%';
+    document.getElementById('progress-text').textContent = Math.round(progress) + '% Complete';
+}
+
+function askQuickQuestion(question) {
+    document.getElementById('chat-input').value = question;
+    document.getElementById('send-btn').click();
+}
+
+function searchRecipes() {
+    const recipesGrid = document.getElementById('recipes-grid');
+    const recipes = [
+        { name: "Vata Balancing Soup", time: "30 min", difficulty: "Easy", dosha: "vata" },
+        { name: "Pitta Cooling Salad", time: "15 min", difficulty: "Easy", dosha: "pitta" },
+        { name: "Kapha Energizing Curry", time: "45 min", difficulty: "Medium", dosha: "kapha" }
+    ];
+    
+    recipesGrid.innerHTML = recipes.map(recipe => `
+        <div class="recipe-card">
+            <div class="recipe-image">🍽️</div>
+            <div class="recipe-content">
+                <h4 class="recipe-name">${recipe.name}</h4>
+                <div class="recipe-meta">
+                    <span class="recipe-time">⏱️ ${recipe.time}</span>
+                    <span class="recipe-difficulty">📊 ${recipe.difficulty}</span>
                 </div>
-            `;
+                <div class="recipe-dosha">${recipe.dosha.charAt(0).toUpperCase() + recipe.dosha.slice(1)} Balancing</div>
+            </div>
+            <button class="recipe-btn">View Recipe</button>
+        </div>
+    `).join('');
+}
+
+function generateDietChart() {
+    // Implementation for diet chart generation
+    alert('Diet chart generation feature will be implemented!');
+}
+
+function prevSection() {
+    const currentFormSection = document.querySelector('.form-section.active');
+    const prevFormSection = currentFormSection.previousElementSibling;
+    
+    if (prevFormSection && prevFormSection.classList.contains('form-section')) {
+        // Hide current section
+        currentFormSection.classList.remove('active');
+        
+        // Show previous section
+        prevFormSection.classList.add('active');
+        
+        // Update progress
+        currentSection--;
+        updateProgress();
+        
+        // Scroll to top of form
+        document.querySelector('.assessment-container').scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
         });
-
-        content += '</div>';
-        recipeContentEl.innerHTML = content;
-
-        addRecipeEventListeners();
     }
+}
 
-    function addRecipeEventListeners() {
-        document.querySelectorAll('.recipe-title').forEach(title => {
-            title.addEventListener('click', () => {
-                const details = title.nextElementSibling;
-                const item = title.parentElement;
-                details.style.display = details.style.display === 'block' ? 'none' : 'block';
-                item.classList.toggle('active');
-            });
-        });
+function showResults() {
+    // Hide current section
+    const currentFormSection = document.querySelector('.form-section.active');
+    currentFormSection.classList.remove('active');
+    
+    // Show results section
+    const resultsSection = document.querySelector('.form-section[data-section="results"]');
+    resultsSection.style.display = 'block';
+    resultsSection.classList.add('active');
+    
+    // Calculate and display results
+    calculateDoshaResults();
+    
+    // Update progress to 100%
+    currentSection = totalSections;
+    updateProgress();
+    
+    // Scroll to results
+    document.querySelector('.assessment-container').scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+    });
+}
 
-        const searchInput = document.getElementById('recipe-search-input');
-        searchInput.addEventListener('keyup', () => {
-            const filter = searchInput.value.toLowerCase();
-            document.querySelectorAll('#recipe-list .recipe-item').forEach(item => {
-                const title = item.querySelector('.recipe-title').textContent.toLowerCase();
-                if (title.includes(filter)) {
-                    item.style.display = '';
-                } else {
-                    item.style.display = 'none';
+function calculateDoshaResults() {
+    const form = document.getElementById('diagnosis-form');
+    const formData = new FormData(form);
+    
+    // Simple dosha calculation based on answers
+    let vataScore = 0;
+    let pittaScore = 0;
+    let kaphaScore = 0;
+    
+    // Count answers for each dosha type
+    for (let [key, value] of formData.entries()) {
+        if (value === 'thin' || value === 'dry' || value === 'quick' || value === 'light' || value === 'warm') {
+            vataScore++;
+        } else if (value === 'medium' || value === 'oily' || value === 'sharp' || value === 'moderate' || value === 'cool') {
+            pittaScore++;
+        } else if (value === 'heavy' || value === 'smooth' || value === 'calm' || value === 'deep' || value === 'rich') {
+            kaphaScore++;
+        }
+    }
+    
+    // Determine dominant dosha
+    let dominantDosha = 'Vata';
+    let maxScore = vataScore;
+    
+    if (pittaScore > maxScore) {
+        dominantDosha = 'Pitta';
+        maxScore = pittaScore;
+    }
+    if (kaphaScore > maxScore) {
+        dominantDosha = 'Kapha';
+        maxScore = kaphaScore;
+    }
+    
+    // Display results
+    const resultsContainer = document.getElementById('dosha-results');
+    resultsContainer.innerHTML = `
+        <div class="dosha-result-card primary">
+            <div class="dosha-icon">${dominantDosha === 'Vata' ? '💨' : dominantDosha === 'Pitta' ? '🔥' : '🌍'}</div>
+            <h4 class="dosha-name">Primary: ${dominantDosha}</h4>
+            <p class="dosha-description">
+                ${getDoshaDescription(dominantDosha)}
+            </p>
+            <div class="dosha-percentage">${Math.round((maxScore / (vataScore + pittaScore + kaphaScore)) * 100)}%</div>
+        </div>
+        
+        <div class="dosha-scores">
+            <div class="score-item">
+                <span class="score-label">Vata</span>
+                <div class="score-bar">
+                    <div class="score-fill" style="width: ${(vataScore / (vataScore + pittaScore + kaphaScore)) * 100}%"></div>
+                </div>
+                <span class="score-value">${vataScore}</span>
+            </div>
+            <div class="score-item">
+                <span class="score-label">Pitta</span>
+                <div class="score-bar">
+                    <div class="score-fill pitta" style="width: ${(pittaScore / (vataScore + pittaScore + kaphaScore)) * 100}%"></div>
+                </div>
+                <span class="score-value">${pittaScore}</span>
+            </div>
+            <div class="score-item">
+                <span class="score-label">Kapha</span>
+                <div class="score-bar">
+                    <div class="score-fill kapha" style="width: ${(kaphaScore / (vataScore + pittaScore + kaphaScore)) * 100}%"></div>
+                </div>
+                <span class="score-value">${kaphaScore}</span>
+            </div>
+        </div>
+        
+        <div class="recommendations">
+            <h5 class="recommendations-title">Personalized Recommendations</h5>
+            <div class="recommendation-list">
+                ${getRecommendations(dominantDosha).map(rec => `
+                    <div class="recommendation-item">
+                        <span class="rec-icon">${rec.icon}</span>
+                        <span class="rec-text">${rec.text}</span>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
+function getDoshaDescription(dosha) {
+    const descriptions = {
+        'Vata': 'You have a Vata constitution - characterized by movement, creativity, and quick thinking. You may be naturally thin, energetic, and have variable appetite and sleep patterns.',
+        'Pitta': 'You have a Pitta constitution - characterized by fire, transformation, and sharp intellect. You likely have a medium build, good digestion, and strong leadership qualities.',
+        'Kapha': 'You have a Kapha constitution - characterized by stability, strength, and calm nature. You probably have a solid build, steady energy, and excellent endurance.'
+    };
+    return descriptions[dosha] || '';
+}
+
+function getRecommendations(dosha) {
+    const recommendations = {
+        'Vata': [
+            { icon: '🍲', text: 'Eat warm, cooked, and nourishing foods' },
+            { icon: '🧘', text: 'Practice calming activities like yoga and meditation' },
+            { icon: '💤', text: 'Maintain regular sleep schedule' },
+            { icon: '🌿', text: 'Use warming spices like ginger and cinnamon' }
+        ],
+        'Pitta': [
+            { icon: '🥗', text: 'Choose cool, fresh, and sweet foods' },
+            { icon: '🏊', text: 'Engage in moderate, cooling exercises' },
+            { icon: '🌙', text: 'Avoid excessive heat and sun exposure' },
+            { icon: '🥥', text: 'Use cooling herbs like coconut and mint' }
+        ],
+        'Kapha': [
+            { icon: '🌶️', text: 'Eat light, warm, and spicy foods' },
+            { icon: '🏃', text: 'Engage in vigorous, energizing exercise' },
+            { icon: '☀️', text: 'Stay active and avoid excessive sleep' },
+            { icon: '🫚', text: 'Use stimulating spices like black pepper and ginger' }
+        ]
+    };
+    return recommendations[dosha] || [];
+}
+
+function generatePDF() {
+    // Show loading state
+    const pdfBtn = document.querySelector('.action-btn.primary');
+    const originalContent = pdfBtn.innerHTML;
+    pdfBtn.innerHTML = '<span class="btn-icon">⏳</span><span>Generating PDF...</span>';
+    pdfBtn.disabled = true;
+    
+    // Get form data
+    const form = document.getElementById('diagnosis-form');
+    const formData = new FormData(form);
+    
+    // Convert FormData to regular object
+    const data = {};
+    for (let [key, value] of formData.entries()) {
+        data[key] = value;
+    }
+    
+    // Send to backend for PDF generation
+    fetch('/generate_pdf', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.blob();
+        }
+        throw new Error('PDF generation failed');
+    })
+    .then(blob => {
+        // Create download link
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = 'vedyura-dosha-analysis.pdf';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+        
+        // Show success message
+        showToast('PDF downloaded successfully!', 'success');
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('Failed to generate PDF. Please try again.', 'error');
+    })
+    .finally(() => {
+        // Reset button
+        pdfBtn.innerHTML = originalContent;
+        pdfBtn.disabled = false;
+    });
+}
+
+function showToast(message, type = 'info') {
+    // Create toast notification
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.innerHTML = `
+        <span class="toast-icon">${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'}</span>
+        <span class="toast-message">${message}</span>
+    `;
+    
+    // Add to page
+    document.body.appendChild(toast);
+    
+    // Show with animation
+    setTimeout(() => toast.classList.add('show'), 100);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => document.body.removeChild(toast), 300);
+    }, 3000);
+}
+
+function retakeAssessment() {
+    // Reset form
+    document.getElementById('diagnosis-form').reset();
+    
+    // Hide results section
+    const resultsSection = document.querySelector('.form-section[data-section="results"]');
+    resultsSection.classList.remove('active');
+    resultsSection.style.display = 'none';
+    
+    // Show first section
+    const firstSection = document.querySelector('.form-section[data-section="1"]');
+    firstSection.classList.add('active');
+    
+    // Reset progress
+    currentSection = 1;
+    updateProgress();
+    
+    // Scroll to top
+    document.querySelector('.assessment-container').scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+    });
+}
+
+// PPG Measurement Functions
+function startPPGMeasurement() {
+    const startBtn = document.getElementById('start-measurement');
+    const stopBtn = document.getElementById('stop-measurement');
+    const status = document.getElementById('measurement-status');
+    
+    // Update UI
+    startBtn.style.display = 'none';
+    stopBtn.style.display = 'flex';
+    status.innerHTML = '<span class="status-icon">🔴</span><span class="status-text">Measuring... Keep finger steady</span>';
+    
+    // Start measurement
+    fetch('/start_measurement', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            // Auto-stop after 30 seconds
+            setTimeout(() => {
+                if (stopBtn.style.display !== 'none') {
+                    stopPPGMeasurement();
                 }
-            });
-        });
-    }
-</script>
+            }, 30000);
+        } else {
+            showToast('Failed to start measurement', 'error');
+            resetPPGInterface();
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('Failed to start measurement', 'error');
+        resetPPGInterface();
+    });
+}
 
-<script src="{{ url_for('static', filename='js/ppg.js') }}"></script>
-<script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+function stopPPGMeasurement() {
+    const startBtn = document.getElementById('start-measurement');
+    const stopBtn = document.getElementById('stop-measurement');
+    const status = document.getElementById('measurement-status');
+    
+    // Update UI to processing state
+    status.innerHTML = '<span class="status-icon">⏳</span><span class="status-text">Processing results...</span>';
+    stopBtn.disabled = true;
+    
+    // Stop measurement and get results
+    fetch('/stop_measurement', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            displayPPGResults(data);
+            showToast('Pulse measurement completed!', 'success');
+        } else {
+            showToast(data.message || 'Measurement failed', 'error');
+            resetPPGInterface();
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('Failed to process measurement', 'error');
+        resetPPGInterface();
+    });
+}
+
+function displayPPGResults(data) {
+    const resultsDiv = document.getElementById('ppg-results');
+    const heartRateValue = document.getElementById('heart-rate-value');
+    const pulseDoshaValue = document.getElementById('pulse-dosha-value');
+    const pulseDescription = document.getElementById('pulse-description');
+    const status = document.getElementById('measurement-status');
+    
+    // Update status
+    status.innerHTML = '<span class="status-icon">✅</span><span class="status-text">Measurement complete</span>';
+    
+    // Display results
+    heartRateValue.textContent = `${data.heart_rate} BPM`;
+    pulseDoshaValue.textContent = data.dosha || 'N/A';
+    
+    if (data.description) {
+        pulseDescription.innerHTML = `<p>${data.description}</p>`;
+    }
+    
+    // Show results section
+    resultsDiv.style.display = 'block';
+    
+    // Reset buttons
+    resetPPGInterface();
+}
+
+function resetPPGInterface() {
+    const startBtn = document.getElementById('start-measurement');
+    const stopBtn = document.getElementById('stop-measurement');
+    const status = document.getElementById('measurement-status');
+    
+    startBtn.style.display = 'flex';
+    stopBtn.style.display = 'none';
+    stopBtn.disabled = false;
+    
+    if (!document.getElementById('ppg-results').style.display === 'block') {
+        status.innerHTML = '<span class="status-icon">📱</span><span class="status-text">Ready to measure</span>';
+    }
+}
+</script>
 {% endblock %}

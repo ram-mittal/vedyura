@@ -1,0 +1,93 @@
+<!-- Universal Navigation Component -->
+<nav class="futuristic-nav">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <a href="{{ url_for('home') }}" class="logo-3d">
+                <span class="logo-text">VEDYURA</span>
+                <div class="logo-glow"></div>
+            </a>
+        </div>
+        
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}" class="nav-link {% if request.endpoint == 'home' %}active{% endif %}" data-text="Home">Home</a>
+            <a href="{{ url_for('contact_us') }}" class="nav-link {% if request.endpoint == 'contact_us' %}active{% endif %}" data-text="Contact">Contact</a>
+            
+            {% if session.get('role') == 'doctor' %}
+                <a href="{{ url_for('doctor_dashboard') }}" class="nav-link {% if 'doctor_dashboard' in request.endpoint %}active{% endif %}" data-text="Dashboard">Dashboard</a>
+                <a href="{{ url_for('doctor_patient_requests') }}" class="nav-link {% if 'doctor_patient_requests' in request.endpoint %}active{% endif %}" data-text="Requests">Requests</a>
+                <a href="{{ url_for('doctor_diet_chart') }}" class="nav-link {% if 'doctor_diet_chart' in request.endpoint %}active{% endif %}" data-text="Diet Charts">Diet Charts</a>
+            {% elif session.get('role') == 'patient' %}
+                <a href="{{ url_for('patient_dashboard') }}" class="nav-link {% if 'patient_dashboard' in request.endpoint %}active{% endif %}" data-text="Dashboard">Dashboard</a>
+                <a href="{{ url_for('patient_self_diagnosis') }}" class="nav-link {% if 'patient_self_diagnosis' in request.endpoint %}active{% endif %}" data-text="Diagnosis">Self Diagnosis</a>
+                <a href="{{ url_for('patient_consult_doctor') }}" class="nav-link {% if 'patient_consult_doctor' in request.endpoint %}active{% endif %}" data-text="Consult">Consult Doctor</a>
+            {% endif %}
+        </div>
+        
+        <div class="nav-actions">
+            <button class="theme-toggle" id="themeToggle">
+                <span class="theme-icon">🌙</span>
+            </button>
+            
+            {% if session.get('user_id') %}
+                <div class="user-menu">
+                    <button class="user-avatar" onclick="toggleUserMenu()">
+                        <span class="user-initial">{{ session.get('user_id', 'U')[0].upper() }}</span>
+                    </button>
+                    <div class="user-dropdown" id="userDropdown">
+                        {% if session.get('role') == 'doctor' %}
+                            <a href="{{ url_for('doctor_profile') }}" class="dropdown-item">
+                                <span class="dropdown-icon">👤</span>
+                                Profile
+                            </a>
+                        {% elif session.get('role') == 'patient' %}
+                            <a href="{{ url_for('patient_profile') }}" class="dropdown-item">
+                                <span class="dropdown-icon">👤</span>
+                                Profile
+                            </a>
+                        {% endif %}
+                        <a href="{{ url_for('logout') }}" class="dropdown-item logout">
+                            <span class="dropdown-icon">🚪</span>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{{ url_for('signup') }}" class="cta-button">
+                    <span>Get Started</span>
+                    <div class="button-glow"></div>
+                </a>
+            {% endif %}
+        </div>
+        
+        <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
+
+<script>
+function toggleUserMenu() {
+    const dropdown = document.getElementById('userDropdown');
+    dropdown.classList.toggle('active');
+}
+
+function toggleMobileMenu() {
+    const navLinks = document.querySelector('.nav-links');
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    
+    navLinks.classList.toggle('active');
+    mobileToggle.classList.toggle('active');
+}
+
+// Close user menu when clicking outside
+document.addEventListener('click', function(e) {
+    const userMenu = document.querySelector('.user-menu');
+    const dropdown = document.getElementById('userDropdown');
+    
+    if (userMenu && !userMenu.contains(e.target)) {
+        dropdown.classList.remove('active');
+    }
+});
+</script>

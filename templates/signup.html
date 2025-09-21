@@ -1,82 +1,258 @@
 {% extends "layout.html" %}
 
-{% block title %}Sign Up - Vedyura{% endblock %}
+{% block title %}Join Vedyura - Sign Up{% endblock %}
 
-{% block header %}
-<header class="main-header">
-    <nav class="navbar">
-        <div class="navbar-logo">
-            <a href="{{ url_for('home') }}">
-                <img src="{{ url_for('static', filename='images/vedyura_logo.png') }}" alt="Vedyura Logo" class="logo-img">
-            </a>
-        </div>
-        <div class="navbar-links">
-            <a href="{{ url_for('home') }}">Home</a>
-            <a href="{{ url_for('contact_us') }}">Contact Us</a>
-            <button id="dark-mode-toggle" class="dark-mode-button">Toggle Dark Mode</button>
-        </div>
-        <div class="navbar-action">
-            <a href="{{ url_for('signup') }}" class="btn btn-primary active">Sign Up</a>
-        </div>
-    </nav>
-</header>
-{% endblock %}
+{% block body_class %}signup-page{% endblock %}
 
 {% block content %}
-<div class="page-content">
-    <section class="signup-section">
-        <div class="signup-container">
-            <h2>Join Vedyura</h2>
-            <p>Please select your role to get started.</p>
+<!-- Include Universal Navigation -->
+{% include 'components/universal_nav.html' %}
 
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    <ul class="flash-messages" style="list-style: none; padding: 0;">
-                    {% for category, message in messages %}
-                        <li class="flash-message">{{ message }}</li>
-                    {% endfor %}
-                    </ul>
-                {% endif %}
-            {% endwith %}
-
-            <div class="role-selector">
-                <button class="role-button" id="doctor-btn">I am a Doctor</button>
-                <button class="role-button" id="patient-btn">I am a Patient</button>
-            </div>
-
-            <div id="doctor-login-form" class="hidden">
-                <h3>Doctor Sign In</h3>
-                <form class="login-form" action="{{ url_for('doctor_login') }}" method="POST">
-                    <div class="form-group">
-                        <label for="user_id">User ID</label>
-                        <input type="text" id="user_id" name="user_id" required>
+<main class="page-content">
+    <!-- Hero Section -->
+    <section class="signup-hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">Join the Vedyura Community</h1>
+                    <p class="hero-subtitle">Begin your journey to holistic wellness with personalized Ayurvedic care</p>
+                    <div class="hero-features">
+                        <div class="feature-item">
+                            <span class="feature-icon">🌿</span>
+                            <span class="feature-text">Ancient Wisdom</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">🔬</span>
+                            <span class="feature-text">Modern Science</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">👥</span>
+                            <span class="feature-text">Expert Care</span>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In</button>
-                </form>
-            </div>
-
-            <div id="patient-login-options" class="hidden">
-                <h3>Patient Sign In / Sign Up</h3>
-                <div class="patient-options">
-                    <a href="#" class="btn btn-google">Sign In with Google</a>
                 </div>
-                <form class="login-form" action="{{ url_for('patient_login') }}" method="POST">
-                    <div class="form-group">
-                        <label for="patient_user_id">User ID</label>
-                        <input type="text" id="patient_user_id" name="user_id" value="123" required>
+                <div class="hero-visual">
+                    <div class="signup-graphic">
+                        <div class="wellness-circle">
+                            <div class="wellness-icon">🧘</div>
+                        </div>
+                        <div class="floating-elements">
+                            <div class="element pulse-1">🌱</div>
+                            <div class="element pulse-2">⚖️</div>
+                            <div class="element pulse-3">💚</div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="patient_password">Password</label>
-                        <input type="password" id="patient_password" name="password" value="123" required>
+                </div>
+            </div>
+        </div>
+        <div class="grid-overlay"></div>
+    </section>
+
+    <!-- Signup Section -->
+    <section class="signup-section">
+        <div class="section-container">
+            <div class="signup-container">
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div class="flash-messages">
+                            {% for category, message in messages %}
+                                <div class="flash-message {{ category }}">
+                                    <span class="flash-icon">
+                                        {% if category == 'error' %}⚠️{% else %}✅{% endif %}
+                                    </span>
+                                    <span class="flash-text">{{ message }}</span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                <div class="signup-header">
+                    <h2 class="signup-title">Choose Your Path</h2>
+                    <p class="signup-subtitle">Select your role to access personalized features</p>
+                </div>
+
+                <!-- Role Selector -->
+                <div class="role-selector">
+                    <button class="role-card" id="patient-btn" onclick="selectRole('patient')">
+                        <div class="role-icon">👤</div>
+                        <h3 class="role-title">I'm a Patient</h3>
+                        <p class="role-description">Seeking personalized Ayurvedic care and wellness guidance</p>
+                        <div class="role-features">
+                            <span class="role-feature">✨ Self-Diagnosis Tools</span>
+                            <span class="role-feature">👨‍⚕️ Expert Consultations</span>
+                            <span class="role-feature">🍽️ Personalized Diet Plans</span>
+                        </div>
+                    </button>
+                    
+                    <button class="role-card" id="doctor-btn" onclick="selectRole('doctor')">
+                        <div class="role-icon">👨‍⚕️</div>
+                        <h3 class="role-title">I'm a Practitioner</h3>
+                        <p class="role-description">Certified Ayurvedic doctor ready to help patients</p>
+                        <div class="role-features">
+                            <span class="role-feature">📋 Patient Management</span>
+                            <span class="role-feature">💬 Online Consultations</span>
+                            <span class="role-feature">📊 Practice Analytics</span>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Patient Login Form -->
+                <div id="patient-login-form" class="auth-form active">
+                    <div class="form-header">
+                        <h3 class="form-title">Patient Access</h3>
+                        <p class="form-subtitle">Sign in to continue your wellness journey</p>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In</button>
-                </form>
+                    
+                    <div class="auth-options">
+                        <button class="google-btn" onclick="signInWithGoogle()">
+                            <span class="google-icon">🔍</span>
+                            <span>Continue with Google</span>
+                        </button>
+                        
+                        <div class="divider">
+                            <span class="divider-text">or</span>
+                        </div>
+                        
+                        <form class="login-form" action="{{ url_for('patient_login') }}" method="POST">
+                            <div class="form-group">
+                                <label class="form-label">User ID</label>
+                                <input type="text" name="user_id" class="form-input" placeholder="Enter your user ID" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Password</label>
+                                <input type="password" name="password" class="form-input" placeholder="Enter your password" required>
+                            </div>
+                            <button type="submit" class="submit-btn">
+                                <span class="btn-icon">🚀</span>
+                                <span>Sign In</span>
+                            </button>
+                        </form>
+                        
+                        <div class="form-footer">
+                            <p class="footer-text">New to Vedyura? <a href="#" class="footer-link">Create an account</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Doctor Login Form -->
+                <div id="doctor-login-form" class="auth-form">
+                    <div class="form-header">
+                        <h3 class="form-title">Practitioner Access</h3>
+                        <p class="form-subtitle">Access your practice dashboard</p>
+                    </div>
+                    
+                    <form class="login-form" action="{{ url_for('doctor_login') }}" method="POST">
+                        <div class="form-group">
+                            <label class="form-label">Doctor ID</label>
+                            <input type="text" name="user_id" class="form-input" placeholder="Enter your doctor ID" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <input type="password" name="password" class="form-input" placeholder="Enter your password" required>
+                        </div>
+                        <button type="submit" class="submit-btn doctor-btn">
+                            <span class="btn-icon">🩺</span>
+                            <span>Access Dashboard</span>
+                        </button>
+                    </form>
+                    
+                    <div class="form-footer">
+                        <p class="footer-text">Need access? <a href="#" class="footer-link">Contact Administrator</a></p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-</div>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Why Choose Vedyura?</h2>
+                <p class="section-subtitle">Experience the perfect blend of ancient wisdom and modern technology</p>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h4 class="benefit-title">Personalized Care</h4>
+                    <p class="benefit-text">Tailored treatments based on your unique constitution and health needs</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🌐</div>
+                    <h4 class="benefit-title">Global Access</h4>
+                    <p class="benefit-text">Connect with certified practitioners from anywhere in the world</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📱</div>
+                    <h4 class="benefit-title">Modern Platform</h4>
+                    <p class="benefit-text">User-friendly interface with cutting-edge health tracking tools</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🔒</div>
+                    <h4 class="benefit-title">Secure & Private</h4>
+                    <p class="benefit-text">Your health data is protected with enterprise-grade security</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize with patient selected by default
+    selectRole('patient');
+    
+    // Add animation classes
+    const observerOptions = {
+        threshold: 0.3,
+        rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+            }
+        });
+    }, observerOptions);
+    
+    document.querySelectorAll('.benefit-card, .role-card').forEach(card => {
+        observer.observe(card);
+    });
+});
+
+function selectRole(role) {
+    const patientBtn = document.getElementById('patient-btn');
+    const doctorBtn = document.getElementById('doctor-btn');
+    const patientForm = document.getElementById('patient-login-form');
+    const doctorForm = document.getElementById('doctor-login-form');
+    
+    // Reset all states
+    patientBtn.classList.remove('active');
+    doctorBtn.classList.remove('active');
+    patientForm.classList.remove('active');
+    doctorForm.classList.remove('active');
+    
+    // Set active states
+    if (role === 'patient') {
+        patientBtn.classList.add('active');
+        patientForm.classList.add('active');
+    } else {
+        doctorBtn.classList.add('active');
+        doctorForm.classList.add('active');
+    }
+}
+
+function signInWithGoogle() {
+    // Simulate Google OAuth
+    alert('Google Sign-In integration would be implemented here. For demo purposes, this will redirect to patient dashboard.');
+    // In real implementation, this would handle Google OAuth
+    // window.location.href = '/auth/google';
+}
+</script>
 {% endblock %}
