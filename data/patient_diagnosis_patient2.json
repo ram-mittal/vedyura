@@ -1,0 +1,38 @@
+{
+    "form_data": {
+        "body_frame": "light_lean",
+        "skin_texture": "dry_cool",
+        "hair_type": "dry_brittle",
+        "appetite": "unpredictable",
+        "digestion": "dry_gas",
+        "energy_levels": "bursts_of_energy",
+        "stress_reaction": "anxiety_worry",
+        "sleep_pattern": "light_interrupted",
+        "speaking_style": "fast_talkative",
+        "body_temperature": "tend_to_be_cold",
+        "age": "28",
+        "gender": "female",
+        "weight": "55",
+        "height": "162",
+        "activity_level": "light",
+        "health_goal": "weight_gain",
+        "dietary_preferences": "vegetarian",
+        "allergies": "dairy",
+        "medical_conditions": "anxiety"
+    },
+    "dominant_dosha": "Vata",
+    "ppg_results": {
+        "heart_rate": 88,
+        "dosha": "vata",
+        "description": "Your pulse indicates a Vata constitution - quick, irregular, and light. This suggests an active, creative nature that may need grounding.",
+        "recommendations": [
+            "Follow a regular daily routine to create stability",
+            "Eat warm, nourishing, and grounding foods",
+            "Practice calming activities like yoga and meditation",
+            "Get adequate rest and avoid overstimulation"
+        ],
+        "measurement_time": "2024-01-19 16:45:00",
+        "quality": "Fair"
+    },
+    "timestamp": "2024-01-19 16:50:00"
+}

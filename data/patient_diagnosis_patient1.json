@@ -1,0 +1,26 @@
+{
+    "form_data": {
+        "body_frame": "thin",
+        "skin_type": "smooth",
+        "hair_type": "fine",
+        "mental_activity": "sharp",
+        "sleep_pattern": "moderate",
+        "food_preference": "rich",
+        "weather_preference": "warm"
+    },
+    "dominant_dosha": "Tridoshic",
+    "ppg_results": {
+        "description": "Your pulse indicates a Kapha constitution - steady, slow, and strong. This suggests a calm, stable nature with good endurance.",
+        "dosha": "kapha",
+        "heart_rate": 69,
+        "measurement_time": "2025-09-22 22:31:29",
+        "quality": "Good",
+        "recommendations": [
+            "Engage in regular, vigorous exercise to boost metabolism",
+            "Eat light, warm, and spicy foods to stimulate digestion",
+            "Maintain an active lifestyle to prevent sluggishness",
+            "Use warming spices like ginger, black pepper, and cinnamon"
+        ]
+    },
+    "timestamp": "2025-09-22 22:31:57"
+}

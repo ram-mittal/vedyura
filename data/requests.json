@@ -1,0 +1,47 @@
+{
+    "requests": [
+        {
+            "id": "req_001",
+            "patient_id": "patient1",
+            "doctor_id": "doctor1",
+            "status": "accepted",
+            "request_date": "2024-01-18",
+            "accepted_date": "2024-01-18",
+            "message": "Looking for help with digestive issues and overall wellness guidance.",
+            "consultation_type": "general",
+            "priority": "normal"
+        },
+        {
+            "id": "req_002",
+            "patient_id": "patient2",
+            "doctor_id": "doctor2",
+            "status": "pending",
+            "request_date": "2024-01-20",
+            "message": "Interested in Panchakarma treatment for stress management and detox.",
+            "consultation_type": "panchakarma",
+            "priority": "high"
+        },
+        {
+            "id": "req_003",
+            "patient_id": "patient3",
+            "doctor_id": "doctor1",
+            "status": "declined",
+            "request_date": "2024-01-19",
+            "declined_date": "2024-01-19",
+            "message": "Need consultation for chronic fatigue and low energy levels.",
+            "consultation_type": "general",
+            "priority": "normal",
+            "decline_reason": "Schedule conflict"
+        },
+        {
+            "id": "req_004",
+            "patient_id": "patient1",
+            "doctor_id": "doctor3",
+            "status": "pending",
+            "request_date": "2024-01-21",
+            "message": "Want personalized diet plan based on my dosha analysis results.",
+            "consultation_type": "nutrition",
+            "priority": "normal"
+        }
+    ]
+}

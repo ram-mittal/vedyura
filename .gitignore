@@ -134,10 +134,14 @@ dmypy.json
 ehthumbs.db
 Thumbs.db
 
-# Project specific
-data/patient_diagnosis_*.json
-data/users.json
-data/requests.json
+# Project specific - Keep sample data but exclude user-generated files
+data/patient_diagnosis_test_*.json
 *.pdf
 uploads/
 temp/
+logs/
+
+# Keep these sample files for demo purposes:
+# data/users.json (sample user accounts)
+# data/requests.json (sample consultation requests)
+# data/patient_diagnosis_patient*.json (sample diagnosis data)
