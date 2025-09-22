@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Your Profile - Vedyura
+{% endblock %}
+
+{% block content %}
+<header class="dashboard-header">
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <a href="{{ url_for('patient_dashboard') }}">
+                <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='images/vedyura_logo.png') }}" alt="Vedyura Logo" class="logo-img"></a>
+            </a>
+        </div>
+        <div class="navbar-links">
+            <a href="{{ url_for('patient_dashboard') }}">Home</a>
+            <a href="{{ url_for('patient_self_diagnosis') }}">Self-Diagnosis</a>
+            <a href="{{ url_for('patient_consult_doctor') }}">Consult Doctor</a>
+            <a href="{{ url_for('contact_us') }}">Contact Us</a>
+            <a href="{{ url_for('patient_profile') }}" class="active">Profile</a>
+        </div>
+        <div class="navbar-action">
+             <button id="dark-mode-toggle" class="dark-mode-button">Toggle Dark Mode</button>
+        </div>
+    </nav>
+</header>
+
+<main class="page-content dashboard-content">
+    <div class="dashboard-container">
+        <section class="page-header">
+            <h1>Your Profile</h1>
+            <p>Manage your account settings and sign out.</p>
+        </section>
+
+        <div class="card profile-card">
+            <div class="card-content">
+                <h3>Account Information</h3>
+                <div class="profile-details">
+                    <p>
+                        <strong>Logged in as:</strong> 
+                        {% if session.user_id == 'bypassed_user' %}
+                            Guest User (Bypass Login)
+                        {% else %}
+                            Patient
+                        {% endif %}
+                    </p>
+                    <p>
+                        <strong>Role:</strong> {{ session.role | capitalize }}
+                    </p>
+                </div>
+                <div class="profile-actions">
+                    <a href="{{ url_for('logout') }}" class="btn btn-danger">Sign Out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

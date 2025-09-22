@@ -1,0 +1,279 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Doctor Dashboard - Vedyura
+{% endblock %}
+
+{% block body_class %}doctor-dashboard-page{% endblock %}
+
+{% block content %}
+<!-- Include Universal Navigation -->
+{% include 'components/universal_nav.html' %}
+
+<main class="page-content">
+    <!-- Hero Section -->
+    <section class="doctor-hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">Welcome, Dr. {{ session.get('user_name', 'Doctor') }}</h1>
+                    <p class="hero-subtitle">Your comprehensive dashboard for managing patients and delivering personalized Ayurvedic care</p>
+                    <div class="doctor-stats">
+                        <div class="stat-item">
+                            <div class="stat-icon">👥</div>
+                            <div class="stat-number">{{ patients_count or 0 }}</div>
+                            <div class="stat-label">Active Patients</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">📋</div>
+                            <div class="stat-number">{{ requests_count or 0 }}</div>
+                            <div class="stat-label">Pending Requests</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">📊</div>
+                            <div class="stat-number">{{ charts_created or 0 }}</div>
+                            <div class="stat-label">Diet Charts</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="doctor-graphic">
+                        <div class="stethoscope-circle">
+                            <div class="stethoscope-icon">🩺</div>
+                        </div>
+                        <div class="medical-elements">
+                            <div class="element pulse-1">💊</div>
+                            <div class="element pulse-2">🌿</div>
+                            <div class="element pulse-3">📋</div>
+                            <div class="element pulse-4">⚕️</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-overlay"></div>
+    </section>
+
+    <!-- Quick Actions Section -->
+    <section class="actions-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Your Practice Dashboard</h2>
+                <p class="section-subtitle">Manage your patients and consultations efficiently</p>
+            </div>
+
+            <div class="actions-grid">
+                <!-- Patient Requests Card -->
+                <a href="{{ url_for('doctor_patient_requests') }}" class="action-card primary-card" data-tilt>
+                    <div class="card-background"></div>
+                    <div class="card-icon">
+                        <span class="icon-emoji">📋</span>
+                        <div class="icon-glow"></div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Patient Requests</h3>
+                        <p class="card-description">Review and respond to new consultation requests from patients seeking your expertise</p>
+                        <div class="card-stats">
+                            <div class="stat-badge pending">{{ requests_count or 0 }} Pending</div>
+                            <div class="stat-badge total">{{ total_requests or 0 }} Total</div>
+                        </div>
+                    </div>
+                    <div class="card-arrow">→</div>
+                </a>
+
+                <!-- Diet Chart Card -->
+                <a href="{{ url_for('doctor_diet_chart') }}" class="action-card secondary-card" data-tilt>
+                    <div class="card-background"></div>
+                    <div class="card-icon">
+                        <span class="icon-emoji">🍽️</span>
+                        <div class="icon-glow"></div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Diet Chart Creator</h3>
+                        <p class="card-description">Design personalized Ayurvedic diet plans tailored to each patient's constitution and needs</p>
+                        <div class="card-features">
+                            <span class="feature-tag">✨ AI-Assisted</span>
+                            <span class="feature-tag">📊 Analytics</span>
+                        </div>
+                    </div>
+                    <div class="card-arrow">→</div>
+                </a>
+
+                <!-- Profile Management Card -->
+                <a href="{{ url_for('doctor_profile') }}" class="action-card tertiary-card" data-tilt>
+                    <div class="card-background"></div>
+                    <div class="card-icon">
+                        <span class="icon-emoji">👨‍⚕️</span>
+                        <div class="icon-glow"></div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Profile Management</h3>
+                        <p class="card-description">Update your professional information, credentials, and practice details</p>
+                        <div class="card-features">
+                            <span class="feature-tag">🎓 Credentials</span>
+                            <span class="feature-tag">📞 Contact Info</span>
+                        </div>
+                    </div>
+                    <div class="card-arrow">→</div>
+                </a>
+
+                <!-- Analytics Card -->
+                <div class="action-card analytics-card" data-tilt>
+                    <div class="card-background"></div>
+                    <div class="card-icon">
+                        <span class="icon-emoji">📈</span>
+                        <div class="icon-glow"></div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Practice Analytics</h3>
+                        <p class="card-description">View insights about your practice performance and patient outcomes</p>
+                        <div class="analytics-preview">
+                            <div class="chart-placeholder">
+                                <div class="chart-bar" style="height: 60%"></div>
+                                <div class="chart-bar" style="height: 80%"></div>
+                                <div class="chart-bar" style="height: 45%"></div>
+                                <div class="chart-bar" style="height: 90%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="view-analytics-btn" onclick="showAnalytics()">
+                        <span class="btn-icon">📊</span>
+                        <span>View Details</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Activity Section -->
+    <section class="activity-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Recent Activity</h2>
+                <p class="section-subtitle">Stay updated with your latest patient interactions</p>
+            </div>
+
+            <div class="activity-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon">📝</div>
+                    <div class="timeline-content">
+                        <h4 class="timeline-title">New Patient Request</h4>
+                        <p class="timeline-description">Sarah Johnson requested a consultation for digestive issues</p>
+                        <span class="timeline-time">2 hours ago</span>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">📋</div>
+                    <div class="timeline-content">
+                        <h4 class="timeline-title">Diet Chart Created</h4>
+                        <p class="timeline-description">Completed personalized diet plan for Rajesh Kumar</p>
+                        <span class="timeline-time">5 hours ago</span>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">✅</div>
+                    <div class="timeline-content">
+                        <h4 class="timeline-title">Consultation Completed</h4>
+                        <p class="timeline-description">Follow-up session with Maria Garcia completed successfully</p>
+                        <span class="timeline-time">1 day ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Tips Section -->
+    <section class="tips-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Ayurvedic Practice Tips</h2>
+                <p class="section-subtitle">Daily wisdom for better patient care</p>
+            </div>
+
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-icon">🌅</div>
+                    <h4 class="tip-title">Morning Consultations</h4>
+                    <p class="tip-text">Schedule important consultations in the morning when both you and patients have fresh energy</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">👂</div>
+                    <h4 class="tip-title">Active Listening</h4>
+                    <p class="tip-text">Pay attention to subtle symptoms - they often reveal the root cause of imbalances</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">📚</div>
+                    <h4 class="tip-title">Continuous Learning</h4>
+                    <p class="tip-text">Stay updated with modern research while honoring traditional Ayurvedic principles</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize tilt effects
+    if (typeof TiltEffect !== 'undefined') {
+        document.querySelectorAll('[data-tilt]').forEach(el => {
+            new TiltEffect(el);
+        });
+    }
+    
+    // Animate stats on load
+    animateStats();
+    
+    // Setup intersection observer for animations
+    const observerOptions = {
+        threshold: 0.3,
+        rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+            }
+        });
+    }, observerOptions);
+    
+    document.querySelectorAll('.action-card, .tip-card, .timeline-item').forEach(card => {
+        observer.observe(card);
+    });
+});
+
+function animateStats() {
+    const statNumbers = document.querySelectorAll('.stat-number');
+    statNumbers.forEach(stat => {
+        const target = parseInt(stat.textContent);
+        const duration = 1500;
+        const start = performance.now();
+        
+        const animate = (currentTime) => {
+            const elapsed = currentTime - start;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+            const current = Math.floor(easeOutCubic * target);
+            
+            stat.textContent = current;
+            
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                stat.textContent = target;
+            }
+        };
+        
+        requestAnimationFrame(animate);
+    });
+}
+
+function showAnalytics() {
+    // Simulate analytics modal or redirect
+    alert('Analytics feature coming soon! This will show detailed insights about your practice.');
+}
+</script>
+{% endblock %}

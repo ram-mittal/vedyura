@@ -1,0 +1,252 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Patient Dashboard - Vedyura
+{% endblock %}
+
+{% block body_class %}patient-dashboard-page{% endblock %}
+
+{% block content %}
+<!-- Include Universal Navigation -->
+{% include 'components/universal_nav.html' %}
+
+<main class="page-content">
+    <!-- Hero Section -->
+    <section class="dashboard-hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">Welcome to Your Ayurvedic Journey</h1>
+                    <p class="hero-subtitle">Your personalized space for managing holistic health and wellness through ancient wisdom</p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-icon">🌿</div>
+                            <div class="stat-text">Personalized Care</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">⚖️</div>
+                            <div class="stat-text">Dosha Balance</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">🧘</div>
+                            <div class="stat-text">Holistic Wellness</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hologram-container">
+                        <div class="hologram-circle">
+                            <div class="hologram-inner">
+                                <div class="ayurveda-symbol">🕉️</div>
+                            </div>
+                        </div>
+                        <div class="floating-elements">
+                            <div class="floating-element" style="--delay: 0s;">🌿</div>
+                            <div class="floating-element" style="--delay: 1s;">⚖️</div>
+                            <div class="floating-element" style="--delay: 2s;">🧘</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-overlay"></div>
+    </section>
+
+    <!-- Quick Actions Section -->
+    <section class="quick-actions-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Your Health Dashboard</h2>
+                <p class="section-subtitle">Take control of your wellness journey with these powerful tools</p>
+            </div>
+
+            <div class="actions-grid">
+                <!-- Self Diagnosis Card -->
+                <a href="{{ url_for('patient_self_diagnosis') }}" class="action-card" data-tilt>
+                    <div class="card-background"></div>
+                    <div class="card-icon">
+                        <span class="icon-emoji">📝</span>
+                        <div class="icon-glow"></div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Self-Diagnosis</h3>
+                        <p class="card-description">Discover your dosha and get personalized health insights through our comprehensive assessment</p>
+                        <div class="card-features">
+                            <span class="feature-tag">✨ AI-Powered</span>
+                            <span class="feature-tag">🎯 Personalized</span>
+                        </div>
+                    </div>
+                    <div class="card-arrow">→</div>
+                </a>
+
+                <!-- Consult Doctor Card -->
+                <a href="{{ url_for('patient_consult_doctor') }}" class="action-card" data-tilt>
+                    <div class="card-background"></div>
+                    <div class="card-icon">
+                        <span class="icon-emoji">👨‍⚕️</span>
+                        <div class="icon-glow"></div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Consult Expert</h3>
+                        <p class="card-description">Connect with certified Ayurvedic practitioners for professional guidance and treatment plans</p>
+                        <div class="card-features">
+                            <span class="feature-tag">🏥 Certified</span>
+                            <span class="feature-tag">💬 Live Chat</span>
+                        </div>
+                    </div>
+                    <div class="card-arrow">→</div>
+                </a>
+
+                <!-- Recipe Finder Card -->
+                <div class="action-card recipe-card" data-tilt>
+                    <div class="card-background"></div>
+                    <div class="card-icon">
+                        <span class="icon-emoji">🍳</span>
+                        <div class="icon-glow"></div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Dosha Recipes</h3>
+                        <p class="card-description">Discover delicious recipes tailored to balance your unique constitution and dietary needs</p>
+                        <div class="card-features">
+                            <span class="feature-tag">🌿 Natural</span>
+                            <span class="feature-tag">⚖️ Balanced</span>
+                        </div>
+                        <button class="recipe-btn" id="find-recipes-btn">
+                            <span class="btn-text">Find Recipes</span>
+                            <span class="btn-icon">🔍</span>
+                        </button>
+                    </div>
+                    <div class="recipe-results" id="recipe-results-container"></div>
+                </div>
+
+                <!-- Health Profile Card -->
+                <a href="{{ url_for('patient_profile') }}" class="action-card" data-tilt>
+                    <div class="card-background"></div>
+                    <div class="card-icon">
+                        <span class="icon-emoji">📊</span>
+                        <div class="icon-glow"></div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Health Profile</h3>
+                        <p class="card-description">Track your progress, view your health history, and manage your personal information</p>
+                        <div class="card-features">
+                            <span class="feature-tag">📈 Progress</span>
+                            <span class="feature-tag">🔒 Secure</span>
+                        </div>
+                    </div>
+                    <div class="card-arrow">→</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Health Tips Section -->
+    <section class="health-tips-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Daily Wellness Tips</h2>
+                <p class="section-subtitle">Ancient wisdom for modern living</p>
+            </div>
+
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-icon">🌅</div>
+                    <h4 class="tip-title">Morning Routine</h4>
+                    <p class="tip-text">Start your day with warm water and lemon to kickstart your digestive fire (Agni)</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🧘‍♀️</div>
+                    <h4 class="tip-title">Mindful Breathing</h4>
+                    <p class="tip-text">Practice Pranayama for 10 minutes daily to balance your doshas and calm your mind</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🌿</div>
+                    <h4 class="tip-title">Herbal Tea</h4>
+                    <p class="tip-text">Sip on ginger tea throughout the day to improve digestion and boost immunity</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Recipe finder functionality
+    const findRecipesBtn = document.getElementById('find-recipes-btn');
+    const recipeContainer = document.getElementById('recipe-results-container');
+    
+    if (findRecipesBtn) {
+        findRecipesBtn.addEventListener('click', function() {
+            this.classList.add('loading');
+            this.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                const recipes = [
+                    { name: "Vata Balancing Soup", time: "30 min", difficulty: "Easy" },
+                    { name: "Pitta Cooling Salad", time: "15 min", difficulty: "Easy" },
+                    { name: "Kapha Energizing Curry", time: "45 min", difficulty: "Medium" }
+                ];
+                
+                recipeContainer.innerHTML = `
+                    <div class="recipe-results-content">
+                        <h4 class="results-title">Recommended Recipes</h4>
+                        <div class="recipe-list">
+                            ${recipes.map(recipe => `
+                                <div class="recipe-item">
+                                    <div class="recipe-info">
+                                        <span class="recipe-name">${recipe.name}</span>
+                                        <div class="recipe-meta">
+                                            <span class="recipe-time">⏱️ ${recipe.time}</span>
+                                            <span class="recipe-difficulty">📊 ${recipe.difficulty}</span>
+                                        </div>
+                                    </div>
+                                    <button class="recipe-view-btn">View</button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                recipeContainer.style.display = 'block';
+                recipeContainer.style.opacity = '0';
+                setTimeout(() => {
+                    recipeContainer.style.opacity = '1';
+                }, 100);
+                
+                this.classList.remove('loading');
+                this.disabled = false;
+                this.innerHTML = '<span class="btn-text">Refresh Recipes</span><span class="btn-icon">🔄</span>';
+            }, 2000);
+        });
+    }
+    
+    // Initialize tilt effects
+    if (typeof TiltEffect !== 'undefined') {
+        document.querySelectorAll('[data-tilt]').forEach(el => {
+            new TiltEffect(el);
+        });
+    }
+    
+    // Animate stats on scroll
+    const observerOptions = {
+        threshold: 0.3,
+        rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+            }
+        });
+    }, observerOptions);
+    
+    document.querySelectorAll('.action-card, .tip-card').forEach(card => {
+        observer.observe(card);
+    });
+});
+</script>
+{% endblock %}

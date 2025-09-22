@@ -1,0 +1,1268 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Self-Diagnosis - Vedyura
+{% endblock %}
+
+{% block body_class %}patient-self-diagnosis-page{% endblock %}
+
+{% block content %}
+<!-- Include Universal Navigation -->
+{% include 'components/universal_nav.html' %}
+
+<main class="page-content">
+    <!-- Hero Section -->
+    <section class="diagnosis-hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">Discover Your Dosha</h1>
+                    <p class="hero-subtitle">Unlock the secrets of your unique constitution through ancient Ayurvedic wisdom and modern AI analysis</p>
+                    <div class="hero-features">
+                        <div class="feature-item">
+                            <span class="feature-icon">🧬</span>
+                            <span class="feature-text">Personalized Analysis</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">🤖</span>
+                            <span class="feature-text">AI-Powered Insights</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">📊</span>
+                            <span class="feature-text">Detailed Reports</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="dosha-wheel">
+                        <div class="wheel-center">
+                            <div class="center-symbol">⚖️</div>
+                        </div>
+                        <div class="wheel-segment vata">
+                            <span class="dosha-name">Vata</span>
+                            <span class="dosha-element">Air + Space</span>
+                        </div>
+                        <div class="wheel-segment pitta">
+                            <span class="dosha-name">Pitta</span>
+                            <span class="dosha-element">Fire + Water</span>
+                        </div>
+                        <div class="wheel-segment kapha">
+                            <span class="dosha-name">Kapha</span>
+                            <span class="dosha-element">Earth + Water</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-overlay"></div>
+    </section>
+
+    <!-- Tools Section -->
+    <section class="diagnosis-tools">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Choose Your Path to Wellness</h2>
+                <p class="section-subtitle">Multiple ways to discover your unique constitution and health insights</p>
+            </div>
+
+            <!-- Modern Tab System -->
+            <div class="modern-tabs">
+                <div class="tab-nav">
+                    <button class="tab-button active" data-tab="assessment">
+                        <span class="tab-icon">📝</span>
+                        <span class="tab-text">Dosha Assessment</span>
+                        <span class="tab-description">Complete Analysis</span>
+                    </button>
+                    <button class="tab-button" data-tab="chatbot">
+                        <span class="tab-icon">🤖</span>
+                        <span class="tab-text">AI Assistant</span>
+                        <span class="tab-description">Interactive Chat</span>
+                    </button>
+                    <button class="tab-button" data-tab="recipes">
+                        <span class="tab-icon">🍽️</span>
+                        <span class="tab-text">Recipe Finder</span>
+                        <span class="tab-description">Personalized Meals</span>
+                    </button>
+                </div>
+
+                <!-- Assessment Tab -->
+                <div class="tab-content active" id="assessment-tab">
+                    <div class="assessment-container">
+                        <div class="assessment-header">
+                            <h3 class="assessment-title">Comprehensive Dosha Assessment</h3>
+                            <p class="assessment-subtitle">Answer these questions to discover your unique Ayurvedic constitution</p>
+                            <div class="progress-container">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="progress-fill"></div>
+                                </div>
+                                <span class="progress-text" id="progress-text">0% Complete</span>
+                            </div>
+                        </div>
+
+                        <form id="diagnosis-form" class="assessment-form">
+                            <!-- Section 1: Physical Characteristics -->
+                            <div class="form-section active" data-section="1">
+                                <div class="section-header">
+                                    <div class="section-number">01</div>
+                                    <div class="section-info">
+                                        <h4 class="section-title">Physical Characteristics</h4>
+                                        <p class="section-description">Understanding your body's natural structure and tendencies</p>
+                                    </div>
+                                </div>
+
+                                <div class="questions-grid">
+                                    <div class="question-card">
+                                        <label class="question-label">Body Frame</label>
+                                        <div class="radio-group">
+                                            <label class="radio-option">
+                                                <input type="radio" name="body_frame" value="thin">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Thin/Lean</span>
+                                                    <span class="option-desc">Naturally slender, find it hard to gain weight</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="body_frame" value="medium">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Medium</span>
+                                                    <span class="option-desc">Moderate build, gain/lose weight easily</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="body_frame" value="heavy">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Heavy/Solid</span>
+                                                    <span class="option-desc">Naturally broad, gain weight easily</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="question-card">
+                                        <label class="question-label">Skin Type</label>
+                                        <div class="radio-group">
+                                            <label class="radio-option">
+                                                <input type="radio" name="skin_type" value="dry">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Dry/Rough</span>
+                                                    <span class="option-desc">Often feels dry, may crack easily</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="skin_type" value="oily">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Oily/Warm</span>
+                                                    <span class="option-desc">Tends to be oily, warm to touch</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="skin_type" value="smooth">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Smooth/Cool</span>
+                                                    <span class="option-desc">Soft, smooth, cool to touch</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="question-card">
+                                        <label class="question-label">Hair Characteristics</label>
+                                        <div class="radio-group">
+                                            <label class="radio-option">
+                                                <input type="radio" name="hair_type" value="dry">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Dry/Brittle</span>
+                                                    <span class="option-desc">Tends to be dry, frizzy, or brittle</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="hair_type" value="fine">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Fine/Straight</span>
+                                                    <span class="option-desc">Fine texture, straight, may thin early</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="hair_type" value="thick">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Thick/Wavy</span>
+                                                    <span class="option-desc">Thick, wavy, lustrous hair</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="section-navigation">
+                                    <button type="button" class="nav-btn next-btn" onclick="nextSection()">
+                                        <span>Next Section</span>
+                                        <span class="btn-icon">→</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Section 2: Mental & Emotional Characteristics -->
+                            <div class="form-section" data-section="2">
+                                <div class="section-header">
+                                    <div class="section-number">02</div>
+                                    <div class="section-info">
+                                        <h4 class="section-title">Mental & Emotional Traits</h4>
+                                        <p class="section-description">Understanding your mental patterns and emotional responses</p>
+                                    </div>
+                                </div>
+
+                                <div class="questions-grid">
+                                    <div class="question-card">
+                                        <label class="question-label">Mental Activity</label>
+                                        <div class="radio-group">
+                                            <label class="radio-option">
+                                                <input type="radio" name="mental_activity" value="quick">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Quick/Restless</span>
+                                                    <span class="option-desc">Mind moves quickly, easily distracted</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="mental_activity" value="sharp">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Sharp/Focused</span>
+                                                    <span class="option-desc">Good concentration, decisive thinking</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="mental_activity" value="calm">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Calm/Steady</span>
+                                                    <span class="option-desc">Slow to process but retains well</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="question-card">
+                                        <label class="question-label">Sleep Pattern</label>
+                                        <div class="radio-group">
+                                            <label class="radio-option">
+                                                <input type="radio" name="sleep_pattern" value="light">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Light Sleeper</span>
+                                                    <span class="option-desc">Easily awakened, restless sleep</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="sleep_pattern" value="moderate">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Moderate Sleep</span>
+                                                    <span class="option-desc">Good sleep quality, regular patterns</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="sleep_pattern" value="deep">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Deep Sleeper</span>
+                                                    <span class="option-desc">Heavy sleep, hard to wake up</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="section-navigation">
+                                    <button type="button" class="nav-btn prev-btn" onclick="prevSection()">
+                                        <span class="btn-icon">←</span>
+                                        <span>Previous</span>
+                                    </button>
+                                    <button type="button" class="nav-btn next-btn" onclick="nextSection()">
+                                        <span>Next Section</span>
+                                        <span class="btn-icon">→</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Section 3: Lifestyle & Preferences -->
+                            <div class="form-section" data-section="3">
+                                <div class="section-header">
+                                    <div class="section-number">03</div>
+                                    <div class="section-info">
+                                        <h4 class="section-title">Lifestyle & Preferences</h4>
+                                        <p class="section-description">Your daily habits and natural preferences</p>
+                                    </div>
+                                </div>
+
+                                <div class="questions-grid">
+                                    <div class="question-card">
+                                        <label class="question-label">Food Preferences</label>
+                                        <div class="radio-group">
+                                            <label class="radio-option">
+                                                <input type="radio" name="food_preference" value="warm">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Warm/Cooked</span>
+                                                    <span class="option-desc">Prefer warm, cooked, moist foods</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="food_preference" value="cool">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Cool/Fresh</span>
+                                                    <span class="option-desc">Enjoy cool, fresh, raw foods</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="food_preference" value="rich">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Rich/Heavy</span>
+                                                    <span class="option-desc">Like rich, heavy, sweet foods</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="question-card">
+                                        <label class="question-label">Weather Preference</label>
+                                        <div class="radio-group">
+                                            <label class="radio-option">
+                                                <input type="radio" name="weather_preference" value="warm">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Warm Weather</span>
+                                                    <span class="option-desc">Feel better in warm, humid climate</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="weather_preference" value="cool">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Cool Weather</span>
+                                                    <span class="option-desc">Prefer cool, dry climate</span>
+                                                </div>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="weather_preference" value="moderate">
+                                                <span class="radio-custom"></span>
+                                                <div class="option-content">
+                                                    <span class="option-title">Moderate Weather</span>
+                                                    <span class="option-desc">Comfortable in moderate temperatures</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="section-navigation">
+                                    <button type="button" class="nav-btn prev-btn" onclick="prevSection()">
+                                        <span class="btn-icon">←</span>
+                                        <span>Previous</span>
+                                    </button>
+                                    <button type="button" class="nav-btn next-btn" onclick="nextSection()">
+                                        <span>Next Section</span>
+                                        <span class="btn-icon">→</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Section 4: PPG Heart Rate Measurement -->
+                            <div class="form-section" data-section="4">
+                                <div class="section-header">
+                                    <div class="section-number">04</div>
+                                    <div class="section-info">
+                                        <h4 class="section-title">Pulse Analysis (Nadi Pariksha)</h4>
+                                        <p class="section-description">Advanced pulse analysis using your device camera for Ayurvedic insights</p>
+                                    </div>
+                                </div>
+
+                                <div class="ppg-measurement-container">
+                                    <div class="ppg-header">
+                                        <h4 class="ppg-title">Heart Rate & Pulse Analysis</h4>
+                                        <p class="ppg-subtitle">Place your finger over the camera lens to measure your pulse and get Ayurvedic insights</p>
+                                    </div>
+
+                                    <div class="ppg-interface">
+                                        <div class="video-container">
+                                            <video id="video" autoplay muted style="display: none;"></video>
+                                            <img id="video_feed" src="/video_feed" alt="Camera Feed" style="width: 100%; max-width: 400px; border-radius: 12px;">
+                                        </div>
+
+                                        <div class="ppg-controls">
+                                            <div class="measurement-status" id="measurement-status">
+                                                <span class="status-icon">📱</span>
+                                                <span class="status-text">Ready to measure</span>
+                                            </div>
+
+                                            <div class="ppg-instructions">
+                                                <div class="instruction-item">
+                                                    <span class="instruction-icon">👆</span>
+                                                    <span class="instruction-text">Place finger over camera</span>
+                                                </div>
+                                                <div class="instruction-item">
+                                                    <span class="instruction-icon">💡</span>
+                                                    <span class="instruction-text">Ensure good lighting</span>
+                                                </div>
+                                                <div class="instruction-item">
+                                                    <span class="instruction-icon">⏱️</span>
+                                                    <span class="instruction-text">Hold still for 30 seconds</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="ppg-buttons">
+                                                <button type="button" class="ppg-btn start-btn" id="start-measurement" onclick="startPPGMeasurement()">
+                                                    <span class="btn-icon">▶️</span>
+                                                    <span>Start Measurement</span>
+                                                </button>
+                                                <button type="button" class="ppg-btn stop-btn" id="stop-measurement" onclick="stopPPGMeasurement()" style="display: none;">
+                                                    <span class="btn-icon">⏹️</span>
+                                                    <span>Stop Measurement</span>
+                                                </button>
+                                            </div>
+
+                                            <div class="ppg-results" id="ppg-results" style="display: none;">
+                                                <h5 class="results-title">Measurement Results</h5>
+                                                <div class="results-grid">
+                                                    <div class="result-item">
+                                                        <span class="result-label">Heart Rate</span>
+                                                        <span class="result-value" id="heart-rate-value">-- BPM</span>
+                                                    </div>
+                                                    <div class="result-item">
+                                                        <span class="result-label">Pulse Dosha</span>
+                                                        <span class="result-value" id="pulse-dosha-value">--</span>
+                                                    </div>
+                                                </div>
+                                                <div class="pulse-description" id="pulse-description">
+                                                    <!-- Pulse analysis description will be populated here -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="section-navigation">
+                                    <button type="button" class="nav-btn prev-btn" onclick="prevSection()">
+                                        <span class="btn-icon">←</span>
+                                        <span>Previous</span>
+                                    </button>
+                                    <button type="button" class="nav-btn next-btn" onclick="showResults()">
+                                        <span>View Results</span>
+                                        <span class="btn-icon">✨</span>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="form-section" data-section="results" style="display: none;">
+                                <div class="results-container">
+                                    <div class="results-header">
+                                        <h3 class="results-title">Your Dosha Analysis</h3>
+                                        <p class="results-subtitle">Based on your responses, here's your personalized constitution</p>
+                                    </div>
+                                    
+                                    <div class="dosha-results" id="dosha-results">
+                                        <!-- Results will be populated by JavaScript -->
+                                    </div>
+                                    
+                                    <div class="action-buttons">
+                                        <button type="button" class="action-btn primary" onclick="generatePDF()">
+                                            <span class="btn-icon">📄</span>
+                                            <span>Download PDF Report</span>
+                                        </button>
+                                        <button type="button" class="action-btn secondary" onclick="generateTextReport()">
+                                            <span class="btn-icon">📝</span>
+                                            <span>Download Text Report</span>
+                                        </button>
+                                        <button type="button" class="action-btn tertiary" onclick="generateDietChart()">
+                                            <span class="btn-icon">📋</span>
+                                            <span>Generate Diet Chart</span>
+                                        </button>
+                                        <button type="button" class="action-btn debug" onclick="testDebug()" style="font-size: 0.85rem;">
+                                            <span class="btn-icon">🔧</span>
+                                            <span>Debug Test</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Chatbot Tab -->
+                <div class="tab-content" id="chatbot-tab">
+                    <div class="chatbot-container">
+                        <div class="chat-header">
+                            <div class="chat-avatar">🤖</div>
+                            <div class="chat-info">
+                                <h3 class="chat-title">Ayurveda AI Assistant</h3>
+                                <p class="chat-status">Online • Ready to help</p>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-messages" id="chat-messages">
+                            <div class="message bot-message">
+                                <div class="message-avatar">🤖</div>
+                                <div class="message-content">
+                                    <p>Hello! I'm your Ayurvedic AI assistant. I can help you understand your dosha, suggest remedies, and answer questions about Ayurvedic principles. How can I assist you today?</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-input-container">
+                            <div class="chat-input-wrapper">
+                                <input type="text" id="chat-input" placeholder="Ask me about Ayurveda, doshas, or health..." class="chat-input">
+                                <button type="button" id="send-btn" class="send-btn">
+                                    <span class="send-icon">📤</span>
+                                </button>
+                            </div>
+                            <div class="quick-questions">
+                                <button class="quick-btn" onclick="askQuickQuestion('What is my dosha?')">What is my dosha?</button>
+                                <button class="quick-btn" onclick="askQuickQuestion('Foods for Vata')">Foods for Vata</button>
+                                <button class="quick-btn" onclick="askQuickQuestion('Pitta balancing tips')">Pitta balancing tips</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recipes Tab -->
+                <div class="tab-content" id="recipes-tab">
+                    <div class="recipes-container">
+                        <div class="recipes-header">
+                            <h3 class="recipes-title">Personalized Recipe Finder</h3>
+                            <p class="recipes-subtitle">Discover delicious meals tailored to your dosha and dietary preferences</p>
+                        </div>
+                        
+                        <div class="recipe-filters">
+                            <div class="filter-group">
+                                <label class="filter-label">Dosha Type</label>
+                                <select class="filter-select" id="dosha-filter">
+                                    <option value="">All Doshas</option>
+                                    <option value="vata">Vata Balancing</option>
+                                    <option value="pitta">Pitta Balancing</option>
+                                    <option value="kapha">Kapha Balancing</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label class="filter-label">Meal Type</label>
+                                <select class="filter-select" id="meal-filter">
+                                    <option value="">All Meals</option>
+                                    <option value="breakfast">Breakfast</option>
+                                    <option value="lunch">Lunch</option>
+                                    <option value="dinner">Dinner</option>
+                                    <option value="snack">Snacks</option>
+                                </select>
+                            </div>
+                            <button class="filter-btn" onclick="searchRecipes()">
+                                <span class="btn-icon">🔍</span>
+                                <span>Find Recipes</span>
+                            </button>
+                        </div>
+                        
+                        <div class="recipes-grid" id="recipes-grid">
+                            <!-- Recipes will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Tab switching functionality
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const targetTab = this.dataset.tab;
+            
+            // Remove active class from all tabs and contents
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Add active class to clicked tab and corresponding content
+            this.classList.add('active');
+            document.getElementById(targetTab + '-tab').classList.add('active');
+        });
+    });
+    
+    // Initialize variables
+let currentSection = 1;
+const totalSections = 4; // Adjust based on actual sections
+    
+    // Chat functionality
+    const chatInput = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('send-btn');
+    const chatMessages = document.getElementById('chat-messages');
+    
+    if (chatInput && sendBtn) {
+        sendBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    }
+    
+    function sendMessage() {
+        const message = chatInput.value.trim();
+        if (!message) return;
+        
+        // Add user message
+        addMessage(message, 'user');
+        chatInput.value = '';
+        
+        // Simulate bot response
+        setTimeout(() => {
+            const responses = [
+                "Based on Ayurvedic principles, I'd recommend focusing on balancing your dominant dosha. Would you like me to explain more about your constitution?",
+                "That's a great question! In Ayurveda, we believe that food is medicine. Let me suggest some specific foods for your dosha type.",
+                "I understand your concern. Ayurveda offers natural solutions for this. Let me provide some personalized recommendations."
+            ];
+            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+            addMessage(randomResponse, 'bot');
+        }, 1000);
+    }
+    
+    function addMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${sender}-message`;
+        
+        messageDiv.innerHTML = `
+            <div class="message-avatar">${sender === 'user' ? '👤' : '🤖'}</div>
+            <div class="message-content">
+                <p>${text}</p>
+            </div>
+        `;
+        
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+});
+
+function nextSection() {
+    const currentFormSection = document.querySelector('.form-section.active');
+    const nextFormSection = currentFormSection.nextElementSibling;
+    
+    if (nextFormSection && nextFormSection.classList.contains('form-section')) {
+        // Hide current section
+        currentFormSection.classList.remove('active');
+        
+        // Show next section
+        nextFormSection.classList.add('active');
+        
+        // Update progress
+        currentSection++;
+        updateProgress();
+        
+        // Scroll to top of form
+        document.querySelector('.assessment-container').scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+        });
+    } else {
+        // If no more sections, show results
+        showResults();
+    }
+}
+
+function updateProgress() {
+    const progress = (currentSection / totalSections) * 100;
+    document.getElementById('progress-fill').style.width = progress + '%';
+    document.getElementById('progress-text').textContent = Math.round(progress) + '% Complete';
+}
+
+function askQuickQuestion(question) {
+    document.getElementById('chat-input').value = question;
+    document.getElementById('send-btn').click();
+}
+
+function searchRecipes() {
+    const recipesGrid = document.getElementById('recipes-grid');
+    const recipes = [
+        { name: "Vata Balancing Soup", time: "30 min", difficulty: "Easy", dosha: "vata" },
+        { name: "Pitta Cooling Salad", time: "15 min", difficulty: "Easy", dosha: "pitta" },
+        { name: "Kapha Energizing Curry", time: "45 min", difficulty: "Medium", dosha: "kapha" }
+    ];
+    
+    recipesGrid.innerHTML = recipes.map(recipe => `
+        <div class="recipe-card">
+            <div class="recipe-image">🍽️</div>
+            <div class="recipe-content">
+                <h4 class="recipe-name">${recipe.name}</h4>
+                <div class="recipe-meta">
+                    <span class="recipe-time">⏱️ ${recipe.time}</span>
+                    <span class="recipe-difficulty">📊 ${recipe.difficulty}</span>
+                </div>
+                <div class="recipe-dosha">${recipe.dosha.charAt(0).toUpperCase() + recipe.dosha.slice(1)} Balancing</div>
+            </div>
+            <button class="recipe-btn">View Recipe</button>
+        </div>
+    `).join('');
+}
+
+function generateDietChart() {
+    // Implementation for diet chart generation
+    alert('Diet chart generation feature will be implemented!');
+}
+
+function prevSection() {
+    const currentFormSection = document.querySelector('.form-section.active');
+    const prevFormSection = currentFormSection.previousElementSibling;
+    
+    if (prevFormSection && prevFormSection.classList.contains('form-section')) {
+        // Hide current section
+        currentFormSection.classList.remove('active');
+        
+        // Show previous section
+        prevFormSection.classList.add('active');
+        
+        // Update progress
+        currentSection--;
+        updateProgress();
+        
+        // Scroll to top of form
+        document.querySelector('.assessment-container').scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+        });
+    }
+}
+
+function showResults() {
+    // Hide current section
+    const currentFormSection = document.querySelector('.form-section.active');
+    currentFormSection.classList.remove('active');
+    
+    // Show results section
+    const resultsSection = document.querySelector('.form-section[data-section="results"]');
+    resultsSection.style.display = 'block';
+    resultsSection.classList.add('active');
+    
+    // Calculate and display results
+    calculateDoshaResults();
+    
+    // Update progress to 100%
+    currentSection = totalSections;
+    updateProgress();
+    
+    // Scroll to results
+    document.querySelector('.assessment-container').scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+    });
+}
+
+function calculateDoshaResults() {
+    const form = document.getElementById('diagnosis-form');
+    const formData = new FormData(form);
+    
+    // Simple dosha calculation based on answers
+    let vataScore = 0;
+    let pittaScore = 0;
+    let kaphaScore = 0;
+    
+    // Count answers for each dosha type
+    for (let [key, value] of formData.entries()) {
+        if (value === 'thin' || value === 'dry' || value === 'quick' || value === 'light' || value === 'warm') {
+            vataScore++;
+        } else if (value === 'medium' || value === 'oily' || value === 'sharp' || value === 'moderate' || value === 'cool') {
+            pittaScore++;
+        } else if (value === 'heavy' || value === 'smooth' || value === 'calm' || value === 'deep' || value === 'rich') {
+            kaphaScore++;
+        }
+    }
+    
+    // Determine dominant dosha
+    let dominantDosha = 'Vata';
+    let maxScore = vataScore;
+    
+    if (pittaScore > maxScore) {
+        dominantDosha = 'Pitta';
+        maxScore = pittaScore;
+    }
+    if (kaphaScore > maxScore) {
+        dominantDosha = 'Kapha';
+        maxScore = kaphaScore;
+    }
+    
+    // Display results
+    const resultsContainer = document.getElementById('dosha-results');
+    resultsContainer.innerHTML = `
+        <div class="dosha-result-card primary">
+            <div class="dosha-icon">${dominantDosha === 'Vata' ? '💨' : dominantDosha === 'Pitta' ? '🔥' : '🌍'}</div>
+            <h4 class="dosha-name">Primary: ${dominantDosha}</h4>
+            <p class="dosha-description">
+                ${getDoshaDescription(dominantDosha)}
+            </p>
+            <div class="dosha-percentage">${Math.round((maxScore / (vataScore + pittaScore + kaphaScore)) * 100)}%</div>
+        </div>
+        
+        <div class="dosha-scores">
+            <div class="score-item">
+                <span class="score-label">Vata</span>
+                <div class="score-bar">
+                    <div class="score-fill" style="width: ${(vataScore / (vataScore + pittaScore + kaphaScore)) * 100}%"></div>
+                </div>
+                <span class="score-value">${vataScore}</span>
+            </div>
+            <div class="score-item">
+                <span class="score-label">Pitta</span>
+                <div class="score-bar">
+                    <div class="score-fill pitta" style="width: ${(pittaScore / (vataScore + pittaScore + kaphaScore)) * 100}%"></div>
+                </div>
+                <span class="score-value">${pittaScore}</span>
+            </div>
+            <div class="score-item">
+                <span class="score-label">Kapha</span>
+                <div class="score-bar">
+                    <div class="score-fill kapha" style="width: ${(kaphaScore / (vataScore + pittaScore + kaphaScore)) * 100}%"></div>
+                </div>
+                <span class="score-value">${kaphaScore}</span>
+            </div>
+        </div>
+        
+        <div class="recommendations">
+            <h5 class="recommendations-title">Personalized Recommendations</h5>
+            <div class="recommendation-list">
+                ${getRecommendations(dominantDosha).map(rec => `
+                    <div class="recommendation-item">
+                        <span class="rec-icon">${rec.icon}</span>
+                        <span class="rec-text">${rec.text}</span>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
+function getDoshaDescription(dosha) {
+    const descriptions = {
+        'Vata': 'You have a Vata constitution - characterized by movement, creativity, and quick thinking. You may be naturally thin, energetic, and have variable appetite and sleep patterns.',
+        'Pitta': 'You have a Pitta constitution - characterized by fire, transformation, and sharp intellect. You likely have a medium build, good digestion, and strong leadership qualities.',
+        'Kapha': 'You have a Kapha constitution - characterized by stability, strength, and calm nature. You probably have a solid build, steady energy, and excellent endurance.'
+    };
+    return descriptions[dosha] || '';
+}
+
+function getRecommendations(dosha) {
+    const recommendations = {
+        'Vata': [
+            { icon: '🍲', text: 'Eat warm, cooked, and nourishing foods' },
+            { icon: '🧘', text: 'Practice calming activities like yoga and meditation' },
+            { icon: '💤', text: 'Maintain regular sleep schedule' },
+            { icon: '🌿', text: 'Use warming spices like ginger and cinnamon' }
+        ],
+        'Pitta': [
+            { icon: '🥗', text: 'Choose cool, fresh, and sweet foods' },
+            { icon: '🏊', text: 'Engage in moderate, cooling exercises' },
+            { icon: '🌙', text: 'Avoid excessive heat and sun exposure' },
+            { icon: '🥥', text: 'Use cooling herbs like coconut and mint' }
+        ],
+        'Kapha': [
+            { icon: '🌶️', text: 'Eat light, warm, and spicy foods' },
+            { icon: '🏃', text: 'Engage in vigorous, energizing exercise' },
+            { icon: '☀️', text: 'Stay active and avoid excessive sleep' },
+            { icon: '🫚', text: 'Use stimulating spices like black pepper and ginger' }
+        ]
+    };
+    return recommendations[dosha] || [];
+}
+
+function generatePDF() {
+    // Validate that form is completed
+    const form = document.getElementById('diagnosis-form');
+    if (!form) {
+        showToast('Form not found. Please refresh the page.', 'error');
+        return;
+    }
+    
+    const formData = new FormData(form);
+    
+    // Check if form has required data
+    let hasData = false;
+    let dataCount = 0;
+    const requiredFields = ['body_frame', 'skin_type', 'hair_type', 'mental_activity', 'sleep_pattern'];
+    let missingFields = [];
+    
+    for (let [key, value] of formData.entries()) {
+        if (value && value.trim() !== '') {
+            hasData = true;
+            dataCount++;
+        }
+    }
+    
+    // Check for required fields
+    for (let field of requiredFields) {
+        if (!formData.get(field)) {
+            missingFields.push(field.replace('_', ' '));
+        }
+    }
+    
+    console.log(`Form validation: hasData=${hasData}, dataCount=${dataCount}, missingFields=${missingFields.length}`);
+    
+    if (!hasData || dataCount < 3) {
+        showToast('Please complete at least the first few sections of the assessment form.', 'warning');
+        return;
+    }
+    
+    if (missingFields.length > 2) {
+        showToast(`Please complete more sections. Missing: ${missingFields.slice(0, 3).join(', ')}...`, 'warning');
+        return;
+    }
+    
+    // Show loading state
+    const pdfBtn = document.querySelector('.action-btn.primary');
+    if (!pdfBtn) {
+        showToast('PDF button not found.', 'error');
+        return;
+    }
+    
+    const originalContent = pdfBtn.innerHTML;
+    pdfBtn.innerHTML = '<span class="btn-icon">⏳</span><span>Generating PDF...</span>';
+    pdfBtn.disabled = true;
+    
+    // Convert FormData to regular object
+    const data = {};
+    for (let [key, value] of formData.entries()) {
+        data[key] = value;
+    }
+    
+    console.log('Form data to send:', data);
+    
+    // First save the complete diagnosis data
+    fetch('/save_complete_diagnosis', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        console.log('Save response status:', response.status);
+        return response.json();
+    })
+    .then(saveResult => {
+        console.log('Save result:', saveResult);
+        if (saveResult.status === 'success') {
+            // Now generate PDF using simple endpoint for testing
+            console.log('Generating PDF...');
+            return fetch('/simple_pdf', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+        } else {
+            throw new Error(saveResult.message || 'Failed to save diagnosis data');
+        }
+    })
+    .then(response => {
+        console.log('PDF response status:', response.status);
+        if (response.ok) {
+            return response.blob();
+        } else {
+            return response.json().then(errorData => {
+                throw new Error(errorData.error || 'PDF generation failed');
+            });
+        }
+    })
+    .then(blob => {
+        console.log('PDF blob received, size:', blob.size);
+        if (blob.size === 0) {
+            throw new Error('Empty PDF generated');
+        }
+        
+        // Create download link
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = 'vedyura-dosha-analysis.pdf';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+        
+        // Show success message
+        showToast('PDF downloaded successfully!', 'success');
+    })
+    .catch(error => {
+        console.error('PDF Generation Error:', error);
+        
+        // Provide more specific error messages
+        let errorMessage = 'Failed to generate PDF';
+        if (error.message.includes('fetch')) {
+            errorMessage = 'Network error: Please check your connection and try again';
+        } else if (error.message.includes('Unauthorized')) {
+            errorMessage = 'Session expired: Please log in again';
+        } else if (error.message) {
+            errorMessage = `Error: ${error.message}`;
+        }
+        
+        showToast(errorMessage, 'error');
+        
+        // Also try to check if the server is responding
+        fetch('/debug_imports')
+            .then(response => response.json())
+            .then(debugInfo => {
+                console.log('Debug info:', debugInfo);
+                if (debugInfo.fpdf && debugInfo.fpdf !== 'OK') {
+                    showToast('PDF library not properly installed', 'error');
+                }
+            })
+            .catch(debugError => {
+                console.log('Debug check failed:', debugError);
+                showToast('Server connection issue detected', 'error');
+            });
+    })
+    .finally(() => {
+        // Reset button
+        pdfBtn.innerHTML = originalContent;
+        pdfBtn.disabled = false;
+    });
+}
+
+function generateTextReport() {
+    // Get form data
+    const form = document.getElementById('diagnosis-form');
+    if (!form) {
+        showToast('Form not found. Please refresh the page.', 'error');
+        return;
+    }
+    
+    const formData = new FormData(form);
+    const data = {};
+    for (let [key, value] of formData.entries()) {
+        data[key] = value;
+    }
+    
+    // Generate text report
+    fetch('/text_report', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.blob();
+        }
+        throw new Error('Text report generation failed');
+    })
+    .then(blob => {
+        // Create download link
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = 'vedyura-report.txt';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+        
+        showToast('Text report downloaded successfully!', 'success');
+    })
+    .catch(error => {
+        console.error('Text Report Error:', error);
+        showToast('Failed to generate text report', 'error');
+    });
+}
+
+function testDebug() {
+    fetch('/debug_imports')
+        .then(response => response.json())
+        .then(data => {
+            console.log('Debug results:', data);
+            let message = 'Debug Results:\n';
+            for (let [key, value] of Object.entries(data)) {
+                message += `${key}: ${value}\n`;
+            }
+            alert(message);
+            
+            // Also show in toast
+            const allOk = Object.values(data).every(v => v === 'OK');
+            showToast(allOk ? 'All systems OK!' : 'Some issues detected - check console', allOk ? 'success' : 'warning');
+        })
+        .catch(error => {
+            console.error('Debug test failed:', error);
+            showToast('Debug test failed - server may be down', 'error');
+        });
+}
+
+function showToast(message, type = 'info') {
+    // Create toast notification
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.innerHTML = `
+        <span class="toast-icon">${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'}</span>
+        <span class="toast-message">${message}</span>
+    `;
+    
+    // Add to page
+    document.body.appendChild(toast);
+    
+    // Show with animation
+    setTimeout(() => toast.classList.add('show'), 100);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => document.body.removeChild(toast), 300);
+    }, 3000);
+}
+
+function retakeAssessment() {
+    // Reset form
+    document.getElementById('diagnosis-form').reset();
+    
+    // Hide results section
+    const resultsSection = document.querySelector('.form-section[data-section="results"]');
+    resultsSection.classList.remove('active');
+    resultsSection.style.display = 'none';
+    
+    // Show first section
+    const firstSection = document.querySelector('.form-section[data-section="1"]');
+    firstSection.classList.add('active');
+    
+    // Reset progress
+    currentSection = 1;
+    updateProgress();
+    
+    // Scroll to top
+    document.querySelector('.assessment-container').scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+    });
+}
+
+// PPG Measurement Functions
+function startPPGMeasurement() {
+    const startBtn = document.getElementById('start-measurement');
+    const stopBtn = document.getElementById('stop-measurement');
+    const status = document.getElementById('measurement-status');
+    
+    // Update UI
+    startBtn.style.display = 'none';
+    stopBtn.style.display = 'flex';
+    status.innerHTML = '<span class="status-icon">🔴</span><span class="status-text">Measuring... Keep finger steady</span>';
+    
+    // Start measurement
+    fetch('/start_measurement', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            // Auto-stop after 30 seconds
+            setTimeout(() => {
+                if (stopBtn.style.display !== 'none') {
+                    stopPPGMeasurement();
+                }
+            }, 30000);
+        } else {
+            showToast('Failed to start measurement', 'error');
+            resetPPGInterface();
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('Failed to start measurement', 'error');
+        resetPPGInterface();
+    });
+}
+
+function stopPPGMeasurement() {
+    const startBtn = document.getElementById('start-measurement');
+    const stopBtn = document.getElementById('stop-measurement');
+    const status = document.getElementById('measurement-status');
+    
+    // Update UI to processing state
+    status.innerHTML = '<span class="status-icon">⏳</span><span class="status-text">Processing results...</span>';
+    stopBtn.disabled = true;
+    
+    // Stop measurement and get results
+    fetch('/stop_measurement', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            displayPPGResults(data);
+            showToast('Pulse measurement completed!', 'success');
+        } else {
+            showToast(data.message || 'Measurement failed', 'error');
+            resetPPGInterface();
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('Failed to process measurement', 'error');
+        resetPPGInterface();
+    });
+}
+
+function displayPPGResults(data) {
+    const resultsDiv = document.getElementById('ppg-results');
+    const heartRateValue = document.getElementById('heart-rate-value');
+    const pulseDoshaValue = document.getElementById('pulse-dosha-value');
+    const pulseDescription = document.getElementById('pulse-description');
+    const status = document.getElementById('measurement-status');
+    
+    // Update status
+    status.innerHTML = '<span class="status-icon">✅</span><span class="status-text">Measurement complete</span>';
+    
+    // Display results
+    heartRateValue.textContent = `${data.heart_rate} BPM`;
+    pulseDoshaValue.textContent = data.dosha || 'N/A';
+    
+    if (data.description) {
+        pulseDescription.innerHTML = `<p>${data.description}</p>`;
+    }
+    
+    // Show results section
+    resultsDiv.style.display = 'block';
+    
+    // Reset buttons
+    resetPPGInterface();
+}
+
+function resetPPGInterface() {
+    const startBtn = document.getElementById('start-measurement');
+    const stopBtn = document.getElementById('stop-measurement');
+    const status = document.getElementById('measurement-status');
+    
+    startBtn.style.display = 'flex';
+    stopBtn.style.display = 'none';
+    stopBtn.disabled = false;
+    
+    if (!document.getElementById('ppg-results').style.display === 'block') {
+        status.innerHTML = '<span class="status-icon">📱</span><span class="status-text">Ready to measure</span>';
+    }
+}
+</script>
+{% endblock %}

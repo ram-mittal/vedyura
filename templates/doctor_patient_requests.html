@@ -1,0 +1,322 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Patient Requests - Vedyura
+{% endblock %}
+
+{% block body_class %}doctor-requests-page{% endblock %}
+
+{% block content %}
+<!-- Include Universal Navigation -->
+{% include 'components/universal_nav.html' %}
+
+<main class="page-content">
+    <div class="page-container">
+        <div class="page-header">
+            <div class="header-content">
+                <h1 class="page-title">Patient Management</h1>
+                <p class="page-subtitle">Manage consultation requests and current patients</p>
+            </div>
+            <div class="header-stats">
+                <div class="stat-card">
+                    <div class="stat-number">{{ pending_requests|length }}</div>
+                    <div class="stat-label">Pending</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{{ current_patients|length }}</div>
+                    <div class="stat-label">Active</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modern Tab System -->
+        <div class="modern-tabs">
+            <div class="tab-nav">
+                <button class="tab-button active" data-tab="pending">
+                    <span class="tab-icon">📋</span>
+                    <span class="tab-text">Pending Requests</span>
+                    <span class="tab-badge">{{ pending_requests|length }}</span>
+                </button>
+                <button class="tab-button" data-tab="current">
+                    <span class="tab-icon">👥</span>
+                    <span class="tab-text">Current Patients</span>
+                    <span class="tab-badge">{{ current_patients|length }}</span>
+                </button>
+            </div>
+
+            <!-- Pending Requests Tab -->
+            <div class="tab-content active" id="pending-tab">
+                {% if pending_requests %}
+                    <div class="cards-grid">
+                        {% for item in pending_requests %}
+                        <div class="patient-card" data-patient-id="{{ item.patient.id }}">
+                            <div class="card-header">
+                                <div class="patient-avatar">
+                                    <span class="avatar-text">{{ item.patient.name[0].upper() }}</span>
+                                </div>
+                                <div class="patient-info">
+                                    <h3 class="patient-name">{{ item.patient.name }}</h3>
+                                    <p class="patient-email">{{ item.patient.email }}</p>
+                                    <p class="patient-age">Age: {{ item.patient.age }}</p>
+                                </div>
+                                <div class="request-status">
+                                    <span class="status-badge pending">Pending</span>
+                                </div>
+                            </div>
+                            
+                            <div class="card-body">
+                                <div class="request-details">
+                                    <div class="detail-item">
+                                        <span class="detail-icon">📅</span>
+                                        <span class="detail-text">{{ item.request.get('request_date', 'Recently') }}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-icon">🏥</span>
+                                        <span class="detail-text">Consultation Request</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-actions">
+                                <button class="action-btn accept-btn" data-action="accept" data-patient-id="{{ item.patient.id }}">
+                                    <span class="btn-icon">✓</span>
+                                    Accept
+                                </button>
+                                <button class="action-btn decline-btn" data-action="decline" data-patient-id="{{ item.patient.id }}">
+                                    <span class="btn-icon">✗</span>
+                                    Decline
+                                </button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="empty-state">
+                        <div class="empty-icon">📋</div>
+                        <h3 class="empty-title">No Pending Requests</h3>
+                        <p class="empty-description">You don't have any pending consultation requests at the moment.</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Current Patients Tab -->
+            <div class="tab-content" id="current-tab">
+                {% if current_patients %}
+                    <div class="cards-grid">
+                        {% for patient in current_patients %}
+                        <div class="patient-card active-patient" data-patient-id="{{ patient.id }}">
+                            <div class="card-header">
+                                <div class="patient-avatar active">
+                                    <span class="avatar-text">{{ patient.name[0].upper() }}</span>
+                                </div>
+                                <div class="patient-info">
+                                    <h3 class="patient-name">{{ patient.name }}</h3>
+                                    <p class="patient-email">{{ patient.email }}</p>
+                                    <p class="patient-age">Age: {{ patient.age }}</p>
+                                </div>
+                                <div class="request-status">
+                                    <span class="status-badge active">Active</span>
+                                </div>
+                            </div>
+                            
+                            <div class="card-body">
+                                <div class="patient-stats">
+                                    <div class="stat-item">
+                                        <span class="stat-icon">📊</span>
+                                        <span class="stat-text">Health Profile Available</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-icon">🍽️</span>
+                                        <span class="stat-text">Diet Plan Ready</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-actions">
+                                <a href="{{ url_for('doctor_diet_chart') }}?patient_id={{ patient.id }}" class="action-btn primary-btn">
+                                    <span class="btn-icon">📋</span>
+                                    Diet Chart
+                                </a>
+                                <button class="action-btn remove-btn" data-patient-id="{{ patient.id }}">
+                                    <span class="btn-icon">🗑️</span>
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="empty-state">
+                        <div class="empty-icon">👥</div>
+                        <h3 class="empty-title">No Active Patients</h3>
+                        <p class="empty-description">You don't have any active patients at the moment. Accept consultation requests to get started.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Tab switching functionality
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const targetTab = this.dataset.tab;
+            
+            // Remove active class from all tabs and contents
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Add active class to clicked tab and corresponding content
+            this.classList.add('active');
+            document.getElementById(targetTab + '-tab').classList.add('active');
+        });
+    });
+    
+    // Handle Accept/Decline buttons
+    const actionButtons = document.querySelectorAll('.action-btn[data-action]');
+    actionButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const patientId = this.dataset.patientId;
+            const action = this.dataset.action;
+            const patientCard = this.closest('.patient-card');
+            
+            // Add loading state
+            this.classList.add('loading');
+            this.disabled = true;
+            
+            fetch("{{ url_for('handle_patient_request') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    patient_id: patientId,
+                    action: action
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Animate card removal
+                    patientCard.style.transform = 'translateX(-100%)';
+                    patientCard.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        patientCard.remove();
+                        updateTabBadges();
+                        
+                        // If accepted, could add to current patients tab
+                        if (action === 'accept') {
+                            showSuccessMessage('Patient request accepted successfully!');
+                        } else {
+                            showSuccessMessage('Patient request declined.');
+                        }
+                    }, 300);
+                } else {
+                    showErrorMessage('Error: ' + data.message);
+                    this.classList.remove('loading');
+                    this.disabled = false;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showErrorMessage('An error occurred while processing the request.');
+                this.classList.remove('loading');
+                this.disabled = false;
+            });
+        });
+    });
+    
+    // Handle Remove buttons
+    const removeButtons = document.querySelectorAll('.remove-btn');
+    removeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const patientId = this.dataset.patientId;
+            const patientCard = this.closest('.patient-card');
+            
+            if (!confirm('Are you sure you want to remove this patient from your active list?')) {
+                return;
+            }
+            
+            this.classList.add('loading');
+            this.disabled = true;
+            
+            fetch("{{ url_for('remove_patient') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    patient_id: patientId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    patientCard.style.transform = 'translateX(-100%)';
+                    patientCard.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        patientCard.remove();
+                        updateTabBadges();
+                        showSuccessMessage('Patient removed successfully.');
+                    }, 300);
+                } else {
+                    showErrorMessage('Error: ' + data.message);
+                    this.classList.remove('loading');
+                    this.disabled = false;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showErrorMessage('An error occurred while removing the patient.');
+                this.classList.remove('loading');
+                this.disabled = false;
+            });
+        });
+    });
+    
+    function updateTabBadges() {
+        const pendingCount = document.querySelectorAll('#pending-tab .patient-card').length;
+        const currentCount = document.querySelectorAll('#current-tab .patient-card').length;
+        
+        document.querySelector('[data-tab="pending"] .tab-badge').textContent = pendingCount;
+        document.querySelector('[data-tab="current"] .tab-badge').textContent = currentCount;
+    }
+    
+    function showSuccessMessage(message) {
+        showNotification(message, 'success');
+    }
+    
+    function showErrorMessage(message) {
+        showNotification(message, 'error');
+    }
+    
+    function showNotification(message, type) {
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.textContent = message;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 100);
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                notification.remove();
+            }, 300);
+        }, 3000);
+    }
+});
+</script>
+{% endblock %}

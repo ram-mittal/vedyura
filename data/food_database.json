@@ -1,0 +1,4611 @@
+[
+  {
+    "food_name": "Hot tea (Garam Chai)",
+    "energy_kcal": 16.14,
+    "carb_g": 2.58,
+    "protein_g": 0.39,
+    "fat_g": 0.53,
+    "fibre_g": 0.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Astringent",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Instant coffee",
+    "energy_kcal": 23.16,
+    "carb_g": 3.65,
+    "protein_g": 0.64,
+    "fat_g": 0.75,
+    "fibre_g": 0.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Bitter",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Espresso coffee",
+    "energy_kcal": 51.54,
+    "carb_g": 6.62,
+    "protein_g": 1.75,
+    "fat_g": 2.14,
+    "fibre_g": 0.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Bitter",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Iced tea",
+    "energy_kcal": 10.34,
+    "carb_g": 2.7,
+    "protein_g": 0.03,
+    "fat_g": 0.01,
+    "fibre_g": 0.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Astringent",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Decrease",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Raw mango drink (Aam panna)",
+    "energy_kcal": 35.92,
+    "carb_g": 9.05,
+    "protein_g": 0.16,
+    "fat_g": 0.03,
+    "fibre_g": 0.61,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Fruit Punch (with fresh juices)",
+    "energy_kcal": 36.12,
+    "carb_g": 9.38,
+    "protein_g": 0.14,
+    "fat_g": 0.03,
+    "fibre_g": 0.31,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Sour"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Lemon water (Nimbu pani)",
+    "energy_kcal": 18.0,
+    "carb_g": 5.41,
+    "protein_g": 0.19,
+    "fat_g": 0.03,
+    "fibre_g": 0.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Buttermilk (Chaas)",
+    "energy_kcal": 28.53,
+    "carb_g": 2.8,
+    "protein_g": 1.76,
+    "fat_g": 1.17,
+    "fibre_g": 0.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Astringent"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Mango lassi",
+    "energy_kcal": 74.52,
+    "carb_g": 11.96,
+    "protein_g": 2.42,
+    "fat_g": 1.83,
+    "fibre_g": 0.53,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Sour"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Sweet lassi",
+    "energy_kcal": 70.38,
+    "carb_g": 9.99,
+    "protein_g": 2.36,
+    "fat_g": 2.22,
+    "fibre_g": 0.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Sour"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Salted lassi",
+    "energy_kcal": 41.6,
+    "carb_g": 3.42,
+    "protein_g": 2.37,
+    "fat_g": 2.22,
+    "fibre_g": 0.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Sour"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Tomato soup",
+    "energy_kcal": 23.9,
+    "carb_g": 4.16,
+    "protein_g": 0.69,
+    "fat_g": 0.6,
+    "fibre_g": 0.69,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Vegetable clear soup",
+    "energy_kcal": 14.73,
+    "carb_g": 2.76,
+    "protein_g": 0.63,
+    "fat_g": 0.16,
+    "fibre_g": 0.81,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Salty"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Chicken clear soup",
+    "energy_kcal": 23.36,
+    "carb_g": 1.05,
+    "protein_g": 2.92,
+    "fat_g": 0.85,
+    "fibre_g": 0.22,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Salty"
+      ],
+      "vata": "Decrease",
+      "pitta": "Neutral",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Cream of mushroom soup",
+    "energy_kcal": 45.42,
+    "carb_g": 4.25,
+    "protein_g": 1.14,
+    "fat_g": 2.67,
+    "fibre_g": 0.44,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Hot and sour soup",
+    "energy_kcal": 44.97,
+    "carb_g": 7.04,
+    "protein_g": 1.54,
+    "fat_g": 1.25,
+    "fibre_g": 1.05,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Sweet corn soup",
+    "energy_kcal": 46.51,
+    "carb_g": 8.16,
+    "protein_g": 1.15,
+    "fat_g": 1.0,
+    "fibre_g": 0.9,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Samosa",
+    "energy_kcal": 147.1,
+    "carb_g": 13.06,
+    "protein_g": 2.45,
+    "fat_g": 9.11,
+    "fibre_g": 1.9,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Aloo tikki",
+    "energy_kcal": 83.27,
+    "carb_g": 11.23,
+    "protein_g": 1.48,
+    "fat_g": 3.63,
+    "fibre_g": 1.29,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Vada pav",
+    "energy_kcal": 213.9,
+    "carb_g": 30.01,
+    "protein_g": 5.43,
+    "fat_g": 7.9,
+    "fibre_g": 3.96,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Dahi vada",
+    "energy_kcal": 73.1,
+    "carb_g": 7.03,
+    "protein_g": 2.92,
+    "fat_g": 3.61,
+    "fibre_g": 1.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Kachori",
+    "energy_kcal": 137.93,
+    "carb_g": 11.19,
+    "protein_g": 2.37,
+    "fat_g": 9.11,
+    "fibre_g": 1.62,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Bhel puri",
+    "energy_kcal": 158.6,
+    "carb_g": 29.83,
+    "protein_g": 3.68,
+    "fat_g": 2.82,
+    "fibre_g": 2.53,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Pungent",
+        "Sour"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Sev puri",
+    "energy_kcal": 179.91,
+    "carb_g": 22.28,
+    "protein_g": 4.14,
+    "fat_g": 8.08,
+    "fibre_g": 3.25,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Pungent",
+        "Sour"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Pani puri",
+    "energy_kcal": 128.98,
+    "carb_g": 25.1,
+    "protein_g": 2.96,
+    "fat_g": 1.76,
+    "fibre_g": 2.21,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Sour"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Pav bhaji",
+    "energy_kcal": 169.72,
+    "carb_g": 21.09,
+    "protein_g": 3.86,
+    "fat_g": 7.5,
+    "fibre_g": 3.49,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Idli",
+    "energy_kcal": 41.1,
+    "carb_g": 8.42,
+    "protein_g": 1.4,
+    "fat_g": 0.1,
+    "fibre_g": 0.81,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Neutral",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Plain dosa",
+    "energy_kcal": 88.08,
+    "carb_g": 16.32,
+    "protein_g": 2.08,
+    "fat_g": 1.56,
+    "fibre_g": 1.63,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Astringent"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Masala dosa",
+    "energy_kcal": 163.6,
+    "carb_g": 25.43,
+    "protein_g": 3.12,
+    "fat_g": 5.42,
+    "fibre_g": 2.89,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Medu vada",
+    "energy_kcal": 102.26,
+    "carb_g": 10.84,
+    "protein_g": 3.65,
+    "fat_g": 4.96,
+    "fibre_g": 2.22,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Astringent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Upma",
+    "energy_kcal": 182.25,
+    "carb_g": 28.52,
+    "protein_g": 4.67,
+    "fat_g": 5.23,
+    "fibre_g": 1.48,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Salty"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Poha",
+    "energy_kcal": 196.34,
+    "carb_g": 34.62,
+    "protein_g": 4.49,
+    "fat_g": 4.19,
+    "fibre_g": 1.48,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Salty"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Vegetable sandwich",
+    "energy_kcal": 154.55,
+    "carb_g": 21.05,
+    "protein_g": 4.39,
+    "fat_g": 5.59,
+    "fibre_g": 2.58,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Salty"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Aloo paratha",
+    "energy_kcal": 177.34,
+    "carb_g": 24.53,
+    "protein_g": 4.0,
+    "fat_g": 6.96,
+    "fibre_g": 3.51,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Pungent"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Gobi paratha",
+    "energy_kcal": 147.24,
+    "carb_g": 21.36,
+    "protein_g": 4.28,
+    "fat_g": 5.0,
+    "fibre_g": 4.34,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Astringent"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Paneer paratha",
+    "energy_kcal": 204.64,
+    "carb_g": 20.35,
+    "protein_g": 8.06,
+    "fat_g": 9.54,
+    "fibre_g": 3.01,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Salty"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Plain paratha",
+    "energy_kcal": 151.7,
+    "carb_g": 20.21,
+    "protein_g": 3.42,
+    "fat_g": 6.33,
+    "fibre_g": 2.9,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Khandvi",
+    "energy_kcal": 115.65,
+    "carb_g": 10.38,
+    "protein_g": 3.97,
+    "fat_g": 6.39,
+    "fibre_g": 1.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Astringent"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Dhokla",
+    "energy_kcal": 115.82,
+    "carb_g": 17.58,
+    "protein_g": 4.75,
+    "fat_g": 3.05,
+    "fibre_g": 1.76,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Fafda",
+    "energy_kcal": 302.5,
+    "carb_g": 27.63,
+    "protein_g": 8.95,
+    "fat_g": 17.37,
+    "fibre_g": 4.41,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Jalebi",
+    "energy_kcal": 235.84,
+    "carb_g": 39.5,
+    "protein_g": 2.06,
+    "fat_g": 7.37,
+    "fibre_g": 0.44,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Thepla",
+    "energy_kcal": 139.69,
+    "carb_g": 15.53,
+    "protein_g": 3.2,
+    "fat_g": 7.08,
+    "fibre_g": 2.91,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Pungent"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Khaman",
+    "energy_kcal": 115.82,
+    "carb_g": 17.58,
+    "protein_g": 4.75,
+    "fat_g": 3.05,
+    "fibre_g": 1.76,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Boiled egg",
+    "energy_kcal": 77.5,
+    "carb_g": 0.56,
+    "protein_g": 6.29,
+    "fat_g": 5.3,
+    "fibre_g": 0.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Scrambled eggs",
+    "energy_kcal": 148.8,
+    "carb_g": 1.5,
+    "protein_g": 9.81,
+    "fat_g": 11.09,
+    "fibre_g": 0.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Salty"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Omelette",
+    "energy_kcal": 94.4,
+    "carb_g": 0.77,
+    "protein_g": 6.8,
+    "fat_g": 7.03,
+    "fibre_g": 0.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Salty"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Poached egg",
+    "energy_kcal": 71.0,
+    "carb_g": 0.38,
+    "protein_g": 6.26,
+    "fat_g": 4.72,
+    "fibre_g": 0.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Tandoori chicken",
+    "energy_kcal": 148.86,
+    "carb_g": 2.45,
+    "protein_g": 16.29,
+    "fat_g": 7.92,
+    "fibre_g": 0.61,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Salty"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Chicken tikka",
+    "energy_kcal": 149.33,
+    "carb_g": 2.58,
+    "protein_g": 15.68,
+    "fat_g": 8.16,
+    "fibre_g": 0.62,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Salty"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Seekh kebab",
+    "energy_kcal": 178.6,
+    "carb_g": 4.67,
+    "protein_g": 12.8,
+    "fat_g": 11.9,
+    "fibre_g": 1.25,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Salty"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Fish fry",
+    "energy_kcal": 198.8,
+    "carb_g": 6.87,
+    "protein_g": 14.18,
+    "fat_g": 12.78,
+    "fibre_g": 0.77,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Fish curry",
+    "energy_kcal": 156.45,
+    "carb_g": 4.56,
+    "protein_g": 14.28,
+    "fat_g": 9.1,
+    "fibre_g": 1.13,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Pungent",
+        "Sour"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Prawn curry",
+    "energy_kcal": 122.18,
+    "carb_g": 4.09,
+    "protein_g": 10.33,
+    "fat_g": 7.21,
+    "fibre_g": 0.94,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Pungent",
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Prawn fry",
+    "energy_kcal": 169.1,
+    "carb_g": 5.48,
+    "protein_g": 13.06,
+    "fat_g": 10.42,
+    "fibre_g": 0.76,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Plain rice",
+    "energy_kcal": 117.19,
+    "carb_g": 25.72,
+    "protein_g": 2.6,
+    "fat_g": 0.18,
+    "fibre_g": 1.25,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Jeera rice",
+    "energy_kcal": 154.99,
+    "carb_g": 25.86,
+    "protein_g": 2.66,
+    "fat_g": 4.49,
+    "fibre_g": 1.34,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Pungent"
+      ],
+      "vata": "Neutral",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Ghee rice",
+    "energy_kcal": 196.24,
+    "carb_g": 26.65,
+    "protein_g": 2.7,
+    "fat_g": 8.41,
+    "fibre_g": 1.25,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Curd rice",
+    "energy_kcal": 136.0,
+    "carb_g": 20.21,
+    "protein_g": 4.1,
+    "fat_g": 4.1,
+    "fibre_g": 0.96,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Vegetable biryani",
+    "energy_kcal": 140.91,
+    "carb_g": 21.0,
+    "protein_g": 3.61,
+    "fat_g": 4.48,
+    "fibre_g": 2.25,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Pungent",
+        "Salty"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Chicken biryani",
+    "energy_kcal": 182.2,
+    "carb_g": 18.23,
+    "protein_g": 8.92,
+    "fat_g": 8.0,
+    "fibre_g": 1.48,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Pungent",
+        "Salty"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Mutton biryani",
+    "energy_kcal": 209.68,
+    "carb_g": 17.15,
+    "protein_g": 8.85,
+    "fat_g": 11.53,
+    "fibre_g": 1.39,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Pungent",
+        "Salty"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Tandoori roti",
+    "energy_kcal": 105.81,
+    "carb_g": 21.78,
+    "protein_g": 3.63,
+    "fat_g": 0.44,
+    "fibre_g": 2.9,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Chapati",
+    "energy_kcal": 106.88,
+    "carb_g": 16.52,
+    "protein_g": 3.12,
+    "fat_g": 3.25,
+    "fibre_g": 2.65,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Neutral",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Naan",
+    "energy_kcal": 162.2,
+    "carb_g": 30.22,
+    "protein_g": 4.96,
+    "fat_g": 2.37,
+    "fibre_g": 1.76,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Roomali roti",
+    "energy_kcal": 104.5,
+    "carb_g": 20.31,
+    "protein_g": 3.67,
+    "fat_g": 1.0,
+    "fibre_g": 1.15,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Dal fry",
+    "energy_kcal": 98.0,
+    "carb_g": 9.42,
+    "protein_g": 4.08,
+    "fat_g": 4.88,
+    "fibre_g": 2.45,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Astringent",
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Neutral",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Dal makhani",
+    "energy_kcal": 154.34,
+    "carb_g": 12.23,
+    "protein_g": 5.0,
+    "fat_g": 9.0,
+    "fibre_g": 3.32,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Astringent"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Dal tadka",
+    "energy_kcal": 98.0,
+    "carb_g": 9.42,
+    "protein_g": 4.08,
+    "fat_g": 4.88,
+    "fibre_g": 2.45,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Astringent",
+        "Pungent"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Sambar",
+    "energy_kcal": 65.73,
+    "carb_g": 8.76,
+    "protein_g": 2.87,
+    "fat_g": 2.05,
+    "fibre_g": 2.49,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Pungent",
+        "Astringent"
+      ],
+      "vata": "Neutral",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Rasam",
+    "energy_kcal": 21.71,
+    "carb_g": 3.5,
+    "protein_g": 0.73,
+    "fat_g": 0.5,
+    "fibre_g": 0.81,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Aloo gobi",
+    "energy_kcal": 87.05,
+    "carb_g": 7.49,
+    "protein_g": 2.12,
+    "fat_g": 5.4,
+    "fibre_g": 2.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Astringent"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Aloo matar",
+    "energy_kcal": 93.36,
+    "carb_g": 11.23,
+    "protein_g": 2.9,
+    "fat_g": 4.14,
+    "fibre_g": 2.91,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Astringent"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Baingan bharta",
+    "energy_kcal": 67.43,
+    "carb_g": 7.0,
+    "protein_g": 1.63,
+    "fat_g": 3.73,
+    "fibre_g": 3.01,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Astringent",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Bhindi masala",
+    "energy_kcal": 94.27,
+    "carb_g": 7.58,
+    "protein_g": 2.06,
+    "fat_g": 6.32,
+    "fibre_g": 2.9,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Chana masala",
+    "energy_kcal": 130.68,
+    "carb_g": 16.27,
+    "protein_g": 4.67,
+    "fat_g": 5.0,
+    "fibre_g": 4.97,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Astringent",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Kadai paneer",
+    "energy_kcal": 164.2,
+    "carb_g": 5.91,
+    "protein_g": 7.39,
+    "fat_g": 12.35,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Pungent"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Matar paneer",
+    "energy_kcal": 141.4,
+    "carb_g": 8.08,
+    "protein_g": 7.5,
+    "fat_g": 9.0,
+    "fibre_g": 2.45,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Astringent"
+      ],
+      "vata": "Decrease",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Palak paneer",
+    "energy_kcal": 140.23,
+    "carb_g": 5.61,
+    "protein_g": 7.6,
+    "fat_g": 10.0,
+    "fibre_g": 2.45,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Bitter"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Paneer butter masala",
+    "energy_kcal": 200.7,
+    "carb_g": 7.4,
+    "protein_g": 7.3,
+    "fat_g": 15.9,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Mixed vegetable curry",
+    "energy_kcal": 88.0,
+    "carb_g": 8.0,
+    "protein_g": 2.0,
+    "fat_g": 5.5,
+    "fibre_g": 2.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Pungent"
+      ],
+      "vata": "Neutral",
+      "pitta": "Neutral",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Butter chicken",
+    "energy_kcal": 218.4,
+    "carb_g": 5.0,
+    "protein_g": 15.0,
+    "fat_g": 15.0,
+    "fibre_g": 1.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Salty"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Chicken korma",
+    "energy_kcal": 210.0,
+    "carb_g": 6.0,
+    "protein_g": 15.0,
+    "fat_g": 14.0,
+    "fibre_g": 1.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Chicken tikka masala",
+    "energy_kcal": 200.0,
+    "carb_g": 8.0,
+    "protein_g": 16.0,
+    "fat_g": 11.0,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Sour",
+        "Salty"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Raita",
+    "energy_kcal": 38.0,
+    "carb_g": 3.0,
+    "protein_g": 2.0,
+    "fat_g": 2.0,
+    "fibre_g": 0.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Papad",
+    "energy_kcal": 52.0,
+    "carb_g": 8.0,
+    "protein_g": 3.0,
+    "fat_g": 1.0,
+    "fibre_g": 1.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Pickle",
+    "energy_kcal": 17.0,
+    "carb_g": 1.0,
+    "protein_g": 0.5,
+    "fat_g": 1.5,
+    "fibre_g": 0.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Salty",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Green chutney",
+    "energy_kcal": 15.0,
+    "carb_g": 2.0,
+    "protein_g": 0.5,
+    "fat_g": 0.5,
+    "fibre_g": 1.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Sour"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Tamarind chutney",
+    "energy_kcal": 40.0,
+    "carb_g": 10.0,
+    "protein_g": 0.2,
+    "fat_g": 0.1,
+    "fibre_g": 0.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Gulab jamun",
+    "energy_kcal": 150.0,
+    "carb_g": 20.0,
+    "protein_g": 2.0,
+    "fat_g": 7.0,
+    "fibre_g": 0.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Rasgulla",
+    "energy_kcal": 100.0,
+    "carb_g": 20.0,
+    "protein_g": 4.0,
+    "fat_g": 1.0,
+    "fibre_g": 0.1,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Barfi",
+    "energy_kcal": 120.0,
+    "carb_g": 15.0,
+    "protein_g": 3.0,
+    "fat_g": 5.0,
+    "fibre_g": 0.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Gajar ka halwa",
+    "energy_kcal": 200.0,
+    "carb_g": 25.0,
+    "protein_g": 3.0,
+    "fat_g": 10.0,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Ladoo",
+    "energy_kcal": 150.0,
+    "carb_g": 20.0,
+    "protein_g": 3.0,
+    "fat_g": 7.0,
+    "fibre_g": 1.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Kheer",
+    "energy_kcal": 180.0,
+    "carb_g": 30.0,
+    "protein_g": 5.0,
+    "fat_g": 4.0,
+    "fibre_g": 0.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Shrikhand",
+    "energy_kcal": 160.0,
+    "carb_g": 20.0,
+    "protein_g": 4.0,
+    "fat_g": 7.0,
+    "fibre_g": 0.2,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Sour"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Ice cream",
+    "energy_kcal": 150.0,
+    "carb_g": 20.0,
+    "protein_g": 2.0,
+    "fat_g": 7.0,
+    "fibre_g": 0.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Kulfi",
+    "energy_kcal": 180.0,
+    "carb_g": 25.0,
+    "protein_g": 4.0,
+    "fat_g": 7.0,
+    "fibre_g": 0.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Mutton curry",
+    "energy_kcal": 250.0,
+    "carb_g": 5.0,
+    "protein_g": 20.0,
+    "fat_g": 16.0,
+    "fibre_g": 1.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Salty",
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Rogan josh",
+    "energy_kcal": 280.0,
+    "carb_g": 6.0,
+    "protein_g": 22.0,
+    "fat_g": 18.0,
+    "fibre_g": 1.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Salty"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Pork curry",
+    "energy_kcal": 300.0,
+    "carb_g": 4.0,
+    "protein_g": 18.0,
+    "fat_g": 24.0,
+    "fibre_g": 1.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Salty",
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Beef curry",
+    "energy_kcal": 260.0,
+    "carb_g": 5.0,
+    "protein_g": 25.0,
+    "fat_g": 15.0,
+    "fibre_g": 1.2,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Salty",
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Dal Bati Churma",
+    "energy_kcal": 450.0,
+    "carb_g": 60.0,
+    "protein_g": 12.0,
+    "fat_g": 18.0,
+    "fibre_g": 8.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Salty",
+        "Astringent"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Litti Chokha",
+    "energy_kcal": 350.0,
+    "carb_g": 55.0,
+    "protein_g": 10.0,
+    "fat_g": 10.0,
+    "fibre_g": 7.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Astringent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Makki di Roti with Sarson da Saag",
+    "energy_kcal": 400.0,
+    "carb_g": 50.0,
+    "protein_g": 10.0,
+    "fat_g": 18.0,
+    "fibre_g": 10.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Bitter",
+        "Pungent",
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Puttu and Kadala Curry",
+    "energy_kcal": 380.0,
+    "carb_g": 65.0,
+    "protein_g": 12.0,
+    "fat_g": 8.0,
+    "fibre_g": 9.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Astringent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Hyderabadi Biryani",
+    "energy_kcal": 480.0,
+    "carb_g": 55.0,
+    "protein_g": 20.0,
+    "fat_g": 20.0,
+    "fibre_g": 4.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Salty",
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Apple",
+    "energy_kcal": 52.0,
+    "carb_g": 14.0,
+    "protein_g": 0.3,
+    "fat_g": 0.2,
+    "fibre_g": 2.4,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Astringent"
+      ],
+      "vata": "Increase",
+      "pitta": "Decrease",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Banana",
+    "energy_kcal": 89.0,
+    "carb_g": 23.0,
+    "protein_g": 1.1,
+    "fat_g": 0.3,
+    "fibre_g": 2.6,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Orange",
+    "energy_kcal": 47.0,
+    "carb_g": 12.0,
+    "protein_g": 0.9,
+    "fat_g": 0.1,
+    "fibre_g": 2.4,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Grapes",
+    "energy_kcal": 69.0,
+    "carb_g": 18.0,
+    "protein_g": 0.7,
+    "fat_g": 0.2,
+    "fibre_g": 0.9,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Sour"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Mango",
+    "energy_kcal": 60.0,
+    "carb_g": 15.0,
+    "protein_g": 0.8,
+    "fat_g": 0.4,
+    "fibre_g": 1.6,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Pineapple",
+    "energy_kcal": 50.0,
+    "carb_g": 13.0,
+    "protein_g": 0.5,
+    "fat_g": 0.1,
+    "fibre_g": 1.4,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Sour"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Watermelon",
+    "energy_kcal": 30.0,
+    "carb_g": 8.0,
+    "protein_g": 0.6,
+    "fat_g": 0.2,
+    "fibre_g": 0.4,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Strawberry",
+    "energy_kcal": 32.0,
+    "carb_g": 8.0,
+    "protein_g": 0.7,
+    "fat_g": 0.3,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Sour"
+      ],
+      "vata": "Neutral",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Pomegranate",
+    "energy_kcal": 83.0,
+    "carb_g": 19.0,
+    "protein_g": 1.7,
+    "fat_g": 1.2,
+    "fibre_g": 4.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Sour",
+        "Astringent"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Papaya",
+    "energy_kcal": 43.0,
+    "carb_g": 11.0,
+    "protein_g": 0.5,
+    "fat_g": 0.3,
+    "fibre_g": 1.7,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Pungent"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Carrot",
+    "energy_kcal": 41.0,
+    "carb_g": 10.0,
+    "protein_g": 0.9,
+    "fat_g": 0.2,
+    "fibre_g": 2.8,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Bitter"
+      ],
+      "vata": "Decrease",
+      "pitta": "Neutral",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Broccoli",
+    "energy_kcal": 34.0,
+    "carb_g": 7.0,
+    "protein_g": 2.8,
+    "fat_g": 0.4,
+    "fibre_g": 2.6,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Astringent",
+        "Bitter"
+      ],
+      "vata": "Increase",
+      "pitta": "Decrease",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Spinach",
+    "energy_kcal": 23.0,
+    "carb_g": 3.6,
+    "protein_g": 2.9,
+    "fat_g": 0.4,
+    "fibre_g": 2.2,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Astringent",
+        "Bitter"
+      ],
+      "vata": "Increase",
+      "pitta": "Decrease",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Potato",
+    "energy_kcal": 77.0,
+    "carb_g": 17.0,
+    "protein_g": 2.0,
+    "fat_g": 0.1,
+    "fibre_g": 2.2,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Astringent"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Tomato",
+    "energy_kcal": 18.0,
+    "carb_g": 3.9,
+    "protein_g": 0.9,
+    "fat_g": 0.2,
+    "fibre_g": 1.2,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Cucumber",
+    "energy_kcal": 15.0,
+    "carb_g": 3.6,
+    "protein_g": 0.7,
+    "fat_g": 0.1,
+    "fibre_g": 0.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Astringent"
+      ],
+      "vata": "Increase",
+      "pitta": "Decrease",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Onion",
+    "energy_kcal": 40.0,
+    "carb_g": 9.0,
+    "protein_g": 1.1,
+    "fat_g": 0.1,
+    "fibre_g": 1.7,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Garlic",
+    "energy_kcal": 149.0,
+    "carb_g": 33.0,
+    "protein_g": 6.4,
+    "fat_g": 0.5,
+    "fibre_g": 2.1,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Ginger",
+    "energy_kcal": 80.0,
+    "carb_g": 18.0,
+    "protein_g": 1.8,
+    "fat_g": 0.8,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Milk",
+    "energy_kcal": 61.0,
+    "carb_g": 4.8,
+    "protein_g": 3.4,
+    "fat_g": 3.3,
+    "fibre_g": 0.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Yogurt (Curd)",
+    "energy_kcal": 59.0,
+    "carb_g": 3.6,
+    "protein_g": 10.0,
+    "fat_g": 0.4,
+    "fibre_g": 0.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Paneer (Indian Cottage Cheese)",
+    "energy_kcal": 265.0,
+    "carb_g": 1.2,
+    "protein_g": 18.0,
+    "fat_g": 20.0,
+    "fibre_g": 0.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Ghee (Clarified Butter)",
+    "energy_kcal": 897.0,
+    "carb_g": 0.0,
+    "protein_g": 0.0,
+    "fat_g": 99.5,
+    "fibre_g": 0.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Almonds",
+    "energy_kcal": 579.0,
+    "carb_g": 21.6,
+    "protein_g": 21.2,
+    "fat_g": 49.9,
+    "fibre_g": 12.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Walnuts",
+    "energy_kcal": 654.0,
+    "carb_g": 14.0,
+    "protein_g": 15.0,
+    "fat_g": 65.0,
+    "fibre_g": 7.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Astringent"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Cashews",
+    "energy_kcal": 553.0,
+    "carb_g": 30.0,
+    "protein_g": 18.0,
+    "fat_g": 44.0,
+    "fibre_g": 3.3,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Lentils (Toor Dal)",
+    "energy_kcal": 343.0,
+    "carb_g": 63.0,
+    "protein_g": 22.0,
+    "fat_g": 1.5,
+    "fibre_g": 15.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Astringent",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Decrease",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Chickpeas (Chana)",
+    "energy_kcal": 364.0,
+    "carb_g": 61.0,
+    "protein_g": 19.0,
+    "fat_g": 6.0,
+    "fibre_g": 17.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Astringent",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Kidney Beans (Rajma)",
+    "energy_kcal": 333.0,
+    "carb_g": 60.0,
+    "protein_g": 24.0,
+    "fat_g": 0.8,
+    "fibre_g": 25.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Astringent",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Wheat Flour (Atta)",
+    "energy_kcal": 364.0,
+    "carb_g": 76.0,
+    "protein_g": 13.0,
+    "fat_g": 1.0,
+    "fibre_g": 12.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Rice (White)",
+    "energy_kcal": 130.0,
+    "carb_g": 28.0,
+    "protein_g": 2.7,
+    "fat_g": 0.3,
+    "fibre_g": 0.4,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Brown Rice",
+    "energy_kcal": 111.0,
+    "carb_g": 23.0,
+    "protein_g": 2.6,
+    "fat_g": 0.9,
+    "fibre_g": 1.8,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Astringent"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Quinoa",
+    "energy_kcal": 120.0,
+    "carb_g": 21.0,
+    "protein_g": 4.1,
+    "fat_g": 1.9,
+    "fibre_g": 2.8,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Astringent",
+        "Sweet"
+      ],
+      "vata": "Neutral",
+      "pitta": "Decrease",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Oats",
+    "energy_kcal": 389.0,
+    "carb_g": 66.0,
+    "protein_g": 17.0,
+    "fat_g": 7.0,
+    "fibre_g": 11.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Sugar (White)",
+    "energy_kcal": 387.0,
+    "carb_g": 100.0,
+    "protein_g": 0.0,
+    "fat_g": 0.0,
+    "fibre_g": 0.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Jaggery (Gur)",
+    "energy_kcal": 383.0,
+    "carb_g": 98.0,
+    "protein_g": 0.4,
+    "fat_g": 0.1,
+    "fibre_g": 0.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Honey",
+    "energy_kcal": 304.0,
+    "carb_g": 82.0,
+    "protein_g": 0.3,
+    "fat_g": 0.0,
+    "fibre_g": 0.2,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Astringent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Coconut water",
+    "energy_kcal": 19.0,
+    "carb_g": 3.7,
+    "protein_g": 0.7,
+    "fat_g": 0.2,
+    "fibre_g": 1.1,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Sugarcane juice",
+    "energy_kcal": 74.0,
+    "carb_g": 18.0,
+    "protein_g": 0.1,
+    "fat_g": 0.1,
+    "fibre_g": 0.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Besan (Gram flour)",
+    "energy_kcal": 387,
+    "carb_g": 58,
+    "protein_g": 22,
+    "fat_g": 7,
+    "fibre_g": 11,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Astringent",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Suji (Semolina)",
+    "energy_kcal": 360,
+    "carb_g": 73,
+    "protein_g": 13,
+    "fat_g": 1,
+    "fibre_g": 4,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Maida (Refined wheat flour)",
+    "energy_kcal": 364,
+    "carb_g": 76,
+    "protein_g": 10,
+    "fat_g": 1,
+    "fibre_g": 3,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Mustard Oil",
+    "energy_kcal": 884,
+    "carb_g": 0,
+    "protein_g": 0,
+    "fat_g": 100,
+    "fibre_g": 0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Coconut Oil",
+    "energy_kcal": 862,
+    "carb_g": 0,
+    "protein_g": 0,
+    "fat_g": 100,
+    "fibre_g": 0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Sunflower Oil",
+    "energy_kcal": 884,
+    "carb_g": 0,
+    "protein_g": 0,
+    "fat_g": 100,
+    "fibre_g": 0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Groundnut Oil",
+    "energy_kcal": 884,
+    "carb_g": 0,
+    "protein_g": 0,
+    "fat_g": 100,
+    "fibre_g": 0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Turmeric (Haldi)",
+    "energy_kcal": 354,
+    "carb_g": 65,
+    "protein_g": 8,
+    "fat_g": 10,
+    "fibre_g": 21,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Bitter"
+      ],
+      "vata": "Neutral",
+      "pitta": "Decrease",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Coriander (Dhania)",
+    "energy_kcal": 298,
+    "carb_g": 55,
+    "protein_g": 12,
+    "fat_g": 18,
+    "fibre_g": 42,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Bitter"
+      ],
+      "vata": "Neutral",
+      "pitta": "Decrease",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Cumin (Jeera)",
+    "energy_kcal": 375,
+    "carb_g": 44,
+    "protein_g": 18,
+    "fat_g": 22,
+    "fibre_g": 11,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Bitter"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Fenugreek (Methi)",
+    "energy_kcal": 323,
+    "carb_g": 58,
+    "protein_g": 23,
+    "fat_g": 6,
+    "fibre_g": 25,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Bitter",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Clove (Laung)",
+    "energy_kcal": 274,
+    "carb_g": 66,
+    "protein_g": 6,
+    "fat_g": 13,
+    "fibre_g": 34,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Cardamom (Elaichi)",
+    "energy_kcal": 311,
+    "carb_g": 68,
+    "protein_g": 11,
+    "fat_g": 7,
+    "fibre_g": 28,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Sweet"
+      ],
+      "vata": "Neutral",
+      "pitta": "Neutral",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Cinnamon (Dalchini)",
+    "energy_kcal": 247,
+    "carb_g": 81,
+    "protein_g": 4,
+    "fat_g": 1,
+    "fibre_g": 53,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Black Pepper (Kali Mirch)",
+    "energy_kcal": 251,
+    "carb_g": 64,
+    "protein_g": 10,
+    "fat_g": 3,
+    "fibre_g": 25,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent"
+      ],
+      "vata": "Neutral",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Cauliflower (Gobi)",
+    "energy_kcal": 25.0,
+    "carb_g": 5.0,
+    "protein_g": 1.9,
+    "fat_g": 0.3,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Astringent",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Decrease",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Cabbage (Patta Gobi)",
+    "energy_kcal": 25.0,
+    "carb_g": 6.0,
+    "protein_g": 1.3,
+    "fat_g": 0.1,
+    "fibre_g": 2.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Astringent",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Decrease",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Brinjal (Baingan)",
+    "energy_kcal": 25.0,
+    "carb_g": 6.0,
+    "protein_g": 1.0,
+    "fat_g": 0.2,
+    "fibre_g": 3.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Astringent",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Lady's Finger (Bhindi)",
+    "energy_kcal": 33.0,
+    "carb_g": 7.0,
+    "protein_g": 1.9,
+    "fat_g": 0.2,
+    "fibre_g": 3.2,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Green Peas (Matar)",
+    "energy_kcal": 81.0,
+    "carb_g": 14.0,
+    "protein_g": 5.0,
+    "fat_g": 0.4,
+    "fibre_g": 5.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Astringent",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Mushroom",
+    "energy_kcal": 22.0,
+    "carb_g": 3.3,
+    "protein_g": 3.1,
+    "fat_g": 0.3,
+    "fibre_g": 1.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Bottle Gourd (Lauki)",
+    "energy_kcal": 14.0,
+    "carb_g": 3.4,
+    "protein_g": 0.6,
+    "fat_g": 0.02,
+    "fibre_g": 0.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Neutral",
+      "pitta": "Decrease",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Ridge Gourd (Turai)",
+    "energy_kcal": 17.0,
+    "carb_g": 3.1,
+    "protein_g": 1.2,
+    "fat_g": 0.2,
+    "fibre_g": 2.9,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Bitter"
+      ],
+      "vata": "Neutral",
+      "pitta": "Decrease",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Pumpkin (Kaddu)",
+    "energy_kcal": 26.0,
+    "carb_g": 6.5,
+    "protein_g": 1.0,
+    "fat_g": 0.1,
+    "fibre_g": 0.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Radish (Mooli)",
+    "energy_kcal": 16.0,
+    "carb_g": 3.4,
+    "protein_g": 0.7,
+    "fat_g": 0.1,
+    "fibre_g": 1.6,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Beetroot",
+    "energy_kcal": 43.0,
+    "carb_g": 10.0,
+    "protein_g": 1.6,
+    "fat_g": 0.2,
+    "fibre_g": 2.8,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Turnip (Shalgam)",
+    "energy_kcal": 28.0,
+    "carb_g": 6.0,
+    "protein_g": 0.9,
+    "fat_g": 0.1,
+    "fibre_g": 1.8,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Sweet Potato (Shakarkandi)",
+    "energy_kcal": 86.0,
+    "carb_g": 20.0,
+    "protein_g": 1.6,
+    "fat_g": 0.1,
+    "fibre_g": 3.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Lemon",
+    "energy_kcal": 29.0,
+    "carb_g": 9.0,
+    "protein_g": 1.1,
+    "fat_g": 0.3,
+    "fibre_g": 2.8,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Amla (Indian Gooseberry)",
+    "energy_kcal": 44.0,
+    "carb_g": 10.0,
+    "protein_g": 0.9,
+    "fat_g": 0.6,
+    "fibre_g": 4.3,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Astringent",
+        "Sweet",
+        "Bitter",
+        "Pungent"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Idiyappam",
+    "energy_kcal": 105.81,
+    "carb_g": 23.9,
+    "protein_g": 1.9,
+    "fat_g": 0.1,
+    "fibre_g": 1.2,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Neutral",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Appam",
+    "energy_kcal": 93.4,
+    "carb_g": 19.3,
+    "protein_g": 2.1,
+    "fat_g": 0.7,
+    "fibre_g": 1.1,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Neutral",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Vegetable Stew",
+    "energy_kcal": 75.3,
+    "carb_g": 8.1,
+    "protein_g": 2.2,
+    "fat_g": 3.8,
+    "fibre_g": 2.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Salty"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Chicken Stew",
+    "energy_kcal": 120.5,
+    "carb_g": 5.2,
+    "protein_g": 12.3,
+    "fat_g": 5.6,
+    "fibre_g": 1.3,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Salty"
+      ],
+      "vata": "Decrease",
+      "pitta": "Neutral",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Egg Curry",
+    "energy_kcal": 150.2,
+    "carb_g": 4.8,
+    "protein_g": 8.1,
+    "fat_g": 11.2,
+    "fibre_g": 1.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Salty",
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Dahi",
+    "energy_kcal": 98.0,
+    "carb_g": 3.4,
+    "protein_g": 11.0,
+    "fat_g": 4.3,
+    "fibre_g": 0.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Chicken 65",
+    "energy_kcal": 280.0,
+    "carb_g": 12.0,
+    "protein_g": 18.0,
+    "fat_g": 18.0,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Salty"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Chilli Chicken",
+    "energy_kcal": 240.0,
+    "carb_g": 15.0,
+    "protein_g": 16.0,
+    "fat_g": 13.0,
+    "fibre_g": 2.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Salty",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Gobi Manchurian",
+    "energy_kcal": 220.0,
+    "carb_g": 25.0,
+    "protein_g": 4.0,
+    "fat_g": 12.0,
+    "fibre_g": 3.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Sweet",
+        "Sour"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Veg Fried Rice",
+    "energy_kcal": 180.0,
+    "carb_g": 35.0,
+    "protein_g": 4.0,
+    "fat_g": 3.0,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Chicken Fried Rice",
+    "energy_kcal": 220.0,
+    "carb_g": 30.0,
+    "protein_g": 10.0,
+    "fat_g": 6.0,
+    "fibre_g": 1.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Egg Fried Rice",
+    "energy_kcal": 200.0,
+    "carb_g": 32.0,
+    "protein_g": 8.0,
+    "fat_g": 4.0,
+    "fibre_g": 1.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Veg Noodles",
+    "energy_kcal": 190.0,
+    "carb_g": 38.0,
+    "protein_g": 5.0,
+    "fat_g": 2.0,
+    "fibre_g": 3.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Chicken Noodles",
+    "energy_kcal": 230.0,
+    "carb_g": 32.0,
+    "protein_g": 12.0,
+    "fat_g": 6.0,
+    "fibre_g": 2.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Egg Noodles",
+    "energy_kcal": 210.0,
+    "carb_g": 35.0,
+    "protein_g": 9.0,
+    "fat_g": 4.0,
+    "fibre_g": 2.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Veg Momos",
+    "energy_kcal": 35.0,
+    "carb_g": 6.0,
+    "protein_g": 1.5,
+    "fat_g": 0.5,
+    "fibre_g": 1.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Chicken Momos",
+    "energy_kcal": 45.0,
+    "carb_g": 5.0,
+    "protein_g": 3.0,
+    "fat_g": 1.5,
+    "fibre_g": 0.8,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Spring Roll",
+    "energy_kcal": 120.0,
+    "carb_g": 15.0,
+    "protein_g": 3.0,
+    "fat_g": 5.0,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Avial",
+    "energy_kcal": 110.0,
+    "carb_g": 10.0,
+    "protein_g": 3.0,
+    "fat_g": 7.0,
+    "fibre_g": 3.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Sour"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Thoran",
+    "energy_kcal": 130.0,
+    "carb_g": 8.0,
+    "protein_g": 2.0,
+    "fat_g": 10.0,
+    "fibre_g": 3.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Olan",
+    "energy_kcal": 90.0,
+    "carb_g": 7.0,
+    "protein_g": 1.5,
+    "fat_g": 6.0,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Kalan",
+    "energy_kcal": 150.0,
+    "carb_g": 12.0,
+    "protein_g": 4.0,
+    "fat_g": 9.0,
+    "fibre_g": 2.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Pachadi",
+    "energy_kcal": 80.0,
+    "carb_g": 8.0,
+    "protein_g": 2.0,
+    "fat_g": 4.5,
+    "fibre_g": 1.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Sweet",
+        "Pungent"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Koottukari",
+    "energy_kcal": 140.0,
+    "carb_g": 15.0,
+    "protein_g": 5.0,
+    "fat_g": 7.0,
+    "fibre_g": 4.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Pungent"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Eriserry",
+    "energy_kcal": 130.0,
+    "carb_g": 14.0,
+    "protein_g": 4.0,
+    "fat_g": 6.0,
+    "fibre_g": 3.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Salty"
+      ],
+      "vata": "Decrease",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Mezhukkupuratti",
+    "energy_kcal": 160.0,
+    "carb_g": 10.0,
+    "protein_g": 2.0,
+    "fat_g": 13.0,
+    "fibre_g": 3.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Inji Curry",
+    "energy_kcal": 100.0,
+    "carb_g": 12.0,
+    "protein_g": 1.0,
+    "fat_g": 6.0,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Sour"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Parippu Curry",
+    "energy_kcal": 120.0,
+    "carb_g": 15.0,
+    "protein_g": 6.0,
+    "fat_g": 4.0,
+    "fibre_g": 5.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Astringent",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Decrease",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Payasam",
+    "energy_kcal": 250.0,
+    "carb_g": 45.0,
+    "protein_g": 5.0,
+    "fat_g": 6.0,
+    "fibre_g": 1.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Unniyappam",
+    "energy_kcal": 90.0,
+    "carb_g": 15.0,
+    "protein_g": 1.0,
+    "fat_g": 3.0,
+    "fibre_g": 1.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Neyyappam",
+    "energy_kcal": 120.0,
+    "carb_g": 20.0,
+    "protein_g": 1.5,
+    "fat_g": 4.0,
+    "fibre_g": 1.2,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Pazham Pori",
+    "energy_kcal": 150.0,
+    "carb_g": 25.0,
+    "protein_g": 1.0,
+    "fat_g": 5.0,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Ada Pradhaman",
+    "energy_kcal": 280.0,
+    "carb_g": 50.0,
+    "protein_g": 4.0,
+    "fat_g": 7.0,
+    "fibre_g": 1.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Palada Pradhaman",
+    "energy_kcal": 300.0,
+    "carb_g": 55.0,
+    "protein_g": 5.0,
+    "fat_g": 6.0,
+    "fibre_g": 1.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Chakka Pradhaman",
+    "energy_kcal": 290.0,
+    "carb_g": 52.0,
+    "protein_g": 3.0,
+    "fat_g": 8.0,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Parippu Pradhaman",
+    "energy_kcal": 270.0,
+    "carb_g": 48.0,
+    "protein_g": 8.0,
+    "fat_g": 6.0,
+    "fibre_g": 4.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Astringent"
+      ],
+      "vata": "Increase",
+      "pitta": "Decrease",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Vindaloo",
+    "energy_kcal": 320.0,
+    "carb_g": 8.0,
+    "protein_g": 20.0,
+    "fat_g": 22.0,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Sour"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Sorpotel",
+    "energy_kcal": 350.0,
+    "carb_g": 6.0,
+    "protein_g": 18.0,
+    "fat_g": 28.0,
+    "fibre_g": 1.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Sour",
+        "Salty"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Bebinca",
+    "energy_kcal": 280.0,
+    "carb_g": 35.0,
+    "protein_g": 4.0,
+    "fat_g": 14.0,
+    "fibre_g": 1.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Goan Fish Curry",
+    "energy_kcal": 280.0,
+    "carb_g": 7.0,
+    "protein_g": 18.0,
+    "fat_g": 20.0,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Pungent",
+        "Salty"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Pork Vindaloo",
+    "energy_kcal": 380.0,
+    "carb_g": 8.0,
+    "protein_g": 25.0,
+    "fat_g": 28.0,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Sour"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Chicken Xacuti",
+    "energy_kcal": 320.0,
+    "carb_g": 10.0,
+    "protein_g": 22.0,
+    "fat_g": 20.0,
+    "fibre_g": 3.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Salty"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Undhiyu",
+    "energy_kcal": 250.0,
+    "carb_g": 20.0,
+    "protein_g": 6.0,
+    "fat_g": 16.0,
+    "fibre_g": 8.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Pungent",
+        "Astringent"
+      ],
+      "vata": "Neutral",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Macher Jhol",
+    "energy_kcal": 220.0,
+    "carb_g": 8.0,
+    "protein_g": 18.0,
+    "fat_g": 13.0,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Salty"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Shorshe Ilish",
+    "energy_kcal": 350.0,
+    "carb_g": 5.0,
+    "protein_g": 20.0,
+    "fat_g": 28.0,
+    "fibre_g": 1.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Salty"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Sandesh",
+    "energy_kcal": 80.0,
+    "carb_g": 10.0,
+    "protein_g": 4.0,
+    "fat_g": 3.0,
+    "fibre_g": 0.2,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Mishti Doi",
+    "energy_kcal": 150.0,
+    "carb_g": 20.0,
+    "protein_g": 5.0,
+    "fat_g": 5.0,
+    "fibre_g": 0.1,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Sour"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Kosha Mangsho",
+    "energy_kcal": 380.0,
+    "carb_g": 10.0,
+    "protein_g": 25.0,
+    "fat_g": 28.0,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Salty"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Aloo Posto",
+    "energy_kcal": 200.0,
+    "carb_g": 25.0,
+    "protein_g": 4.0,
+    "fat_g": 10.0,
+    "fibre_g": 3.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Chettinad Chicken",
+    "energy_kcal": 340.0,
+    "carb_g": 8.0,
+    "protein_g": 25.0,
+    "fat_g": 24.0,
+    "fibre_g": 3.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Salty"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Pongal",
+    "energy_kcal": 212.0,
+    "carb_g": 35.0,
+    "protein_g": 8.0,
+    "fat_g": 4.0,
+    "fibre_g": 4.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Salty"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Bisi Bele Bath",
+    "energy_kcal": 380.0,
+    "carb_g": 60.0,
+    "protein_g": 12.0,
+    "fat_g": 10.0,
+    "fibre_g": 8.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Pungent",
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Mysore Pak",
+    "energy_kcal": 250.0,
+    "carb_g": 30.0,
+    "protein_g": 2.0,
+    "fat_g": 14.0,
+    "fibre_g": 1.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Puran Poli",
+    "energy_kcal": 300.0,
+    "carb_g": 50.0,
+    "protein_g": 8.0,
+    "fat_g": 8.0,
+    "fibre_g": 5.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Misal Pav",
+    "energy_kcal": 350.0,
+    "carb_g": 45.0,
+    "protein_g": 15.0,
+    "fat_g": 12.0,
+    "fibre_g": 10.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Salty"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Thalipeeth",
+    "energy_kcal": 200.0,
+    "carb_g": 35.0,
+    "protein_g": 8.0,
+    "fat_g": 4.0,
+    "fibre_g": 6.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Momos",
+    "energy_kcal": 40.0,
+    "carb_g": 6.0,
+    "protein_g": 2.0,
+    "fat_g": 1.0,
+    "fibre_g": 1.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Thukpa",
+    "energy_kcal": 250.0,
+    "carb_g": 40.0,
+    "protein_g": 10.0,
+    "fat_g": 5.0,
+    "fibre_g": 4.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Pungent"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Khichdi",
+    "energy_kcal": 340.0,
+    "carb_g": 60.0,
+    "protein_g": 15.0,
+    "fat_g": 4.0,
+    "fibre_g": 8.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Astringent"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Gatte ki Sabzi",
+    "energy_kcal": 220.0,
+    "carb_g": 20.0,
+    "protein_g": 10.0,
+    "fat_g": 10.0,
+    "fibre_g": 5.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Pungent",
+        "Sour"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Laal Maas",
+    "energy_kcal": 400.0,
+    "carb_g": 10.0,
+    "protein_g": 25.0,
+    "fat_g": 30.0,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Salty"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Ker Sangri",
+    "energy_kcal": 180.0,
+    "carb_g": 15.0,
+    "protein_g": 4.0,
+    "fat_g": 12.0,
+    "fibre_g": 6.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Sour"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Ragi Mudde",
+    "energy_kcal": 180.0,
+    "carb_g": 40.0,
+    "protein_g": 4.0,
+    "fat_g": 1.0,
+    "fibre_g": 5.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Astringent"
+      ],
+      "vata": "Increase",
+      "pitta": "Decrease",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Akki Roti",
+    "energy_kcal": 150.0,
+    "carb_g": 30.0,
+    "protein_g": 3.0,
+    "fat_g": 2.0,
+    "fibre_g": 3.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Dharwad Peda",
+    "energy_kcal": 130.0,
+    "carb_g": 20.0,
+    "protein_g": 3.0,
+    "fat_g": 4.0,
+    "fibre_g": 0.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Amti",
+    "energy_kcal": 120.0,
+    "carb_g": 15.0,
+    "protein_g": 6.0,
+    "fat_g": 4.0,
+    "fibre_g": 4.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Pungent",
+        "Sweet"
+      ],
+      "vata": "Neutral",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Koshimbir",
+    "energy_kcal": 50.0,
+    "carb_g": 6.0,
+    "protein_g": 2.0,
+    "fat_g": 2.5,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Salty",
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Malvani Fish Curry",
+    "energy_kcal": 300.0,
+    "carb_g": 8.0,
+    "protein_g": 20.0,
+    "fat_g": 22.0,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Pungent",
+        "Sour",
+        "Salty"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Dabeli",
+    "energy_kcal": 250.0,
+    "carb_g": 40.0,
+    "protein_g": 6.0,
+    "fat_g": 8.0,
+    "fibre_g": 5.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Pungent",
+        "Salty"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Dal Dhokli",
+    "energy_kcal": 300.0,
+    "carb_g": 50.0,
+    "protein_g": 12.0,
+    "fat_g": 5.0,
+    "fibre_g": 8.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Sour",
+        "Salty"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Handvo",
+    "energy_kcal": 220.0,
+    "carb_g": 30.0,
+    "protein_g": 8.0,
+    "fat_g": 8.0,
+    "fibre_g": 6.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Pungent",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Patra",
+    "energy_kcal": 180.0,
+    "carb_g": 25.0,
+    "protein_g": 5.0,
+    "fat_g": 7.0,
+    "fibre_g": 4.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Pungent",
+        "Sour"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Ghevar",
+    "energy_kcal": 350.0,
+    "carb_g": 40.0,
+    "protein_g": 4.0,
+    "fat_g": 20.0,
+    "fibre_g": 1.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Mohanthal",
+    "energy_kcal": 380.0,
+    "carb_g": 45.0,
+    "protein_g": 6.0,
+    "fat_g": 20.0,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Mawa Kachori",
+    "energy_kcal": 300.0,
+    "carb_g": 35.0,
+    "protein_g": 5.0,
+    "fat_g": 16.0,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Kadhi",
+    "energy_kcal": 150.0,
+    "carb_g": 15.0,
+    "protein_g": 5.0,
+    "fat_g": 7.0,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Salty",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Bajre ki Roti",
+    "energy_kcal": 120.0,
+    "carb_g": 25.0,
+    "protein_g": 4.0,
+    "fat_g": 1.5,
+    "fibre_g": 5.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Astringent"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Jowar ki Roti",
+    "energy_kcal": 110.0,
+    "carb_g": 24.0,
+    "protein_g": 3.0,
+    "fat_g": 1.0,
+    "fibre_g": 4.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Astringent"
+      ],
+      "vata": "Increase",
+      "pitta": "Decrease",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Dal Rice",
+    "energy_kcal": 350.0,
+    "carb_g": 65.0,
+    "protein_g": 12.0,
+    "fat_g": 4.0,
+    "fibre_g": 6.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Astringent"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Neutral"
+    }
+  },
+  {
+    "food_name": "Tamarind Rice",
+    "energy_kcal": 280.0,
+    "carb_g": 50.0,
+    "protein_g": 5.0,
+    "fat_g": 7.0,
+    "fibre_g": 4.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Salty",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Lemon Rice",
+    "energy_kcal": 250.0,
+    "carb_g": 45.0,
+    "protein_g": 4.0,
+    "fat_g": 6.0,
+    "fibre_g": 3.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sour",
+        "Salty"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Coconut Rice",
+    "energy_kcal": 320.0,
+    "carb_g": 48.0,
+    "protein_g": 5.0,
+    "fat_g": 12.0,
+    "fibre_g": 5.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Methi Thepla",
+    "energy_kcal": 150.0,
+    "carb_g": 20.0,
+    "protein_g": 4.0,
+    "fat_g": 6.0,
+    "fibre_g": 4.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Bitter",
+        "Pungent",
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Poori Bhaji",
+    "energy_kcal": 400.0,
+    "carb_g": 50.0,
+    "protein_g": 8.0,
+    "fat_g": 18.0,
+    "fibre_g": 6.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Sweet",
+        "Pungent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Chole Bhature",
+    "energy_kcal": 500.0,
+    "carb_g": 65.0,
+    "protein_g": 15.0,
+    "fat_g": 20.0,
+    "fibre_g": 10.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Salty",
+        "Pungent",
+        "Astringent"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Ras Malai",
+    "energy_kcal": 200.0,
+    "carb_g": 25.0,
+    "protein_g": 8.0,
+    "fat_g": 8.0,
+    "fibre_g": 0.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Phirni",
+    "energy_kcal": 220.0,
+    "carb_g": 40.0,
+    "protein_g": 5.0,
+    "fat_g": 4.0,
+    "fibre_g": 1.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Decrease",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Rabri",
+    "energy_kcal": 250.0,
+    "carb_g": 30.0,
+    "protein_g": 8.0,
+    "fat_g": 11.0,
+    "fibre_g": 0.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Malpua",
+    "energy_kcal": 280.0,
+    "carb_g": 40.0,
+    "protein_g": 4.0,
+    "fat_g": 12.0,
+    "fibre_g": 1.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Basundi",
+    "energy_kcal": 260.0,
+    "carb_g": 35.0,
+    "protein_g": 7.0,
+    "fat_g": 10.0,
+    "fibre_g": 0.5,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Sheera",
+    "energy_kcal": 300.0,
+    "carb_g": 45.0,
+    "protein_g": 5.0,
+    "fat_g": 12.0,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Peda",
+    "energy_kcal": 100.0,
+    "carb_g": 15.0,
+    "protein_g": 3.0,
+    "fat_g": 3.0,
+    "fibre_g": 0.2,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Soan Papdi",
+    "energy_kcal": 150.0,
+    "carb_g": 20.0,
+    "protein_g": 2.0,
+    "fat_g": 7.0,
+    "fibre_g": 1.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Increase",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Halwa",
+    "energy_kcal": 250.0,
+    "carb_g": 35.0,
+    "protein_g": 3.0,
+    "fat_g": 11.0,
+    "fibre_g": 2.0,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Masoor Dal",
+    "energy_kcal": 343,
+    "carb_g": 60,
+    "protein_g": 25,
+    "fat_g": 1,
+    "fibre_g": 11,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Astringent"
+      ],
+      "vata": "Increase",
+      "pitta": "Decrease",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Moong Dal",
+    "energy_kcal": 347,
+    "carb_g": 63,
+    "protein_g": 24,
+    "fat_g": 1,
+    "fibre_g": 16,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Astringent"
+      ],
+      "vata": "Increase",
+      "pitta": "Decrease",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Urad Dal",
+    "energy_kcal": 341,
+    "carb_g": 59,
+    "protein_g": 25,
+    "fat_g": 1.6,
+    "fibre_g": 18,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet"
+      ],
+      "vata": "Decrease",
+      "pitta": "Increase",
+      "kapha": "Increase"
+    }
+  },
+  {
+    "food_name": "Arhar/Toor Dal",
+    "energy_kcal": 343,
+    "carb_g": 63,
+    "protein_g": 22,
+    "fat_g": 1.5,
+    "fibre_g": 15,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Astringent"
+      ],
+      "vata": "Increase",
+      "pitta": "Decrease",
+      "kapha": "Decrease"
+    }
+  },
+  {
+    "food_name": "Chana Dal",
+    "energy_kcal": 372,
+    "carb_g": 61,
+    "protein_g": 21,
+    "fat_g": 6,
+    "fibre_g": 13,
+    "ayurvedic_properties": {
+      "rasa": [
+        "Sweet",
+        "Astringent"
+      ],
+      "vata": "Increase",
+      "pitta": "Neutral",
+      "kapha": "Decrease"
+    }
+  }
+]

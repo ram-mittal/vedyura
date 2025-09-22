@@ -1,0 +1,1434 @@
+/* --- Vedyura CSS --- */
+
+/* 1. Base & Variables
+------------------------------------- */
+:root {
+    --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    
+    /* Light Mode Palette */
+    --color-primary: #2a9d8f; /* Teal green */
+    --color-secondary: #e9c46a; /* Saffron yellow */
+    --color-background: #f8f9fa; /* Very light grey */
+    --color-surface: #ffffff; /* White */
+    --color-text: #212529; /* Dark grey */
+    --color-text-muted: #6c757d; /* Lighter grey */
+    --color-border: #dee2e6;
+    --color-error: #e63946;
+}
+
+/* Dark Mode Palette - Activated by a 'dark-mode' class on the <body> */
+body.dark-mode {
+    --color-primary: #2a9d8f;
+    --color-secondary: #f4a261; /* A slightly different orange for dark mode contrast */
+    --color-background: #121212; /* Off-black */
+    --color-surface: #1e1e1e; /* Dark grey for cards/containers */
+    --color-text: #e0e0e0; /* Light grey text */
+    --color-text-muted: #adb5bd;
+    --color-border: #495057;
+    --color-error: #ff7b85;
+}
+
+body {
+    font-family: var(--font-family-sans);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* 2. Layout & Containers
+------------------------------------- */
+.page-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* 3. Header & Navbar
+------------------------------------- */
+.main-header {
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    padding: 0 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 70px;
+}
+
+.navbar-logo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.navbar-links a {
+    text-decoration: none;
+    color: var(--color-text);
+    font-weight: 500;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.3s, border-color 0.3s;
+}
+
+.navbar-links a:hover, .navbar-links a.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+}
+
+.navbar-action {
+    display: flex;
+    align-items: center;
+}
+
+/* 4. Buttons
+------------------------------------- */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.btn-secondary {
+    background-color: var(--color-secondary);
+    color: var(--color-text);
+}
+
+.dark-mode-button {
+    background: none;
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* 5. Hero Section (Home Page)
+------------------------------------- */
+.hero-section {
+    text-align: center;
+    padding: 6rem 1rem;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+}
+
+/* 6. Contact & Signup Pages
+------------------------------------- */
+.contact-section, .signup-section {
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+}
+
+.contact-container, .signup-container {
+    background-color: var(--color-surface);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+}
+
+.contact-container p, .signup-container p {
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+}
+
+/* Form Styles */
+.contact-form, .login-form {
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    box-sizing: border-box; /* Important for padding */
+}
+
+/* Signup Page Specifics */
+.role-selector {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.role-button {
+    flex: 1;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: 2px solid var(--color-border);
+    background-color: transparent;
+    color: var(--color-text);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.role-button:hover, .role-button.active {
+    background-color: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+}
+
+.patient-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.btn-google {
+    background-color: #4285F4;
+    color: white;
+    width: 100%;
+}
+
+.btn-bypass {
+    background-color: #6c757d;
+    color: white;
+    width: 100%;
+}
+
+.flash-message {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: var(--color-error);
+    color: white;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+/* 7. Utility Classes
+------------------------------------- */
+.hidden {
+    display: none;
+}
+
+/* 8. Responsive Design
+------------------------------------- */
+@media (max-width: 768px) {
+    .navbar-links {
+        display: none; /* Simplest way to handle mobile for now */
+    }
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+}
+
+/*
+-----------------------------------------
+  9. Dashboard Specific Styles
+-----------------------------------------
+*/
+.dashboard-header {
+    background-color: var(--color-background);
+    border-bottom: 1px solid var(--color-border);
+    padding: 0 5%; /* Use percentage for responsive padding */
+}
+
+.dashboard-content {
+    padding: 2rem 5%; /* Use percentage for responsive padding */
+}
+
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.welcome-banner {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.welcome-banner h1 {
+    margin: 0 0 0.5rem 0;
+    font-size: 2.5rem;
+}
+
+.quick-actions h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+.action-cards {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap; /* Allows cards to wrap on smaller screens */
+}
+
+.action-cards .card {
+    flex-basis: 300px; /* Each card will have a base width */
+    text-align: center;
+}
+
+.action-cards .card h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+
+/* Page Specific Headers (e.g., Patient Requests) */
+.page-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.page-header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+}
+.page-header p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+}
+
+
+/* Patient Request List Styles */
+.requests-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.request-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+    gap: 1rem;
+}
+
+.request-card .request-info {
+    flex-grow: 1;
+}
+
+.request-card h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.2rem;
+}
+
+.request-card .request-meta {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+}
+
+.request-card .request-note {
+    margin: 0;
+}
+
+.request-card .request-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0; /* Prevents action buttons from shrinking */
+}
+
+.no-requests-card {
+    text-align: center;
+    padding: 2rem;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+
+/*
+-----------------------------------------
+  10. Dashboard Dark Mode
+-----------------------------------------
+*/
+.dark-mode .dashboard-header {
+    background-color: #2a2a30; /* Darker header */
+    border-bottom: 1px solid #404048;
+}
+
+.dark-mode .quick-actions h2 {
+    color: #f1f1f1;
+}
+
+.dark-mode .action-cards .card h3 {
+    color: var(--primary-color-dark);
+}
+
+.dark-mode .request-card .request-meta,
+.dark-mode .request-card .request-note,
+.dark-mode .no-requests-card {
+    color: #b0b0b0; /* Lighter secondary text */
+}
+
+/*
+-----------------------------------------
+  11. Diet Chart Creator Styles (Updated)
+-----------------------------------------
+*/
+.diet-chart-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+}
+
+.patient-info-column .card {
+    padding: 1.5rem;
+}
+
+.patient-info-column h3 {
+    margin-top: 0;
+    color: var(--color-primary);
+}
+
+.info-section {
+    margin-bottom: 1rem;
+}
+
+.info-section strong {
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.diet-chart-creator {
+    padding: 2rem;
+}
+
+/*
+-----------------------------------------
+  12. Profile Page Styles
+-----------------------------------------
+*/
+
+.profile-card {
+    padding: 2rem;
+}
+
+.profile-details h3,
+.profile-actions h3 {
+     margin-top: 0;
+    margin-bottom: 1.5rem;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: var(--text-color);
+    width: 120px; /* Fixed width for alignment */
+    flex-shrink: 0;
+}
+
+.detail-value {
+    color: var(--text-secondary);
+}
+
+.profile-actions .btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.profile-actions .btn-danger:hover {
+    background-color: #c82333;
+}
+
+/*
+-----------------------------------------
+  13. Final Dark Mode Additions
+-----------------------------------------
+*/
+.dark-mode .section-divider,
+.dark-mode .diet-table th,
+.dark-mode .diet-table td {
+    border-color: #404048;
+}
+
+.dark-mode .diet-table th {
+    background-color: #2a2a30;
+}
+
+.dark-mode .diet-table textarea,
+.dark-mode .diet-table input[type="text"] {
+    background-color: #333;
+    border-color: #555;
+    color: #f1f1f1;
+}
+
+.dark-mode .detail-label {
+    color: #f1f1f1;
+}
+
+.dark-mode .detail-value {
+    color: #b0b0b0;
+}
+
+/*
+-----------------------------------------
+  14. Patient Dashboard Tab Styles
+-----------------------------------------
+*/
+.tabs-container {
+    margin-top: 2rem;
+}
+
+.tab-nav {
+    display: flex;
+    border-bottom: 2px solid var(--color-border);
+}
+
+.tab-link {
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px; /* Aligns the bottom border with the container's border */
+    transition: all 0.2s ease-in-out;
+}
+
+.tab-link:hover {
+    color: var(--primary-color);
+}
+
+.tab-link.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+.tab-content {
+    display: none; /* Hidden by default, JS will manage visibility */
+    padding: 2rem 0;
+}
+
+/* A utility class we use in JS */
+.hidden {
+    display: none !important;
+}
+
+
+/*
+-----------------------------------------
+  15. Patient Dark Mode Tab Additions
+-----------------------------------------
+*/
+.dark-mode .tab-nav {
+    border-bottom-color: #404048;
+}
+
+.dark-mode .tab-link {
+    color: #b0b0b0;
+}
+
+.dark-mode .tab-link:hover {
+    color: var(--primary-color-light);
+}
+
+.dark-mode .tab-link.active {
+    color: var(--primary-color-light);
+    border-bottom-color: var(--primary-color-light);
+}
+
+/*
+-----------------------------------------
+  16. Patient Doctor Card Styles
+-----------------------------------------
+*/
+.doctor-card {
+    text-align: left;
+}
+
+.doctor-card .card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.doctor-card h4 {
+    margin-bottom: 0.25rem;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+}
+
+.doctor-specialty {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.request-form {
+    margin-top: auto; /* Pushes the button to the bottom of the card */
+}
+
+.btn-small {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+
+/*
+-----------------------------------------
+  17. Patient Dark Mode Doctor Card
+-----------------------------------------
+*/
+.dark-mode .doctor-card h4 {
+    color: #f0f0f0;
+}
+/*
+-----------------------------------------
+  18. Custom Chatbot Styles
+-----------------------------------------
+*/
+
+.card.chatbox__support {
+    display: flex;
+    flex-direction: column;
+    height: 500px; /* You can adjust the height */
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0; /* This will now correctly override the card's padding */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Use the standard card shadow */
+}
+
+.chatbox__header {
+    background: var(--color-primary);
+    color: white;
+    padding: 1rem;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    flex-shrink: 0; /* Prevents the header from shrinking */
+}
+
+.chatbox__heading--header {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.chatbox__description--header {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.chatbox__messages {
+    flex-grow: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.messages__item {
+    padding: 0.75rem 1rem;
+    border-radius: 18px;
+    margin-bottom: 0.75rem;
+    max-width: 70%;
+    line-height: 1.4;
+}
+
+.messages__item--visitor {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    align-self: flex-start; /* Aligns bot messages to the left */
+}
+
+.messages__item--operator {
+    background-color: var(--color-primary);
+    color: white;
+    align-self: flex-end; /* Aligns user messages to the right */
+}
+
+.chatbox__footer {
+    display: flex;
+    padding: 1rem;
+    border-top: 1px solid var(--color-border);
+    flex-shrink: 0; /* Prevents the footer from shrinking */
+}
+
+.chatbox__footer input {
+    flex-grow: 1;
+    border: 1px solid var(--color-border);
+    border-radius: 20px;
+    padding: 0.75rem;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    margin-right: 0.5rem;
+}
+
+.chatbox__send--footer {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/*
+-----------------------------------------
+  19. Interactive Chat Button Styles
+-----------------------------------------
+*/
+
+.chat-button {
+    background-color: var(--color-surface);
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.chat-button:hover {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+/* Dark Mode styles for the chat buttons */
+body.dark-mode .chat-button {
+    background-color: var(--color-surface);
+    color: var(--color-primary);
+}
+
+body.dark-mode .chat-button:hover {
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+}
+
+/* --- Vedyura CSS --- */
+
+/* 1. Base & Variables
+------------------------------------- */
+:root {
+    --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    
+    /* Light Mode Palette */
+    --color-primary: #2a9d8f; /* Teal green */
+    --color-secondary: #e9c46a; /* Saffron yellow */
+    --color-background: #f8f9fa; /* Very light grey */
+    --color-surface: #ffffff; /* White */
+    --color-text: #212529; /* Dark grey */
+    --color-text-muted: #6c757d; /* Lighter grey */
+    --color-border: #dee2e6;
+    --color-error: #e63946;
+    --color-success: #2a9d8f;
+}
+
+/* Dark Mode Palette - Activated by a 'dark-mode' class on the <body> */
+body.dark-mode {
+    --color-primary: #2a9d8f;
+    --color-secondary: #f4a261; /* A slightly different orange for dark mode contrast */
+    --color-background: #121212; /* Off-black */
+    --color-surface: #1e1e1e; /* Dark grey for cards/containers */
+    --color-text: #e0e0e0; /* Light grey text */
+    --color-text-muted: #adb5bd;
+    --color-border: #495057;
+    --color-error: #ff7b85;
+    --color-success: #3ddc84;
+}
+
+body {
+    font-family: var(--font-family-sans);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* 2. Layout & Containers
+------------------------------------- */
+.page-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* 3. Header & Navbar
+------------------------------------- */
+.main-header, .dashboard-header {
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    padding: 0 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 70px;
+}
+
+.navbar-logo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.navbar-links a {
+    text-decoration: none;
+    color: var(--color-text);
+    font-weight: 500;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.3s, border-color 0.3s;
+}
+
+.navbar-links a:hover, .navbar-links a.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+}
+
+.navbar-action {
+    display: flex;
+    align-items: center;
+}
+
+/* 4. Buttons
+------------------------------------- */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.btn-secondary {
+    background-color: var(--color-secondary);
+    color: var(--color-text);
+}
+
+.dark-mode-button {
+    background: none;
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* 5. Hero Section (Home Page)
+------------------------------------- */
+.hero-section {
+    text-align: center;
+    padding: 6rem 1rem;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+}
+
+/* 6. Contact & Signup Pages
+------------------------------------- */
+.contact-section, .signup-section {
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+}
+
+.contact-container, .signup-container {
+    background-color: var(--color-surface);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+}
+
+.contact-container p, .signup-container p {
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+}
+
+/* Form Styles */
+.contact-form, .login-form {
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-group input, .form-group textarea, .form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    box-sizing: border-box; /* Important for padding */
+    font-family: var(--font-family-sans);
+    font-size: 1rem;
+}
+
+/* Signup Page Specifics */
+.role-selector {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.role-button {
+    flex: 1;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: 2px solid var(--color-border);
+    background-color: transparent;
+    color: var(--color-text);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.role-button:hover, .role-button.active {
+    background-color: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+}
+
+.patient-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.btn-google {
+    background-color: #4285F4;
+    color: white;
+    width: 100%;
+}
+
+.btn-bypass {
+    background-color: #6c757d;
+    color: white;
+    width: 100%;
+}
+
+.flash-message {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: var(--color-error);
+    color: white;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+/* 7. Utility Classes
+------------------------------------- */
+.hidden {
+    display: none !important;
+}
+
+/* 8. Responsive Design
+------------------------------------- */
+@media (max-width: 768px) {
+    .navbar-links {
+        display: none; /* Simplest way to handle mobile for now */
+    }
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+}
+
+/*
+-----------------------------------------
+  9. Dashboard Specific Styles
+-----------------------------------------
+*/
+.dashboard-content {
+    padding: 2rem 1rem;
+}
+
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+/* Page Specific Headers (e.g., Patient Requests) */
+.page-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.page-header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+}
+.page-header p {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+}
+
+/*
+-----------------------------------------
+  11. Diet Chart Creator Styles (Updated)
+-----------------------------------------
+*/
+.diet-chart-creator {
+    padding: 2rem;
+}
+
+.form-section {
+    border: 1px solid var(--color-border);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.form-section legend {
+    font-size: 1.25rem;
+    font-weight: 600;
+    padding: 0 0.5rem;
+    color: var(--color-primary);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.form-grid-single {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+
+.form-actions {
+    text-align: right;
+    margin-top: 2rem;
+}
+
+.form-popup {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-success);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1001;
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.form-popup.show {
+    opacity: 1;
+}
+
+
+/*
+-----------------------------------------
+  14. Patient Dashboard Tab Styles
+-----------------------------------------
+*/
+.tabs-container {
+    margin-top: 2rem;
+}
+
+.tab-nav {
+    display: flex;
+    border-bottom: 2px solid var(--color-border);
+}
+
+.tab-link {
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px; /* Aligns the bottom border with the container's border */
+    transition: all 0.2s ease-in-out;
+}
+
+.tab-link:hover {
+    color: var(--color-primary);
+}
+
+.tab-link.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+}
+
+.tab-content {
+    display: none; /* Hidden by default, JS will manage visibility */
+    padding: 2rem 0;
+}
+
+/*
+-----------------------------------------
+  18. Custom Chatbot Styles
+-----------------------------------------
+*/
+
+.card.chatbox__support {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.chatbox__header {
+    background: var(--color-primary);
+    color: white;
+    padding: 1rem;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    flex-shrink: 0;
+}
+
+.chatbox__heading--header {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.chatbox__description--header {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.chatbox__messages {
+    flex-grow: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.messages__item {
+    padding: 0.75rem 1rem;
+    border-radius: 18px;
+    margin-bottom: 0.75rem;
+    max-width: 70%;
+    line-height: 1.4;
+}
+
+.messages__item--visitor {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    align-self: flex-start;
+}
+
+.messages__item--operator {
+    background-color: var(--color-primary);
+    color: white;
+    align-self: flex-end;
+}
+
+.chatbox__footer {
+    display: flex;
+    padding: 1rem;
+    border-top: 1px solid var(--color-border);
+    flex-shrink: 0;
+}
+
+.chatbox__footer input {
+    flex-grow: 1;
+    border: 1px solid var(--color-border);
+    border-radius: 20px;
+    padding: 0.75rem;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    margin-right: 0.5rem;
+}
+
+.chatbox__send--footer {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/*
+-----------------------------------------
+  19. PPG Interface Styles
+-----------------------------------------
+*/
+#camera-feed {
+    border-radius: 8px;
+    max-width: 100%;
+    height: auto;
+    border: 2px solid var(--color-border);
+}
+
+.measurement-active {
+    animation: pulse 1.5s infinite;
+    position: relative;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(220, 53, 69, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+    }
+}
+/*
+-----------------------------------------
+  20. Recipe Search Tab Styles
+-----------------------------------------
+*/
+.recipe-container {
+    padding: 2rem;
+}
+
+.recipe-search-bar input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    box-sizing: border-box;
+}
+
+#recipe-list {
+    max-height: 600px;
+    overflow-y: auto;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+}
+
+.recipe-item {
+    border-bottom: 1px solid var(--color-border);
+}
+
+.recipe-item:last-child {
+    border-bottom: none;
+}
+
+.recipe-title {
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.2s;
+}
+
+.recipe-title::after {
+    content: '+';
+    position: absolute;
+    right: 1.5rem;
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    transition: transform 0.2s;
+}
+
+.recipe-item.active .recipe-title::after {
+    transform: rotate(45deg);
+}
+
+.recipe-item.active .recipe-title {
+    background-color: var(--color-background);
+}
+
+.recipe-title:hover {
+    background-color: var(--color-background);
+}
+
+.recipe-details {
+    display: none;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    background-color: var(--color-background);
+    border-top: 1px solid var(--color-border);
+}
+
+.recipe-details h4 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-primary);
+}
+
+.recipe-details p {
+    margin: 0;
+    line-height: 1.6;
+    white-space: pre-wrap; /* Preserves formatting */
+}
+
+.recipe-notice, .recipe-error {
+    text-align: center;
+    font-style: italic;
+    padding: 2rem;
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+}
+/* 21. Recipe Summary Styles
+------------------------------------- */
+.recipe-summary {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    padding: 1rem;
+    background-color: var(--color-background);
+    border-radius: 8px;
+}
+
+.recipe-summary strong {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+/* --- Navbar Logo Styling --- */
+.logo-img {
+    height: 40px;
+    width: auto;
+    vertical-align: middle;
+}
