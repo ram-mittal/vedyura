@@ -384,14 +384,14 @@
                                     <div class="section-number">04</div>
                                     <div class="section-info">
                                         <h4 class="section-title">Pulse Analysis (Nadi Pariksha)</h4>
-                                        <p class="section-description">Advanced pulse analysis using your device camera for Ayurvedic insights</p>
+                                        <p class="section-description">Advanced facial pulse analysis using your device camera for Ayurvedic insights</p>
                                     </div>
                                 </div>
 
                                 <div class="ppg-measurement-container">
                                     <div class="ppg-header">
                                         <h4 class="ppg-title">Heart Rate & Pulse Analysis</h4>
-                                        <p class="ppg-subtitle">Place your finger over the camera lens to measure your pulse and get Ayurvedic insights</p>
+                                        <p class="ppg-subtitle">Position your face in front of the camera and stay steady to measure your pulse and get Ayurvedic insights</p>
                                     </div>
 
                                     <div class="ppg-interface">
@@ -408,8 +408,8 @@
 
                                             <div class="ppg-instructions">
                                                 <div class="instruction-item">
-                                                    <span class="instruction-icon">👆</span>
-                                                    <span class="instruction-text">Place finger over camera</span>
+                                                    <span class="instruction-icon">👤</span>
+                                                    <span class="instruction-text">Position face in front of camera</span>
                                                 </div>
                                                 <div class="instruction-item">
                                                     <span class="instruction-icon">💡</span>
@@ -417,7 +417,7 @@
                                                 </div>
                                                 <div class="instruction-item">
                                                     <span class="instruction-icon">⏱️</span>
-                                                    <span class="instruction-text">Hold still for 30 seconds</span>
+                                                    <span class="instruction-text">Stay steady and keep your head straight for 30 seconds</span>
                                                 </div>
                                             </div>
 
@@ -1163,7 +1163,7 @@ function startPPGMeasurement() {
     // Update UI
     startBtn.style.display = 'none';
     stopBtn.style.display = 'flex';
-    status.innerHTML = '<span class="status-icon">🔴</span><span class="status-text">Measuring... Keep finger steady</span>';
+    status.innerHTML = '<span class="status-icon">🔴</span><span class="status-text">Measuring... Stay steady and keep your head straight</span>';
     
     // Start measurement
     fetch('/start_measurement', {
