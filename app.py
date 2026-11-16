@@ -2,13 +2,28 @@ import json
 import time
 import logging
 import os
-import cv2
-import numpy as np
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify, Response, make_response
-from scipy import signal
-from scipy.fft import fft, fftfreq
 from fpdf import FPDF
 from werkzeug.security import check_password_hash, generate_password_hash
+
+# --- Optional Scientific / Image Processing Imports (Safe for Serverless / Cloud) ---
+try:
+    import numpy as np
+except Exception as e:
+    np = None
+
+try:
+    import cv2
+except Exception as e:
+    cv2 = None
+
+try:
+    from scipy import signal
+    from scipy.fft import fft, fftfreq
+except Exception as e:
+    signal = None
+    fft = None
+    fftfreq = None
 
 # --- Vedyura Core Imports ---
 from personal_diet_tool import get_tool_response
@@ -1111,10 +1126,17 @@ def process_frame_advanced(frame):
 def generate_frames_advanced():
     """Generates video frames from the webcam with advanced processing."""
     global camera
+    if cv2 is None:
+        logger.warning("OpenCV is not available in this environment.")
+        return
     if camera is None or not camera.isOpened():
-        camera = cv2.VideoCapture(0)
+        try:
+            camera = cv2.VideoCapture(0)
+        except Exception as e:
+            logger.error(f"Cannot initialize camera: {e}")
+            return
     
-    if not camera.isOpened():
+    if camera is None or not camera.isOpened():
         logger.error("Cannot open camera.")
         return
 
