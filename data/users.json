@@ -1,7 +1,7 @@
 [
     {
         "id": "patient1",
-        "password": "123",
+        "password": "scrypt:32768:8:1$dyQzHLD5W0pzuCRj$5716a44c72904e56cacb9c3b3ae392f9fd9daa6e0f9b5871f5d6e8431f0559b9f1a7979d8bd53c33e9f93f628bd12a9594635e834116e742c5b4e16ecae0f91e",
         "role": "patient",
         "name": "John Doe",
         "email": "john.doe@example.com",
@@ -14,7 +14,7 @@
     },
     {
         "id": "patient2",
-        "password": "123",
+        "password": "scrypt:32768:8:1$HG54vvKvnmgb65RA$b1d2085e5526bee0d74aed7dcfc2ade9d2ac58d6b6159c9a37b47a8bee4acc8271281d8de63735469ad50d6c638015855636866d025d00e898db5127b1308446",
         "role": "patient",
         "name": "Jane Smith",
         "email": "jane.smith@example.com",
@@ -27,7 +27,7 @@
     },
     {
         "id": "patient3",
-        "password": "demo123",
+        "password": "scrypt:32768:8:1$7cK5GADk45xSL7CQ$8d07b02c08e5d61a8ff3086f0302f1f931b7783f64689131f0498218b43727b64f6a05bc8c274780f53602fdce559ad0839f1b4120556c47a1d4151a7fc8867f",
         "role": "patient",
         "name": "Alex Johnson",
         "email": "alex.johnson@example.com",
@@ -40,7 +40,7 @@
     },
     {
         "id": "doctor1",
-        "password": "123",
+        "password": "scrypt:32768:8:1$fi9RDdmoAVz1pgSk$79d045f2bc895025dfea94ba59a971c4032507e828f9336e7852a8500de08d3f81523b4473bd6b0d0df84e49d9d7ae2154128f1c643dfe02bf86ba0bbceff1e7",
         "role": "doctor",
         "name": "Dr. Rajesh Sharma",
         "email": "dr.sharma@vedyura.com",
@@ -50,13 +50,16 @@
         "phone": "+1-555-0201",
         "clinic_address": "Vedyura Ayurvedic Clinic, 123 Wellness Blvd",
         "consultation_fee": 150,
-        "available_slots": ["09:00-12:00", "14:00-17:00"],
+        "available_slots": [
+            "09:00-12:00",
+            "14:00-17:00"
+        ],
         "created_at": "2024-01-10",
         "last_login": "2024-01-21"
     },
     {
         "id": "doctor2",
-        "password": "123",
+        "password": "scrypt:32768:8:1$Ip00sFZXjJpD3CHz$4ca2cef2eea98ea59b89473e4147d4eeb4ae11fa6b0f2203d63f5b400db775aac130242f169a9cff59fc463f7928fdf680cee87cfaca7e3903f4de869eee37f8",
         "role": "doctor",
         "name": "Dr. Priya Patel",
         "email": "dr.patel@vedyura.com",
@@ -66,13 +69,16 @@
         "phone": "+1-555-0202",
         "clinic_address": "Holistic Health Center, 456 Harmony Lane",
         "consultation_fee": 175,
-        "available_slots": ["10:00-13:00", "15:00-18:00"],
+        "available_slots": [
+            "10:00-13:00",
+            "15:00-18:00"
+        ],
         "created_at": "2024-01-11",
         "last_login": "2024-01-20"
     },
     {
         "id": "doctor3",
-        "password": "123",
+        "password": "scrypt:32768:8:1$LK33GHNgIphXHck5$d74c92a97a69e66088c8db6bfa1c562a6d3d2e7985ca20a2fe163b6b78cff34fd228f977740265bc72a129f7ba6c4d98fda862a064c63ecec7f102f11f71a0cc",
         "role": "doctor",
         "name": "Dr. Amit Kumar",
         "email": "dr.kumar@vedyura.com",
@@ -82,7 +88,10 @@
         "phone": "+1-555-0203",
         "clinic_address": "Nutrition & Wellness Clinic, 789 Health Plaza",
         "consultation_fee": 125,
-        "available_slots": ["08:00-11:00", "16:00-19:00"],
+        "available_slots": [
+            "08:00-11:00",
+            "16:00-19:00"
+        ],
         "created_at": "2024-01-12",
         "last_login": "2024-01-19"
     }

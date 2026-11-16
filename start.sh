@@ -21,4 +21,11 @@ echo "🛑 Press Ctrl+C to stop the server"
 echo
 
 # Start the Flask application
-python3 app.py
+if [ "$1" == "--dev" ]; then
+    python3 app.py --dev
+elif command -v gunicorn &> /dev/null; then
+    echo "Starting with Gunicorn (production)..."
+    gunicorn --config gunicorn.conf.py wsgi:app
+else
+    python3 app.py "$@"
+fi

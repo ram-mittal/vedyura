@@ -1,24 +1,69 @@
 import json
 import time
+import logging
+import os
 import cv2
 import numpy as np
-import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify, Response, make_response
 from scipy import signal
 from scipy.fft import fft, fftfreq
 from fpdf import FPDF
+from werkzeug.security import check_password_hash, generate_password_hash
 
 # --- Vedyura Core Imports ---
 from personal_diet_tool import get_tool_response
 from health_analyzer import generate_health_profile, determine_dominant_dosha
+from config import config
+
+# --- Logging Configuration ---
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler('vedyura.log', encoding='utf-8')
+    ]
+)
+logger = logging.getLogger('vedyura')
 
 # Initialize the Flask application
+env = os.environ.get('FLASK_ENV', 'production')
 app = Flask(__name__)
-app.secret_key = 'your_super_secret_key'
+app.config.from_object(config.get(env, config['default']))
 
 # Ensure data directory exists
 if not os.path.exists('data'):
     os.makedirs('data')
+
+# --- Security: Add headers to every response ---
+@app.after_request
+def add_security_headers(response):
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+    response.headers['X-XSS-Protection'] = '1; mode=block'
+    response.headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
+    if not app.debug:
+        response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
+    return response
+
+# --- Error Handlers ---
+@app.errorhandler(404)
+def not_found(e):
+    if request.accept_mimetypes.accept_json and not request.accept_mimetypes.accept_html:
+        return jsonify({'error': 'Not found'}), 404
+    return render_template('home.html'), 404
+
+@app.errorhandler(500)
+def server_error(e):
+    logger.error(f'Server error: {e}', exc_info=True)
+    if request.accept_mimetypes.accept_json and not request.accept_mimetypes.accept_html:
+        return jsonify({'error': 'Internal server error'}), 500
+    return render_template('home.html'), 500
+
+# --- Health Check Endpoint ---
+@app.route('/health')
+def health_check():
+    return jsonify({'status': 'healthy', 'service': 'vedyura'}), 200
 
 
 # --- Helper Functions to Read/Write JSON Data ---
@@ -89,10 +134,22 @@ def doctor_login():
 
     users = load_users()
     for user in users:
-        if user.get('role') == 'doctor' and str(user.get('id')) == user_id and str(user.get('password')) == password:
+        user_pw = str(user.get('password', ''))
+        pw_matches = False
+        try:
+            pw_matches = check_password_hash(user_pw, password)
+        except Exception:
+            pw_matches = (user_pw == password)
+        if not pw_matches and user_pw == password:
+            pw_matches = True
+
+        if user.get('role') == 'doctor' and str(user.get('id')) == user_id and pw_matches:
             session['user_id'] = user_id
             session['role'] = 'doctor'
+            logger.info(f"Doctor login successful: {user_id}")
             return redirect(url_for('doctor_dashboard'))
+
+    logger.warning(f"Failed doctor login attempt for user_id: {user_id}")
 
     flash('Invalid credentials. Please try again.', 'error')
     return redirect(url_for('signup'))
@@ -417,10 +474,22 @@ def patient_login():
 
     users = load_users()
     for user in users:
-        if user.get('role') == 'patient' and str(user.get('id')) == user_id and str(user.get('password')) == password:
+        user_pw = str(user.get('password', ''))
+        pw_matches = False
+        try:
+            pw_matches = check_password_hash(user_pw, password)
+        except Exception:
+            pw_matches = (user_pw == password)
+        if not pw_matches and user_pw == password:
+            pw_matches = True
+
+        if user.get('role') == 'patient' and str(user.get('id')) == user_id and pw_matches:
             session['user_id'] = user_id
             session['role'] = 'patient'
+            logger.info(f"Patient login successful: {user_id}")
             return redirect(url_for('patient_dashboard'))
+
+    logger.warning(f"Failed patient login attempt for user_id: {user_id}")
 
     flash('Invalid credentials. Please try again.', 'error')
     return redirect(url_for('signup'))
@@ -520,19 +589,19 @@ def save_complete_diagnosis():
         if not form_data:
             return jsonify({'status': 'error', 'message': 'No form data provided'}), 400
         
-        print(f"Received form data: {form_data}")  # Debug log
+        logger.info(f"Received form data for patient {session.get('user_id')}")
         
         # Determine dominant dosha from form
         try:
             dominant_dosha = determine_dominant_dosha(form_data)
-            print(f"Determined dosha: {dominant_dosha}")  # Debug log
+            logger.info(f"Determined dosha: {dominant_dosha}")
         except Exception as e:
-            print(f"Error determining dosha: {e}")
+            logger.error(f"Error determining dosha: {e}")
             dominant_dosha = "Tridoshic"  # Fallback
         
         # Get PPG results from session
         ppg_results = session.get('ppg_results', {})
-        print(f"PPG results: {ppg_results}")  # Debug log
+        logger.info(f"PPG results present: {bool(ppg_results)}")
         
         # Combine all data
         diagnosis_data = {
@@ -547,9 +616,9 @@ def save_complete_diagnosis():
         try:
             with open(f'data/patient_diagnosis_{patient_id}.json', 'w') as f:
                 json.dump(diagnosis_data, f, indent=4)
-            print(f"Saved diagnosis data to file for patient {patient_id}")  # Debug log
+            logger.info(f"Saved diagnosis data to file for patient {patient_id}")
         except Exception as e:
-            print(f"Error saving to file: {e}")
+            logger.error(f"Error saving to file: {e}", exc_info=True)
             return jsonify({'status': 'error', 'message': f'Error saving to file: {str(e)}'}), 500
         
         # Update session
@@ -565,90 +634,10 @@ def save_complete_diagnosis():
         })
         
     except Exception as e:
-        print(f"Error in save_complete_diagnosis: {e}")
-        import traceback
-        traceback.print_exc()
+        logger.error(f"Error in save_complete_diagnosis: {e}", exc_info=True)
         return jsonify({'status': 'error', 'message': f'Error saving diagnosis: {str(e)}'}), 500
 
-# PPG Measurement endpoints
-@app.route('/start_measurement', methods=['POST'])
-def start_ppg_measurement():
-    """Starts PPG measurement and returns initial status."""
-    if 'user_id' not in session:
-        return jsonify({'status': 'error', 'message': 'User not logged in'}), 401
-    
-    # Initialize PPG measurement session data
-    session['ppg_measuring'] = True
-    session['ppg_start_time'] = time.time()
-    
-    return jsonify({
-        'status': 'success',
-        'message': 'PPG measurement started',
-        'measuring': True
-    })
-
-@app.route('/stop_measurement', methods=['POST'])
-def stop_ppg_measurement():
-    """Stops PPG measurement and returns simulated results."""
-    if 'user_id' not in session:
-        return jsonify({'status': 'error', 'message': 'User not logged in'}), 401
-    
-    # Simulate PPG analysis results
-    import random
-    
-    # Generate realistic heart rate (60-100 BPM)
-    heart_rate = random.randint(65, 95)
-    
-    # Determine dosha based on heart rate patterns (simplified simulation)
-    if heart_rate < 70:
-        dosha = 'kapha'
-        dosha_description = 'Your pulse indicates a Kapha constitution - steady, slow, and strong. This suggests a calm, stable nature with good endurance.'
-        recommendations = [
-            'Engage in regular, vigorous exercise to boost metabolism',
-            'Eat light, warm, and spicy foods to stimulate digestion',
-            'Maintain an active lifestyle to prevent sluggishness',
-            'Use warming spices like ginger, black pepper, and cinnamon'
-        ]
-    elif heart_rate > 85:
-        dosha = 'vata'
-        dosha_description = 'Your pulse indicates a Vata constitution - quick, irregular, and light. This suggests an active, creative nature that may need grounding.'
-        recommendations = [
-            'Follow a regular daily routine to create stability',
-            'Eat warm, nourishing, and grounding foods',
-            'Practice calming activities like yoga and meditation',
-            'Get adequate rest and avoid overstimulation'
-        ]
-    else:
-        dosha = 'pitta'
-        dosha_description = 'Your pulse indicates a Pitta constitution - strong, regular, and forceful. This suggests a focused, determined nature with good circulation.'
-        recommendations = [
-            'Avoid excessive heat and maintain a cool environment',
-            'Eat cooling, fresh foods and avoid spicy, oily foods',
-            'Practice moderate exercise and stress management',
-            'Stay hydrated and avoid overexertion'
-        ]
-    
-    # Store PPG results in session
-    ppg_results = {
-        'heart_rate': heart_rate,
-        'dosha': dosha,
-        'description': dosha_description,
-        'recommendations': recommendations,
-        'measurement_time': time.strftime('%Y-%m-%d %H:%M:%S'),
-        'quality': 'Good' if random.random() > 0.3 else 'Fair'
-    }
-    
-    session['ppg_results'] = ppg_results
-    session['ppg_measuring'] = False
-    
-    return jsonify({
-        'status': 'success',
-        'heart_rate': heart_rate,
-        'dosha': dosha.capitalize(),
-        'description': dosha_description,
-        'recommendations': recommendations,
-        'quality': ppg_results['quality']
-    })
+# (PPG measurement endpoints /start_measurement and /stop_measurement are defined in the Advanced PPG section below)
 
 @app.route('/generate_pdf', methods=['POST'])
 def generate_diagnosis_pdf():
@@ -666,7 +655,7 @@ def generate_diagnosis_pdf():
         try:
             dominant_dosha = determine_dominant_dosha(form_data)
         except Exception as e:
-            print(f"Error determining dosha: {e}")
+            logger.error(f"Error determining dosha: {e}")
             dominant_dosha = "Tridoshic"  # Default fallback
         
         # Get PPG results from session if available
@@ -685,7 +674,7 @@ def generate_diagnosis_pdf():
                     self.cell(0, 15, 'Vedyura Ayurvedic Healthcare', 0, 1, 'C')
                     self.ln(5)
                 except Exception as e:
-                    print(f"Header error: {e}")
+                    logger.error(f"Header error: {e}")
 
             def footer(self):
                 try:
@@ -694,7 +683,7 @@ def generate_diagnosis_pdf():
                     self.set_text_color(128, 128, 128)
                     self.cell(0, 10, f'Page {self.page_no()}', 0, 0, 'C')
                 except Exception as e:
-                    print(f"Footer error: {e}")
+                    logger.error(f"Footer error: {e}")
 
             def safe_text(self, text):
                 """Safely encode text for PDF"""
@@ -720,7 +709,7 @@ def generate_diagnosis_pdf():
                     self.cell(0, 10, title[:100], 0, 1, 'L')  # Limit title length
                     self.ln(3)
                 except Exception as e:
-                    print(f"Section title error: {e}")
+                    logger.error(f"Section title error: {e}")
 
             def section_body(self, body):
                 try:
@@ -732,7 +721,7 @@ def generate_diagnosis_pdf():
                     self.multi_cell(0, 6, body)
                     self.ln(3)
                 except Exception as e:
-                    print(f"Section body error: {e}")
+                    logger.error(f"Section body error: {e}")
 
         pdf = PDF()
         pdf.add_page()
@@ -743,7 +732,7 @@ def generate_diagnosis_pdf():
             pdf.cell(0, 15, 'Vedyura Dosha Analysis Report', 0, 1, 'C')
             pdf.ln(10)
         except Exception as e:
-            print(f"Title error: {e}")
+            logger.error(f"Title error: {e}")
         
         # Patient Info
         try:
@@ -752,7 +741,7 @@ def generate_diagnosis_pdf():
             pdf.cell(0, 8, f'Date: {time.strftime("%Y-%m-%d %H:%M:%S")}', 0, 1)
             pdf.ln(5)
         except Exception as e:
-            print(f"Patient info error: {e}")
+            logger.error(f"Patient info error: {e}")
         
         # Dominant Dosha Section
         pdf.section_title('Dominant Dosha Analysis')
@@ -842,7 +831,7 @@ def generate_diagnosis_pdf():
             if isinstance(pdf_content, str):
                 pdf_content = pdf_content.encode('latin-1', 'replace')
         except Exception as e:
-            print(f"PDF output error: {e}")
+            logger.error(f"PDF output error: {e}", exc_info=True)
             return jsonify({'error': 'Failed to generate PDF content'}), 500
         
         # Create response
@@ -853,9 +842,7 @@ def generate_diagnosis_pdf():
         return response
         
     except Exception as e:
-        print(f"Error generating PDF: {e}")
-        import traceback
-        traceback.print_exc()
+        logger.error(f"Error generating PDF: {e}", exc_info=True)
         return jsonify({'error': f'Failed to generate PDF: {str(e)}'}), 500
 
 # --- <<<<<<<<<<<<<<<<<<<<<<<< MODIFIED SECTION STARTS HERE >>>>>>>>>>>>>>>>>>>>>>>> ---
@@ -1096,13 +1083,13 @@ def generate_frames_advanced():
         camera = cv2.VideoCapture(0)
     
     if not camera.isOpened():
-        print("Error: Cannot open camera.")
+        logger.error("Cannot open camera.")
         return
 
     while True:
         success, frame = camera.read()
         if not success:
-            print("Error: Failed to grab a frame.")
+            logger.error("Failed to grab a frame from camera.")
             break
         
         processed_frame = process_frame_advanced(frame)
@@ -1178,7 +1165,7 @@ def start_measurement_advanced():
     measurement_active = True
     liveness_check_passed = False
     green_values, red_values, blue_values, timestamps = [], [], [], []
-    print("Advanced measurement started.")
+    logger.info("Advanced measurement started.")
     return jsonify({'status': 'success', 'message': 'Measurement started.'})
 
 @app.route('/stop_measurement', methods=['POST'])
@@ -1186,13 +1173,13 @@ def stop_measurement_advanced():
     """Stops the measurement and processes the collected PPG data."""
     global measurement_active, camera
     measurement_active = False
-    print(f"Measurement stopped. Collected {len(green_values)} data points.")
+    logger.info(f"Measurement stopped. Collected {len(green_values)} data points.")
 
     # --- FIX: Release the camera ---
     if camera is not None:
         camera.release()
         camera = None
-        print("Camera released.")
+        logger.info("Camera released.")
     # --- END FIX ---
 
     if len(green_values) < 60: # Need at least ~2 seconds of data
@@ -1218,87 +1205,21 @@ def stop_measurement_advanced():
     # Store results in session for other parts of the app to use
     session['ppg_results'] = ayurvedic_results
     session.modified = True
-    print(f"Processing complete. Heart Rate: {ayurvedic_results['heart_rate']} BPM, Dosha: {ayurvedic_results['dosha']}")
+    logger.info(f"Processing complete. Heart Rate: {ayurvedic_results['heart_rate']} BPM, Dosha: {ayurvedic_results['dosha']}")
 
     return jsonify({'status': 'success', **ayurvedic_results})
 
 
-@app.route('/test_pdf')
-def test_pdf():
-    """Test route to check PDF generation with minimal data"""
-    if 'user_id' not in session:
-        session['user_id'] = 'test_user'
-        session['role'] = 'patient'
-    
-    try:
-        # Test if fpdf is available
-        from fpdf import FPDF
-        
-        # Create a simple test PDF
-        pdf = FPDF()
-        pdf.add_page()
-        pdf.set_font('Arial', 'B', 16)
-        pdf.cell(0, 10, 'Test PDF Generation', 0, 1, 'C')
-        pdf.ln(10)
-        pdf.set_font('Arial', '', 12)
-        pdf.cell(0, 10, 'This is a test PDF to verify functionality.', 0, 1)
-        
-        # Generate PDF content
-        pdf_content = pdf.output(dest='S')
-        if isinstance(pdf_content, str):
-            pdf_content = pdf_content.encode('latin-1', 'replace')
-        
-        # Create response
-        response = make_response(pdf_content)
-        response.headers['Content-Type'] = 'application/pdf'
-        response.headers['Content-Disposition'] = 'attachment; filename=test.pdf'
-        
-        return response
-        
-    except ImportError as e:
-        return f"FPDF not available: {str(e)}. Please install with: pip install fpdf2"
-    except Exception as e:
-        return f"Test failed: {str(e)}"
-
-@app.route('/debug_imports')
-def debug_imports():
-    """Debug endpoint to check if all required imports work"""
-    results = {}
-    
-    try:
-        from fpdf import FPDF
-        results['fpdf'] = 'OK'
-    except ImportError as e:
-        results['fpdf'] = f'ERROR: {e}'
-    
-    try:
-        from health_analyzer import determine_dominant_dosha
-        results['health_analyzer'] = 'OK'
-    except ImportError as e:
-        results['health_analyzer'] = f'ERROR: {e}'
-    
-    try:
-        import json
-        import time
-        results['standard_libs'] = 'OK'
-    except ImportError as e:
-        results['standard_libs'] = f'ERROR: {e}'
-    
-    return jsonify(results)
-
 @app.route('/simple_pdf', methods=['POST'])
 def simple_pdf_generation():
-    """Simplified PDF generation endpoint for testing"""
-    print("Simple PDF generation called")
-    
-    if 'user_id' not in session:
-        session['user_id'] = 'test_user'
-        session['role'] = 'patient'
+    """PDF generation endpoint for dosha analysis"""
+    if 'user_id' not in session or session.get('role') != 'patient':
+        return jsonify({'error': 'Unauthorized'}), 401
     
     try:
         # Get form data
         form_data = request.get_json() or {}
-        print(f"Form data received: {form_data}")
+        logger.info(f"Form data received for user {session['user_id']}")
         
         # Import required modules
         from fpdf import FPDF
@@ -1328,15 +1249,14 @@ def simple_pdf_generation():
             # Encode to latin-1 and replace any remaining problematic characters
             try:
                 text = text.encode('latin-1', 'replace').decode('latin-1')
-            except:
-                # If that fails, use ASCII encoding as last resort
+            except Exception:
                 text = text.encode('ascii', 'ignore').decode('ascii')
             
             return text
         
         # Determine dosha
         dominant_dosha = determine_dominant_dosha(form_data) if form_data else "Tridoshic"
-        print(f"Determined dosha: {dominant_dosha}")
+        logger.info(f"Determined dosha: {dominant_dosha}")
         
         # Create simple PDF
         pdf = FPDF()
@@ -1386,10 +1306,9 @@ def simple_pdf_generation():
         try:
             pdf_content = pdf.output(dest='S')
             if isinstance(pdf_content, str):
-                # Ensure safe encoding
                 pdf_content = pdf_content.encode('latin-1', 'replace')
             
-            print(f"PDF generated successfully, size: {len(pdf_content)} bytes")
+            logger.info(f"PDF generated successfully, size: {len(pdf_content)} bytes")
             
             # Create response
             response = make_response(pdf_content)
@@ -1399,23 +1318,18 @@ def simple_pdf_generation():
             return response
             
         except UnicodeEncodeError as e:
-            print(f"Unicode encoding error: {e}")
+            logger.error(f"Unicode encoding error: {e}")
             return jsonify({'error': 'PDF generation failed due to character encoding. Try the text report instead.'}), 500
         
     except Exception as e:
-        print(f"Error in simple PDF generation: {e}")
-        import traceback
-        traceback.print_exc()
+        logger.error(f"Error in PDF generation: {e}", exc_info=True)
         return jsonify({'error': f'PDF generation failed: {str(e)}'}), 500
 
 @app.route('/text_report', methods=['POST'])
 def generate_text_report():
-    """Fallback text report if PDF generation fails"""
-    print("Text report generation called")
-    
-    if 'user_id' not in session:
-        session['user_id'] = 'test_user'
-        session['role'] = 'patient'
+    """Text report generation endpoint"""
+    if 'user_id' not in session or session.get('role') != 'patient':
+        return jsonify({'error': 'Unauthorized'}), 401
     
     try:
         # Get form data
@@ -1467,8 +1381,21 @@ Generated by Vedyura Ayurvedic Healthcare Platform"""
         return response
         
     except Exception as e:
-        print(f"Error in text report generation: {e}")
+        logger.error(f"Error in text report generation: {e}", exc_info=True)
         return jsonify({'error': f'Report generation failed: {str(e)}'}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    import sys
+    host = app.config.get('HOST', '0.0.0.0')
+    port = app.config.get('PORT', 5000)
+    if '--dev' in sys.argv:
+        logger.info(f"Starting Vedyura development server on {host}:{port}")
+        app.run(debug=True, host=host, port=port)
+    else:
+        try:
+            import waitress
+            logger.info(f"Starting Vedyura production server (Waitress WSGI) on http://{host}:{port}")
+            waitress.serve(app, host=host, port=port)
+        except ImportError:
+            logger.info(f"Starting Vedyura server on http://{host}:{port} (install waitress for production WSGI)")
+            app.run(debug=False, host=host, port=port)

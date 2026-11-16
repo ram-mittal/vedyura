@@ -145,3 +145,7 @@ logs/
 # data/users.json (sample user accounts)
 # data/requests.json (sample consultation requests)
 # data/patient_diagnosis_patient*.json (sample diagnosis data)
+
+
+# Production
+*.log

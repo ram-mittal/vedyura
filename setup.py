@@ -46,14 +46,14 @@ def display_credentials():
     print("="*50)
     
     print("\n👤 PATIENT ACCOUNTS:")
-    print("   Username: patient1  | Password: password123")
-    print("   Username: patient2  | Password: patient456")
+    print("   Username: patient1  | Password: 123")
+    print("   Username: patient2  | Password: 123")
     print("   Username: patient3  | Password: demo123")
     
     print("\n👨‍⚕️ DOCTOR ACCOUNTS:")
-    print("   Username: doctor1   | Password: doctor123")
-    print("   Username: doctor2   | Password: ayurveda456")
-    print("   Username: doctor3   | Password: wellness789")
+    print("   Username: doctor1   | Password: 123")
+    print("   Username: doctor2   | Password: 123")
+    print("   Username: doctor3   | Password: 123")
     
     print("\n" + "="*50)
 
@@ -64,15 +64,28 @@ def check_dependencies():
         'opencv-python',
         'numpy',
         'scipy',
-        'fpdf2',
-        'pandas'
+        'fpdf2'
     ]
+    
+    package_map = {
+        'opencv-python': 'cv2',
+        'opencv-python-headless': 'cv2',
+        'fpdf2': 'fpdf',
+    }
     
     missing_packages = []
     for package in required_packages:
+        module_name = package_map.get(package, package.replace('-', '_'))
         try:
-            __import__(package.replace('-', '_'))
+            __import__(module_name)
         except ImportError:
+            # If opencv-python is missing, check cv2 anyway (e.g. opencv-python-headless)
+            if package == 'opencv-python':
+                try:
+                    import cv2
+                    continue
+                except ImportError:
+                    pass
             missing_packages.append(package)
     
     if missing_packages:
