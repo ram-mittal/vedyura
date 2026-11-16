@@ -175,8 +175,9 @@ def doctor_login():
         if not pw_matches and user_pw == password:
             pw_matches = True
 
-        if user.get('role') == 'doctor' and str(user.get('id')) == user_id and pw_matches:
-            session['user_id'] = user_id
+        user_matches = (str(user.get('id', '')).lower() == user_id.lower().strip()) or (str(user.get('name', '')).lower() == user_id.lower().strip())
+        if user.get('role') == 'doctor' and user_matches and pw_matches:
+            session['user_id'] = str(user.get('id'))
             session['role'] = 'doctor'
             logger.info(f"Doctor login successful: {user_id}")
             return redirect(url_for('doctor_dashboard'))
@@ -516,8 +517,9 @@ def patient_login():
         if not pw_matches and user_pw == password:
             pw_matches = True
 
-        if user.get('role') == 'patient' and str(user.get('id')) == user_id and pw_matches:
-            session['user_id'] = user_id
+        user_matches = (str(user.get('id', '')).lower() == user_id.lower().strip()) or (str(user.get('name', '')).lower() == user_id.lower().strip())
+        if user.get('role') == 'patient' and user_matches and pw_matches:
+            session['user_id'] = str(user.get('id'))
             session['role'] = 'patient'
             logger.info(f"Patient login successful: {user_id}")
             return redirect(url_for('patient_dashboard'))

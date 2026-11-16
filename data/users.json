@@ -94,5 +94,18 @@
         ],
         "created_at": "2024-01-12",
         "last_login": "2024-01-19"
+    },
+    {
+        "id": "user",
+        "password": "scrypt:32768:8:1$rzSHtbiCy0z4hDSW$a0726dfd6c7358cc9fb7669b60379c2699b145827570bd4ee45d487daaa3b78089b1329c359c70b8a4a5f5afa3f383d8d5e7abfcdc7919053db64cfe0b5fb2db",
+        "role": "patient",
+        "name": "user",
+        "email": "user@vedyura.com",
+        "age": 25,
+        "gender": "prefer not to say",
+        "phone": "+1-555-0100",
+        "address": "100 Wellness Way, City, State 12345",
+        "created_at": "2024-01-20",
+        "last_login": "2024-01-20"
     }
 ]

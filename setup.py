@@ -46,6 +46,7 @@ def display_credentials():
     print("="*50)
     
     print("\n👤 PATIENT ACCOUNTS:")
+    print("   Username: user      | Password: user")
     print("   Username: patient1  | Password: 123")
     print("   Username: patient2  | Password: 123")
     print("   Username: patient3  | Password: demo123")
