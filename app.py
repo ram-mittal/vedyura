@@ -16,13 +16,16 @@ from health_analyzer import generate_health_profile, determine_dominant_dosha
 from config import config
 
 # --- Logging Configuration ---
+log_handlers = [logging.StreamHandler()]
+try:
+    log_handlers.append(logging.FileHandler('vedyura.log', encoding='utf-8'))
+except Exception:
+    pass
+
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',
-    handlers=[
-        logging.StreamHandler(),
-        logging.FileHandler('vedyura.log', encoding='utf-8')
-    ]
+    handlers=log_handlers
 )
 logger = logging.getLogger('vedyura')
 
@@ -33,7 +36,10 @@ app.config.from_object(config.get(env, config['default']))
 
 # Ensure data directory exists
 if not os.path.exists('data'):
-    os.makedirs('data')
+    try:
+        os.makedirs('data')
+    except Exception:
+        pass
 
 # --- Security: Add headers to every response ---
 @app.after_request
