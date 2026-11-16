@@ -1,8 +1,12 @@
 import json
+import os
 
 # --- Load Food Database ---
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FOOD_DB_PATH = os.path.join(BASE_DIR, 'data', 'food_database.json')
+
 try:
-    with open('data/food_database.json', 'r', encoding='utf-8') as f:
+    with open(FOOD_DB_PATH, 'r', encoding='utf-8') as f:
         FOOD_DATA = json.load(f)
 except (FileNotFoundError, json.JSONDecodeError):
     FOOD_DATA = []

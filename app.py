@@ -29,15 +29,23 @@ logging.basicConfig(
 )
 logger = logging.getLogger('vedyura')
 
+# Base directory for absolute path resolution
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, 'data')
+
 # Initialize the Flask application
 env = os.environ.get('FLASK_ENV', 'production')
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    template_folder=os.path.join(BASE_DIR, 'templates'),
+    static_folder=os.path.join(BASE_DIR, 'static')
+)
 app.config.from_object(config.get(env, config['default']))
 
 # Ensure data directory exists
-if not os.path.exists('data'):
+if not os.path.exists(DATA_DIR):
     try:
-        os.makedirs('data')
+        os.makedirs(DATA_DIR)
     except Exception:
         pass
 
@@ -77,7 +85,7 @@ def health_check():
 def load_users():
     """Loads user data from the users.json file."""
     try:
-        with open('data/users.json', 'r') as f:
+        with open(os.path.join(DATA_DIR, 'users.json'), 'r') as f:
             return json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         return []
@@ -85,7 +93,7 @@ def load_users():
 def load_requests():
     """Loads consultation requests from the requests.json file."""
     try:
-        with open('data/requests.json', 'r') as f:
+        with open(os.path.join(DATA_DIR, 'requests.json'), 'r') as f:
             data = json.load(f)
             return data if isinstance(data, dict) and 'requests' in data else {'requests': []}
     except (FileNotFoundError, json.JSONDecodeError):
@@ -93,8 +101,11 @@ def load_requests():
 
 def save_requests(requests_data):
     """Saves the consultation requests data to the requests.json file."""
-    with open('data/requests.json', 'w') as f:
-        json.dump(requests_data, f, indent=4)
+    try:
+        with open(os.path.join(DATA_DIR, 'requests.json'), 'w') as f:
+            json.dump(requests_data, f, indent=4)
+    except Exception as e:
+        logger.error(f"Error saving requests: {e}")
 
 
 # --- Public & Core App Routes (Unchanged) ---
@@ -217,7 +228,8 @@ def doctor_diet_chart():
                 patient = get_user_by_id(req.get('patient_id'))
                 if patient:
                     try:
-                        with open(f'data/patient_diagnosis_{patient["id"]}.json', 'r') as f:
+                        diag_path = os.path.join(DATA_DIR, f'patient_diagnosis_{patient["id"]}.json')
+                        with open(diag_path, 'r') as f:
                             diagnosis_data = json.load(f)
                         
                         form_data = diagnosis_data.get('form_data', {})
@@ -570,7 +582,8 @@ def save_form_data():
 
         try:
             # Save the combined data to a file
-            with open(f'data/patient_diagnosis_{patient_id}.json', 'w') as f:
+            diag_file = os.path.join(DATA_DIR, f'patient_diagnosis_{patient_id}.json')
+            with open(diag_file, 'w') as f:
                 json.dump(diagnosis_data, f, indent=4)
         except IOError as e:
             return jsonify({'status': 'error', 'message': f'Could not save data: {e}'})
@@ -620,7 +633,8 @@ def save_complete_diagnosis():
         # Save to file
         patient_id = session['user_id']
         try:
-            with open(f'data/patient_diagnosis_{patient_id}.json', 'w') as f:
+            diag_file = os.path.join(DATA_DIR, f'patient_diagnosis_{patient_id}.json')
+            with open(diag_file, 'w') as f:
                 json.dump(diagnosis_data, f, indent=4)
             logger.info(f"Saved diagnosis data to file for patient {patient_id}")
         except Exception as e:
@@ -986,7 +1000,8 @@ def get_recipes():
     dominant_dosha = session['dominant_dosha'].lower()
 
     try:
-        with open('data/recipes.json', 'r', encoding='utf-8') as f:
+        recipe_file = os.path.join(DATA_DIR, 'recipes.json')
+        with open(recipe_file, 'r', encoding='utf-8') as f:
             all_recipes = json.load(f)
 
         recommended_recipes = [
@@ -1025,9 +1040,16 @@ blink_detected = False
 blink_start_time = 0
 
 # --- Initialize face and eye cascade classifiers ---
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
-eye_cascade_alt = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye_tree_eyeglasses.xml')
+face_cascade = None
+eye_cascade = None
+eye_cascade_alt = None
+try:
+    if hasattr(cv2, 'CascadeClassifier') and hasattr(cv2, 'data') and hasattr(cv2.data, 'haarcascades'):
+        face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+        eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
+        eye_cascade_alt = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye_tree_eyeglasses.xml')
+except Exception as e:
+    logger.warning(f"Could not load OpenCV Haar cascades: {e}")
 
 
 def bandpass_filter(data, lowcut, highcut, fs, order=5):
@@ -1042,6 +1064,8 @@ def bandpass_filter(data, lowcut, highcut, fs, order=5):
 def detect_liveness(face_roi):
     """Detects liveness by checking for eye blinks."""
     global blink_detected, blink_start_time
+    if eye_cascade is None:
+        return True
     eyes = eye_cascade.detectMultiScale(face_roi, 1.1, 4)
     if len(eyes) == 0: # If no eyes are detected, could be a blink
         if not blink_detected:
@@ -1056,6 +1080,8 @@ def detect_liveness(face_roi):
 def process_frame_advanced(frame):
     """Processes each frame for face detection, liveness check, and PPG signal extraction."""
     global liveness_check_passed, measurement_active
+    if face_cascade is None:
+        return frame
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.1, 4)
 
